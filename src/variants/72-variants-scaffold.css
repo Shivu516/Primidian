@@ -60,9 +60,32 @@ body.primidian-table-standard {
 
 /* ── Blockquotes ──────────────────────────────────────────────────────── */
 
-body.primidian-blockquote-obsidianite {
+/* Simple: no decorative framing */
+body.primidian-blockquote-simple {
+	--primidian-quote-bar-display: none;
+	--primidian-quote-border-width: 0px;
+	--primidian-quote-box-border-width: 0px;
+}
+
+/* Box: unified rectangular box */
+body.primidian-blockquote-box {
+	--primidian-quote-bar-display: none;
+	--primidian-quote-border-width: var(--primidian-blockquote-left-width);
+	--primidian-quote-box-border-width: var(--primidian-blockquote-border-width);
+}
+
+/* Top Fading Line: left accent + top gradient only */
+body.primidian-blockquote-top-fade {
+	--primidian-quote-bar-display: none;
+	--primidian-quote-border-width: var(--primidian-blockquote-left-width);
+	--primidian-quote-box-border-width: 0px;
+}
+
+/* Top + Bottom Fading Lines: left accent + top + bottom gradients */
+body.primidian-blockquote-top-bottom-fade {
 	--primidian-quote-bar-display: block;
-	--primidian-quote-glyph-display: none;
+	--primidian-quote-border-width: var(--primidian-blockquote-left-width);
+	--primidian-quote-box-border-width: 0px;
 }
 
 /* ── Status bar ───────────────────────────────────────────────────────── */

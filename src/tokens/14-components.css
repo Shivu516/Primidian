@@ -117,10 +117,15 @@ body {
 
 	/* ══ BLOCKQUOTES ════════════════════════════════════════════════════ */
 	--primidian-quote-border-width: 3px;
+	--primidian-quote-left-width: 3px;
 	--primidian-quote-radius: var(--primidian-radius-s);
 	--primidian-quote-padding: var(--primidian-space-3) var(--primidian-space-5);
 	--primidian-quote-margin: 1.5em;
 	--primidian-quote-style: normal;
+	--primidian-quote-box-border-width: 0px;
+	--primidian-blockquote-left-width: 3px;
+	--primidian-blockquote-border-width: 1px;
+	--primidian-blockquote-radius: 5px;
 	/* Variant hooks */
 	--primidian-quote-bar-display: block;
 	--primidian-quote-glyph-display: none;
