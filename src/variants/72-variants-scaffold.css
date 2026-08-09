@@ -67,22 +67,22 @@ body.primidian-blockquote-simple {
 	--primidian-quote-box-border-width: 0px;
 }
 
-/* Box: unified rectangular box */
-body.primidian-blockquote-box {
+/* Boxy: unified rectangular box */
+body.primidian-blockquote-boxy {
 	--primidian-quote-bar-display: none;
 	--primidian-quote-border-width: var(--primidian-blockquote-left-width);
 	--primidian-quote-box-border-width: var(--primidian-blockquote-border-width);
 }
 
-/* Top Fading Line: left accent + top gradient only */
-body.primidian-blockquote-top-fade {
+/* Minimal: left accent + top gradient only */
+body.primidian-blockquote-minimal {
 	--primidian-quote-bar-display: none;
 	--primidian-quote-border-width: var(--primidian-blockquote-left-width);
 	--primidian-quote-box-border-width: 0px;
 }
 
-/* Top + Bottom Fading Lines: left accent + top + bottom gradients */
-body.primidian-blockquote-top-bottom-fade {
+/* Fade: left accent + top + bottom gradients */
+body.primidian-blockquote-fade {
 	--primidian-quote-bar-display: block;
 	--primidian-quote-border-width: var(--primidian-blockquote-left-width);
 	--primidian-quote-box-border-width: 0px;
