@@ -262,7 +262,7 @@ body:not(.primidian-glow-off).primidian-glow-sidebar .tree-item-self.is-active {
 
 /* ── Blockquote accent edge ───────────────────────────────────────────── */
 body:not(.primidian-glow-off).primidian-glow-borders .markdown-rendered blockquote:not(.callout),
-body:not(.primidian-glow-off).primidian-glow-borders .markdown-source-view.mod-cm6 .HyperMD-quote {
+body:not(.primidian-glow-off).primidian-glow-borders .markdown-source-view.mod-cm6 .HyperMD-quote:not(:has(+ .HyperMD-quote)) {
 	box-shadow: inset var(--primidian-quote-border-width) 0 var(--primidian-glow-blur)
 		calc(-1 * var(--primidian-quote-border-width))
 		color-mix(in srgb, var(--primidian-quote-border-color) var(--primidian-glow-alpha), transparent);
