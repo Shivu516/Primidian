@@ -1129,15 +1129,51 @@ settings:
         collapsed: true
         title: Blockquotes
     -
-        id: primidian-blockquote-style
+        id: primidian-blockquotes-intro
+        type: info-text
+        markdown: true
+        description: "**Simple** — minimal left accent line only. **Boxy** — four-sided rectangular border with accent line. **Minimal** — accent line with fading top line. **Fade** — accent line with fading top and bottom lines."
+    -
+        id: primidian-blockquote-preset
         type: class-select
         allowEmpty: false
-        title: Blockquote Style
-        default: primidian-blockquote-obsidianite
+        title: Blockquote Preset
+        description: How blockquotes are drawn. Each preset differs in structure — not just colour.
+        default: primidian-blockquote-fade
         options:
             -
-                label: Obsidianite — gradient bars
-                value: primidian-blockquote-obsidianite
+                label: Simple
+                value: primidian-blockquote-simple
+            -
+                label: Boxy
+                value: primidian-blockquote-boxy
+            -
+                label: Minimal
+                value: primidian-blockquote-minimal
+            -
+                label: Fade
+                value: primidian-blockquote-fade
+    -
+        id: primidian-blockquote-left-width
+        type: variable-number
+        format: px
+        title: Left Line Thickness
+        description: Thickness of the persistent blockquote accent line. Value is in pixels.
+        default: 3
+    -
+        id: primidian-blockquote-border-width
+        type: variable-number
+        format: px
+        title: Box Border Thickness
+        description: Thickness of the box border (for Box preset). Value is in pixels.
+        default: 1
+    -
+        id: primidian-blockquote-radius
+        type: variable-number
+        format: px
+        title: Corner Radius
+        description: Corner radius for blockquote borders. Value is in pixels.
+        default: 5
     -
         id: primidian-quote-color
         type: variable-themed-color
@@ -1149,7 +1185,7 @@ settings:
         id: primidian-quote-border-color
         type: variable-themed-color
         format: hsl
-        title: Left Border Colour
+        title: Accent Colour
         default-light: 'hsl(192, 88%, 29%)'
         default-dark: 'hsl(190, 87%, 45%)'
     -
@@ -1164,7 +1200,8 @@ settings:
         id: primidian-quote-border-width
         type: variable-number
         format: px
-        title: Left Border Width
+        title: Left Border Width (Legacy)
+        description: Legacy setting. Use **Left Line Thickness** above for new presets.
         default: 3
     -
         id: primidian-quote-style
@@ -2453,10 +2490,15 @@ body {
 
 	/* ══ BLOCKQUOTES ════════════════════════════════════════════════════ */
 	--primidian-quote-border-width: 3px;
+	--primidian-quote-left-width: 3px;
 	--primidian-quote-radius: var(--primidian-radius-s);
 	--primidian-quote-padding: var(--primidian-space-3) var(--primidian-space-5);
 	--primidian-quote-margin: 1.5em;
 	--primidian-quote-style: normal;
+	--primidian-quote-box-border-width: 0px;
+	--primidian-blockquote-left-width: 3px;
+	--primidian-blockquote-border-width: 1px;
+	--primidian-blockquote-radius: 5px;
 	/* Variant hooks */
 	--primidian-quote-bar-display: block;
 	--primidian-quote-glyph-display: none;
@@ -5423,14 +5465,14 @@ body.primidian-linenum-on
 	color: var(--primidian-quote-color);
 	background-color: var(--primidian-quote-bg);
 	font-style: var(--primidian-quote-style);
-	border: none;
+	border: var(--primidian-quote-box-border-width) solid var(--primidian-quote-border-color);
 	border-left: var(--primidian-quote-border-width) solid var(--primidian-quote-border-color);
 	margin-inline-start: 0;
 }
 
 .markdown-rendered blockquote:not(.callout) {
 	margin-block: var(--primidian-quote-margin);
-	border-radius: 0 var(--primidian-quote-radius) var(--primidian-quote-radius) 0;
+	border-radius: var(--primidian-blockquote-radius);
 	padding: var(--primidian-quote-padding);
 }
 
@@ -5453,15 +5495,15 @@ body.primidian-linenum-on
 /* First line: top border-radius + top padding */
 .markdown-source-view.mod-cm6 .HyperMD-quote:first-of-type,
 .markdown-source-view.mod-cm6 .HyperMD-quote:not(.HyperMD-quote + .HyperMD-quote) {
-	border-start-start-radius: 0;
-	border-start-end-radius: var(--primidian-quote-radius);
+	border-start-start-radius: var(--primidian-blockquote-radius);
+	border-start-end-radius: var(--primidian-blockquote-radius);
 	padding-block-start: var(--primidian-quote-padding);
 }
 
 /* Last line: bottom border-radius + bottom padding */
 .markdown-source-view.mod-cm6 .HyperMD-quote:not(:has(+ .HyperMD-quote)) {
-	border-end-start-radius: 0;
-	border-end-end-radius: var(--primidian-quote-radius);
+	border-end-start-radius: var(--primidian-blockquote-radius);
+	border-end-end-radius: var(--primidian-blockquote-radius);
 	padding-block-end: var(--primidian-quote-padding);
 }
 
@@ -7072,9 +7114,32 @@ body.primidian-table-standard {
 
 /* ── Blockquotes ──────────────────────────────────────────────────────── */
 
-body.primidian-blockquote-obsidianite {
+/* Simple: no decorative framing */
+body.primidian-blockquote-simple {
+	--primidian-quote-bar-display: none;
+	--primidian-quote-border-width: 0px;
+	--primidian-quote-box-border-width: 0px;
+}
+
+/* Boxy: unified rectangular box */
+body.primidian-blockquote-boxy {
+	--primidian-quote-bar-display: none;
+	--primidian-quote-border-width: var(--primidian-blockquote-left-width);
+	--primidian-quote-box-border-width: var(--primidian-blockquote-border-width);
+}
+
+/* Minimal: left accent + top gradient only */
+body.primidian-blockquote-minimal {
+	--primidian-quote-bar-display: none;
+	--primidian-quote-border-width: var(--primidian-blockquote-left-width);
+	--primidian-quote-box-border-width: 0px;
+}
+
+/* Fade: left accent + top + bottom gradients */
+body.primidian-blockquote-fade {
 	--primidian-quote-bar-display: block;
-	--primidian-quote-glyph-display: none;
+	--primidian-quote-border-width: var(--primidian-blockquote-left-width);
+	--primidian-quote-box-border-width: 0px;
 }
 
 /* ── Status bar ───────────────────────────────────────────────────────── */

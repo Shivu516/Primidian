@@ -19,14 +19,14 @@
 	color: var(--primidian-quote-color);
 	background-color: var(--primidian-quote-bg);
 	font-style: var(--primidian-quote-style);
-	border: none;
+	border: var(--primidian-quote-box-border-width) solid var(--primidian-quote-border-color);
 	border-left: var(--primidian-quote-border-width) solid var(--primidian-quote-border-color);
 	margin-inline-start: 0;
 }
 
 .markdown-rendered blockquote:not(.callout) {
 	margin-block: var(--primidian-quote-margin);
-	border-radius: 0 var(--primidian-quote-radius) var(--primidian-quote-radius) 0;
+	border-radius: var(--primidian-blockquote-radius);
 	padding: var(--primidian-quote-padding);
 }
 
@@ -49,15 +49,15 @@
 /* First line: top border-radius + top padding */
 .markdown-source-view.mod-cm6 .HyperMD-quote:first-of-type,
 .markdown-source-view.mod-cm6 .HyperMD-quote:not(.HyperMD-quote + .HyperMD-quote) {
-	border-start-start-radius: 0;
-	border-start-end-radius: var(--primidian-quote-radius);
+	border-start-start-radius: var(--primidian-blockquote-radius);
+	border-start-end-radius: var(--primidian-blockquote-radius);
 	padding-block-start: var(--primidian-quote-padding);
 }
 
 /* Last line: bottom border-radius + bottom padding */
 .markdown-source-view.mod-cm6 .HyperMD-quote:not(:has(+ .HyperMD-quote)) {
-	border-end-start-radius: 0;
-	border-end-end-radius: var(--primidian-quote-radius);
+	border-end-start-radius: var(--primidian-blockquote-radius);
+	border-end-end-radius: var(--primidian-blockquote-radius);
 	padding-block-end: var(--primidian-quote-padding);
 }
 

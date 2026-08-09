@@ -1069,15 +1069,51 @@ settings:
         collapsed: true
         title: Blockquotes
     -
-        id: primidian-blockquote-style
+        id: primidian-blockquotes-intro
+        type: info-text
+        markdown: true
+        description: "**Simple** — minimal left accent line only. **Boxy** — four-sided rectangular border with accent line. **Minimal** — accent line with fading top line. **Fade** — accent line with fading top and bottom lines."
+    -
+        id: primidian-blockquote-preset
         type: class-select
         allowEmpty: false
-        title: Blockquote Style
-        default: primidian-blockquote-obsidianite
+        title: Blockquote Preset
+        description: How blockquotes are drawn. Each preset differs in structure — not just colour.
+        default: primidian-blockquote-fade
         options:
             -
-                label: Obsidianite — gradient bars
-                value: primidian-blockquote-obsidianite
+                label: Simple
+                value: primidian-blockquote-simple
+            -
+                label: Boxy
+                value: primidian-blockquote-boxy
+            -
+                label: Minimal
+                value: primidian-blockquote-minimal
+            -
+                label: Fade
+                value: primidian-blockquote-fade
+    -
+        id: primidian-blockquote-left-width
+        type: variable-number
+        format: px
+        title: Left Line Thickness
+        description: Thickness of the persistent blockquote accent line. Value is in pixels.
+        default: 3
+    -
+        id: primidian-blockquote-border-width
+        type: variable-number
+        format: px
+        title: Box Border Thickness
+        description: Thickness of the box border (for Box preset). Value is in pixels.
+        default: 1
+    -
+        id: primidian-blockquote-radius
+        type: variable-number
+        format: px
+        title: Corner Radius
+        description: Corner radius for blockquote borders. Value is in pixels.
+        default: 5
     -
         id: primidian-quote-color
         type: variable-themed-color
@@ -1089,7 +1125,7 @@ settings:
         id: primidian-quote-border-color
         type: variable-themed-color
         format: hsl
-        title: Left Border Colour
+        title: Accent Colour
         default-light: 'hsl(192, 88%, 29%)'
         default-dark: 'hsl(190, 87%, 45%)'
     -
@@ -1104,7 +1140,8 @@ settings:
         id: primidian-quote-border-width
         type: variable-number
         format: px
-        title: Left Border Width
+        title: Left Border Width (Legacy)
+        description: Legacy setting. Use **Left Line Thickness** above for new presets.
         default: 3
     -
         id: primidian-quote-style

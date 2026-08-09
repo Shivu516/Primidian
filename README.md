@@ -339,6 +339,29 @@ All numeric glow settings use predefined CSS units. Enter only the number:
 | Corner Radius | px | `0` (becomes `0px`) |
 | Pulse Duration | s | `3` (becomes `3s`) |
 
+### Blockquote Presets
+
+Primidian offers four blockquote presets, selectable from **Settings → Style Settings → Blockquotes → Blockquote Preset**:
+
+| Preset | Left Line | Top Line | Bottom Line | Box Border |
+|---|---|---|---|---|
+| **Simple** | ✓ | ✗ | ✗ | ✗ |
+| **Boxy** | ✓ | ✗ | ✗ | ✓ |
+| **Minimal** | ✓ | ✓ | ✗ | ✗ |
+| **Fade** | ✓ | ✓ | ✓ | ✗ |
+
+Each preset differs in **structure**, not just colour — so they stay distinguishable even if you set every colour the same.
+
+**Customization controls:**
+
+| Control | Effect |
+|---|---|
+| Left Line Thickness | Thickness of the persistent left accent line (px) |
+| Box Border Thickness | Thickness of the box border (px) |
+| Corner Radius | Corner radius for box/framed presets (px) |
+
+> **Note:** The preset names were shortened from their original longer forms (Box → Boxy, Top Fading Line → Minimal, Top + Bottom Fading Lines → Fade) for a more compact dropdown while keeping all existing behavior intact.
+
 ### Live Preview / Editing Mode support
 
 The same glow effects are available in Live Preview / Editing Mode. Each glow
