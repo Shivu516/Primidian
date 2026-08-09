@@ -64,6 +64,10 @@ name: Primidian
 id: primidian
 settings:
     -
+        id: primidian-version
+        type: info-text
+        description: "Primidian — Obsidianite's visual identity, engineered."
+    -
         id: primidian-about
         type: heading
         level: 1
@@ -1652,18 +1656,18 @@ settings:
         id: primidian-glow-intensity
         type: variable-number-slider
         title: Intensity
-        description: Scales the blur radius and opacity of every glow at once. 0 is invisible, 1 is the Primidian default, 2 is pronounced.
+        description: Scales the blur radius and opacity of every glow at once. 0 is invisible, 1.5 is the Primidian default, 2 is pronounced.
         min: 0
         max: 2
         step: 0.05
-        default: 1
+        default: 1.5
     -
         id: primidian-glow-blur-base
         type: variable-number
         format: px
         title: Blur Radius
-        description: Glow radius at intensity 1.
-        default: 8
+        description: Glow radius at intensity 1. Value is in pixels.
+        default: 16
     -
         id: primidian-glow-alpha-base
         type: variable-number-slider
@@ -1930,36 +1934,37 @@ settings:
         id: primidian-motion-superfast
         type: variable-text
         title: Superfast
-        description: Hover tints and focus rings.
+        description: "Hover tints and focus rings. Value is in milliseconds. Default: 80ms"
         default: 80ms
     -
         id: primidian-motion-fast
         type: variable-text
         title: Fast
-        description: Buttons, icons, checkboxes, tags.
+        description: "Buttons, icons, checkboxes, tags. Value is in milliseconds. Default: 160ms"
         default: 160ms
     -
         id: primidian-motion-moderate
         type: variable-text
         title: Moderate
-        description: Panels, popovers, link sweeps.
+        description: "Panels, popovers, link sweeps. Value is in milliseconds. Default: 260ms"
         default: 260ms
     -
         id: primidian-motion-slow
         type: variable-text
         title: Slow
-        description: Large surfaces and sidebars.
+        description: "Large surfaces and sidebars. Value is in milliseconds. Default: 400ms"
         default: 400ms
     -
         id: primidian-ease-standard
         type: variable-text
         title: Easing — Standard
+        description: "Advanced: Changing this value can significantly affect animation behavior. Invalid or extreme values may produce unexpected motion. Default: cubic-bezier(0.4, 0, 0.2, 1)"
         default: cubic-bezier(0.4, 0, 0.2, 1)
     -
         id: primidian-ease-overshoot
         type: variable-text
         title: Easing — Overshoot
-        description: Used where an element springs into view, such as the checkbox tick.
+        description: "Advanced: Used where an element springs into view, such as the checkbox tick. Changing this value can significantly affect animation behavior. Invalid or extreme values may produce unexpected motion. Default: cubic-bezier(0.34, 1.56, 0.64, 1)"
         default: cubic-bezier(0.34, 1.56, 0.64, 1)
 
     -
