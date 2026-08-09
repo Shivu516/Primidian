@@ -1,0 +1,145 @@
+/* ── COMPONENT · INLINE CODE ───────────────────────────────────────────────
+ *
+ * ╔══════════════════════════════════════════════════════════════════════╗
+ * ║  BUG #2 — LAYERS 1, 2 AND 5  ·  INLINE CODE INVISIBLE IN READING     ║
+ * ╚══════════════════════════════════════════════════════════════════════╝
+ *
+ * TWO INDEPENDENT DEFECTS IN OBSIDIANITE, BOTH FIXED HERE.
+ *
+ * ── PRIMARY CAUSE · inherited -webkit-text-fill-color ───────────────────
+ *
+ *   Obsidianite.css:619   strong { -webkit-text-fill-color: transparent }
+ *   Obsidianite.css:1098  code   { color: rgba(...) !important }
+ *
+ *   -webkit-text-fill-color INHERITS and takes precedence over `color` for
+ *   glyph fill. `code` inside `strong` therefore painted transparent glyphs
+ *   on a visible background — an empty pill. `!important` on `color` was
+ *   powerless because the winning property was a different one.
+ *
+ *   Layer 1 (below) sets BOTH `color` and `-webkit-text-fill-color`, which
+ *   neutralises the inheritance directly and unconditionally.
+ *
+ * ── SECONDARY CAUSE · selector scope too narrow ─────────────────────────
+ *
+ *   Obsidianite.css:1092  .markdown-preview-view code
+ *
+ *   `.markdown-preview-view` exists only on the main reading pane. Inline
+ *   code was therefore COMPLETELY UNSTYLED in note embeds, hover popovers,
+ *   Canvas cards, and any plugin-rendered markdown (including Task List
+ *   Kanban card previews).
+ *
+ *   Primidian targets `.markdown-rendered`, which is present in every one of
+ *   those contexts, plus `.cm-inline-code` for Live Preview.
+ *
+ * ── LAYER 5 · no !important ─────────────────────────────────────────────
+ *
+ *   Obsidianite's `!important` was almost certainly added while chasing this
+ *   very bug, in the mistaken belief that specificity was the problem. It is
+ *   unnecessary once the fill colour is set correctly, and it actively
+ *   blocked Style Settings customisation. It is gone.
+ *
+ * Full analysis: docs/05-bug-02-inline-code-reading-mode.md
+ * ──────────────────────────────────────────────────────────────────────── */
+
+/* ══ LAYER 1 · the canonical inline-code rule ═══════════════════════════
+ *
+ * `:not(pre > code)` excludes fenced-block content using the child
+ * combinator — tighter and marginally cheaper than a descendant `:not()`.
+ *
+ * The selector list deliberately covers every context Obsidian renders
+ * markdown into. Each entry is load-bearing:
+ *
+ *   .markdown-rendered code       reading, embeds, popovers, Canvas, plugins
+ *   .cm-inline-code               Live Preview
+ *   .cm-s-obsidian code           source-mode fallback
+ */
+
+.markdown-rendered code:not(pre > code),
+.cm-s-obsidian .cm-inline-code:not(.cm-formatting):not(.cm-hmd-indented-code),
+.cm-s-obsidian code:not(pre > code) {
+	/* Both properties. `color` alone is defeated by inherited fill. */
+	color: var(--primidian-inline-code-color);
+	-webkit-text-fill-color: var(--primidian-inline-code-color);
+
+	/* Neutralise any inherited gradient clipping from an ancestor. */
+	background-image: none;
+	-webkit-background-clip: initial;
+	background-clip: initial;
+
+	background-color: var(--primidian-inline-code-bg);
+	border: var(--primidian-inline-code-border-width) solid var(--primidian-inline-code-border);
+	border-radius: var(--primidian-inline-code-radius);
+	padding: var(--primidian-inline-code-padding);
+
+	font-family: var(--primidian-font-monospace);
+	font-size: var(--primidian-inline-code-size);
+	font-weight: var(--primidian-inline-code-weight);
+	font-style: normal;
+
+	overflow-wrap: break-word;
+	word-break: break-word;
+	white-space: pre-wrap;
+}
+
+/* ══ LAYER 2 · defensive resets in every emphasis context ═══════════════
+ *
+ * Layer 1 already wins in the common case. These exist because
+ * -webkit-text-fill-color inheritance can arrive from an ancestor Primidian
+ * does not control (a snippet, another plugin, a future rule), and because
+ * the failure mode — silently invisible text — is severe enough to warrant
+ * belt and braces.
+ */
+
+:is(strong, em, del, s, mark, a, h1, h2, h3, h4, h5, h6)
+	:is(code, .cm-inline-code) {
+	-webkit-text-fill-color: var(--primidian-inline-code-color);
+	background-image: none;
+	-webkit-background-clip: initial;
+	background-clip: initial;
+}
+
+/* Inline code inside a heading tracks the heading's scale, not the body's */
+.markdown-rendered :is(h1, h2, h3, h4, h5, h6) code:not(pre > code) {
+	font-size: 0.9em;
+}
+
+/* ── Context tinting ──────────────────────────────────────────────────── */
+
+/* Inside a blockquote or callout the standard translucent background can
+ * disappear against the container's own tint. */
+.markdown-rendered :is(blockquote, .callout) code:not(pre > code),
+.cm-s-obsidian .cm-quote.cm-inline-code {
+	color: var(--primidian-inline-code-color);
+	-webkit-text-fill-color: var(--primidian-inline-code-color);
+	background-color: color-mix(in srgb, var(--primidian-accent) 14%, transparent);
+}
+
+/* Inline code inside a link should not fight the link's sweep */
+.markdown-rendered a code:not(pre > code) {
+	background-color: color-mix(in srgb, var(--primidian-accent) 14%, transparent);
+}
+
+/* Inline code inside a table cell */
+.markdown-rendered table code:not(pre > code) {
+	white-space: nowrap;
+}
+
+/* ── Live Preview formatting backticks ────────────────────────────────────
+ * The backtick delimiters themselves. Obsidianite forced these to
+ * `display: inline-flex; min-width: .55rem`, which disturbed the line box.
+ * A simple de-emphasis is sufficient and does not affect layout. */
+
+.cm-s-obsidian .cm-inline-code.cm-formatting-code {
+	color: var(--primidian-text-faint);
+	-webkit-text-fill-color: var(--primidian-text-faint);
+	background-color: transparent;
+	background-image: none;
+	padding: 0;
+	border: none;
+	opacity: 0.5;
+}
+
+/* Active line: do not double up padding on the delimiters */
+.cm-s-obsidian .cm-active .cm-inline-code.cm-formatting-code {
+	opacity: 0.7;
+}

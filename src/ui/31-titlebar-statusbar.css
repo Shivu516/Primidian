@@ -1,0 +1,56 @@
+/* ── UI · TITLEBAR & STATUS BAR ────────────────────────────────────────── */
+
+.titlebar {
+	background-color: var(--primidian-titlebar-bg);
+}
+
+.titlebar-text {
+	color: var(--primidian-accent);
+}
+
+.titlebar-button:hover {
+	background-color: var(--primidian-surface-hover);
+	color: var(--primidian-accent);
+}
+
+/* ── Status bar ───────────────────────────────────────────────────────────
+ * Obsidianite's floating, fade-on-hover status bar is one of its nicest
+ * touches (keeper K-8). Primidian keeps it as the default and exposes a Docked
+ * variant via Style Settings (body.primidian-statusbar-docked). */
+
+.status-bar {
+	background-color: var(--primidian-statusbar-bg);
+	border-top: var(--primidian-border-width) solid var(--primidian-border);
+	color: var(--primidian-text-muted);
+	transition: opacity var(--primidian-motion-moderate) var(--primidian-ease-standard);
+}
+
+body.primidian-statusbar-floating .status-bar {
+	position: absolute;
+	right: 0;
+	bottom: 0;
+	margin: auto;
+	display: flex;
+	align-items: center;
+	max-height: unset;
+	padding: 6px 10px;
+	border-top-left-radius: var(--primidian-statusbar-radius);
+	border-left: var(--primidian-border-width) solid var(--primidian-border);
+	opacity: var(--primidian-statusbar-opacity);
+}
+
+body.primidian-statusbar-floating .status-bar:hover {
+	opacity: var(--primidian-statusbar-opacity-hover);
+}
+
+body.primidian-statusbar-docked .status-bar {
+	opacity: 1;
+}
+
+.status-bar-item {
+	color: var(--primidian-text-muted);
+}
+
+.status-bar-item.mod-clickable:hover {
+	color: var(--primidian-accent);
+}

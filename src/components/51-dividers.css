@@ -1,0 +1,141 @@
+/* ── COMPONENT · DIVIDERS (hr) ─────────────────────────────────────────────
+ *
+ * Base implementation. All five visual styles live in
+ * src/variants/70-variants-dividers.css and only reassign tokens.
+ *
+ * ── PHASE 1 REDESIGN · WHY THE hr IS NOW A BOX, NOT A BORDER ────────────
+ *
+ * The original implementation drew the rule with `border-bottom` on a
+ * zero-height element. That gave every variant the same underlying shape,
+ * so Decorative / Gradient / Animated could differ only by colour — which
+ * is exactly the complaint.
+ *
+ * The rule is now a real box with a background, which unlocks FIVE
+ * independent structural axes that variants can combine:
+ *
+ *   1. --primidian-divider-style      solid | dashed | dotted | double
+ *   2. --primidian-divider-width      the rule need not span the full measure
+ *   3. --primidian-divider-image      a gradient fill instead of a flat colour
+ *   4. --primidian-divider-cap-*      dots at each end
+ *   5. --primidian-divider-shimmer-*  a travelling highlight
+ *
+ * Because the differences are geometric, the variants stay distinguishable
+ * even when the user sets every colour to the same value — which was the
+ * explicit requirement.
+ *
+ * Dashed/dotted are produced with a repeating-linear-gradient rather than a
+ * border-style so that they compose with --primidian-divider-image and keep
+ * working at fractional thicknesses.
+ *
+ * ── KNOWN LIMITATION (unchanged, documented) ────────────────────────────
+ * The Decorative glyph punches a hole in the rule using
+ * --primidian-divider-glyph-bg. Inside a callout or blockquote — which have a
+ * different background — that hole will be the wrong colour. Prefer the
+ * Gradient or Minimal style there. See docs/08 §3.3.
+ * ──────────────────────────────────────────────────────────────────────── */
+
+.markdown-rendered hr,
+.markdown-source-view.mod-cm6 .cm-line hr {
+	position: relative;
+	box-sizing: content-box;
+	border: none;
+	height: var(--primidian-divider-thickness);
+	width: var(--primidian-divider-width);
+	margin-inline: auto;
+	margin-block: var(--primidian-divider-space-above) var(--primidian-divider-space-below);
+	opacity: var(--primidian-divider-opacity);
+	overflow: visible;
+
+	/* Flat colour by default; a variant may replace this with a gradient. */
+	background-color: var(--primidian-divider-color);
+	background-image: var(--primidian-divider-image);
+	background-repeat: no-repeat;
+	border-radius: var(--primidian-radius-pill);
+}
+
+/* ── Dash / dot patterns ──────────────────────────────────────────────────
+ * Applied as a mask so the pattern composes with whatever fill (flat or
+ * gradient) the variant has chosen. */
+
+body.primidian-divider-dashed .markdown-rendered hr,
+body.primidian-divider-dashed .markdown-source-view.mod-cm6 .cm-line hr {
+	-webkit-mask-image: repeating-linear-gradient(
+		to right,
+		#000 0 10px,
+		transparent 10px 18px
+	);
+	mask-image: repeating-linear-gradient(to right, #000 0 10px, transparent 10px 18px);
+}
+
+body.primidian-divider-dotted .markdown-rendered hr,
+body.primidian-divider-dotted .markdown-source-view.mod-cm6 .cm-line hr {
+	-webkit-mask-image: repeating-linear-gradient(
+		to right,
+		#000 0 2px,
+		transparent 2px 8px
+	);
+	mask-image: repeating-linear-gradient(to right, #000 0 2px, transparent 2px 8px);
+}
+
+/* ── End caps ─────────────────────────────────────────────────────────────
+ * Two dots pinned to the ends of the rule. Drawn with a single ::before
+ * using two background gradients, keeping the ::after free for the glyph. */
+
+.markdown-rendered hr::before,
+.markdown-source-view.mod-cm6 .cm-line hr::before {
+	content: '';
+	display: var(--primidian-divider-cap-display);
+	position: absolute;
+	top: 50%;
+	left: calc(-1 * var(--primidian-divider-cap-size) / 2);
+	right: calc(-1 * var(--primidian-divider-cap-size) / 2);
+	height: var(--primidian-divider-cap-size);
+	transform: translateY(-50%);
+	pointer-events: none;
+	background-image: radial-gradient(
+			circle at left center,
+			var(--primidian-divider-color) 0 calc(var(--primidian-divider-cap-size) / 2),
+			transparent calc(var(--primidian-divider-cap-size) / 2)
+		),
+		radial-gradient(
+			circle at right center,
+			var(--primidian-divider-color) 0 calc(var(--primidian-divider-cap-size) / 2),
+			transparent calc(var(--primidian-divider-cap-size) / 2)
+		);
+	background-repeat: no-repeat;
+	background-size: 50% 100%, 50% 100%;
+	background-position: left center, right center;
+}
+
+/* ── Decorative glyph ─────────────────────────────────────────────────────
+ * `--primidian-divider-glyph-gap` controls the clearance punched in the rule,
+ * independently of the glyph's own font size (Phase 2). */
+
+.markdown-rendered hr::after,
+.markdown-source-view.mod-cm6 .cm-line hr::after {
+	content: var(--primidian-divider-glyph);
+	display: var(--primidian-divider-glyph-display);
+	position: absolute;
+	left: 50%;
+	top: 50%;
+	transform: translate(-50%, -50%) rotate(var(--primidian-divider-glyph-rotate));
+	transform-origin: 50% 50%;
+	padding-inline: var(--primidian-divider-glyph-gap);
+	font-size: var(--primidian-divider-glyph-size);
+	font-weight: var(--primidian-divider-glyph-weight);
+	line-height: 1;
+	color: var(--primidian-divider-glyph-color);
+	background-color: var(--primidian-divider-glyph-bg);
+	pointer-events: none;
+	transition: transform var(--primidian-motion-moderate) var(--primidian-ease-overshoot),
+		color var(--primidian-motion-fast) var(--primidian-ease-standard);
+}
+
+/* ── Tight contexts ───────────────────────────────────────────────────── */
+
+.markdown-embed .markdown-rendered hr,
+.hover-popover .markdown-rendered hr,
+.canvas-node-content .markdown-rendered hr,
+.callout .markdown-rendered hr {
+	margin-block: 1.2em;
+}

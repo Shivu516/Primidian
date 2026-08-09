@@ -1,0 +1,59 @@
+/* ── EDITOR · READING MODE (.markdown-rendered) ────────────────────────────
+ *
+ * IMPORTANT SCOPING NOTE
+ *
+ * Primidian targets `.markdown-rendered`, NOT `.markdown-preview-view`.
+ *
+ * Obsidianite used `.markdown-preview-view`, which is present ONLY on the
+ * main reading pane. That left inline code, headings, tables and the rest
+ * completely unstyled inside:
+ *
+ *     .markdown-embed-content .markdown-rendered   note embeds
+ *     .hover-popover          .markdown-rendered   hover previews
+ *     .canvas-node-content    .markdown-rendered   Canvas cards
+ *     .content-preview        .markdown-rendered   Task List Kanban cards
+ *                             .markdown-rendered   any plugin-rendered md
+ *
+ * `.markdown-rendered` is present in all of them. This single scoping change
+ * is the secondary half of the Bug #2 fix and also resolves defect F-8
+ * (headings unstyled in embeds/popovers). See docs/05 §4.
+ * ──────────────────────────────────────────────────────────────────────── */
+
+.markdown-rendered {
+	color: var(--primidian-text-normal);
+}
+
+.markdown-rendered p {
+	margin-block: 0.75em;
+}
+
+.markdown-rendered > *:first-child {
+	margin-block-start: 0;
+}
+
+/* ── Unresolved internal links ────────────────────────────────────────── */
+
+.markdown-rendered .internal-link.is-unresolved {
+	color: var(--primidian-link-unresolved-color);
+}
+
+/* ── Collapse indicators ──────────────────────────────────────────────────
+ * Obsidianite forced `margin-left: -80px !important` here to clear the
+ * gutter its fake checkbox occupied. That gutter no longer exists (Bug #1
+ * fix), so the override — and its !important — are gone. */
+
+.markdown-rendered .collapse-indicator {
+	color: var(--primidian-text-faint);
+	transition: color var(--primidian-motion-fast) var(--primidian-ease-standard);
+}
+
+.markdown-rendered .collapse-indicator:hover {
+	color: var(--primidian-accent);
+}
+
+/* ── Block reference highlight ────────────────────────────────────────── */
+
+.markdown-rendered .is-flashing {
+	background-color: var(--primidian-search-bg);
+	border-radius: var(--primidian-radius-xs);
+}

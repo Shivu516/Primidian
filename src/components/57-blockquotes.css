@@ -1,0 +1,114 @@
+/* ── COMPONENT · BLOCKQUOTES ───────────────────────────────────────────────
+ *
+ * FIX F-5 / conflict 4.7: Obsidian renders CALLOUTS as
+ * `<blockquote data-callout="...">`. Obsidianite had no callout rules at
+ * all, so every callout inherited the blockquote's left border, gradient
+ * bars and `!!` glyph — fighting the callout's own icon and title bar.
+ *
+ * Every rule here is scoped `:not(.callout)`. Callouts are handled properly
+ * in 58-callouts.css.
+ *
+ * ACCESSIBILITY: Obsidianite injected a literal `!!` via `content`, which
+ * screen readers announce. Primidian's optional glyph uses the `content: X / ""`
+ * alt-text syntax so assistive technology skips it, and it is OFF by default.
+ * ──────────────────────────────────────────────────────────────────────── */
+
+.markdown-rendered blockquote:not(.callout),
+.markdown-source-view.mod-cm6 .HyperMD-quote {
+	position: relative;
+	color: var(--primidian-quote-color);
+	background-color: var(--primidian-quote-bg);
+	font-style: var(--primidian-quote-style);
+	border: none;
+	border-left: var(--primidian-quote-border-width) solid var(--primidian-quote-border-color);
+	border-radius: 0 var(--primidian-quote-radius) var(--primidian-quote-radius) 0;
+	margin-inline-start: 0;
+	padding: var(--primidian-quote-padding);
+}
+
+.markdown-rendered blockquote:not(.callout) {
+	margin-block: var(--primidian-quote-margin);
+}
+
+/* ── Decorative gradient bars (Obsidianite keeper K-6) ───────────────────
+ * A short bright bar at the top and a shorter one at the bottom. Both fade
+ * to `transparent` rather than to a hard-coded background colour, so they
+ * survive a user changing the theme background. */
+
+.markdown-rendered blockquote:not(.callout)::before {
+	content: '';
+	display: var(--primidian-quote-bar-display);
+	position: absolute;
+	top: 0;
+	left: 0;
+	height: 2px;
+	width: 55%;
+	background-image: linear-gradient(
+		90deg,
+		var(--primidian-quote-border-color),
+		transparent
+	);
+	pointer-events: none;
+}
+
+.markdown-rendered blockquote:not(.callout)::after {
+	content: '';
+	display: var(--primidian-quote-bar-display);
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	height: 2px;
+	width: 25%;
+	background-image: linear-gradient(
+		90deg,
+		var(--primidian-quote-border-color),
+		transparent
+	);
+	pointer-events: none;
+}
+
+/* ── Optional quote glyph (off by default) ────────────────────────────────
+ * `content: X / ""` supplies empty alt text, so screen readers skip it. */
+
+.markdown-rendered blockquote:not(.callout) > p:first-of-type::before {
+	content: var(--primidian-quote-glyph) / '';
+	display: var(--primidian-quote-glyph-display);
+	position: absolute;
+	top: 0.1em;
+	left: 0.55em;
+	font-size: 1.6em;
+	line-height: 1;
+	font-style: italic;
+	font-weight: var(--primidian-font-weight-bold);
+	color: var(--primidian-quote-glyph-color);
+	opacity: 0.5;
+	pointer-events: none;
+}
+
+.markdown-rendered blockquote:not(.callout) > p {
+	margin-block: 0.4em;
+}
+
+.markdown-rendered blockquote:not(.callout) > *:first-child {
+	margin-block-start: 0;
+}
+
+.markdown-rendered blockquote:not(.callout) > *:last-child {
+	margin-block-end: 0;
+}
+
+/* Nested quotes de-emphasise rather than compound decoration */
+.markdown-rendered blockquote:not(.callout) blockquote:not(.callout) {
+	background-color: transparent;
+	border-left-color: var(--primidian-accent-muted);
+}
+
+.markdown-rendered blockquote:not(.callout) blockquote:not(.callout)::before,
+.markdown-rendered blockquote:not(.callout) blockquote:not(.callout)::after {
+	display: none;
+}
+
+/* Live Preview: only the first quote line carries the top bar */
+.markdown-source-view.mod-cm6 .HyperMD-quote + .HyperMD-quote::before {
+	display: none;
+}

@@ -1,0 +1,61 @@
+/* ── BASE · RESET ──────────────────────────────────────────────────────── */
+
+/* ── Scrollbars ───────────────────────────────────────────────────────── */
+
+::-webkit-scrollbar {
+	width: var(--primidian-scrollbar-width);
+	height: var(--primidian-scrollbar-width);
+}
+
+::-webkit-scrollbar-track,
+::-webkit-scrollbar-track-piece,
+::-webkit-scrollbar-corner {
+	background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+	background-color: var(--primidian-scrollbar-thumb);
+	border-radius: var(--primidian-scrollbar-radius);
+	border: 2px solid transparent;
+	background-clip: padding-box;
+	transition: background-color var(--primidian-motion-fast) var(--primidian-ease-standard);
+}
+
+::-webkit-scrollbar-thumb:hover {
+	background-color: var(--primidian-scrollbar-thumb-hover);
+}
+
+/* ── Selection ────────────────────────────────────────────────────────── */
+
+::selection {
+	background-color: var(--primidian-selection-bg);
+}
+
+.markdown-source-view.mod-cm6 .cm-selectionBackground,
+.markdown-source-view.mod-cm6 .cm-line .cm-selection,
+.markdown-source-view.mod-cm6 .cm-editor > .cm-scroller > .cm-selectionLayer > .cm-selectionBackground {
+	background-color: var(--primidian-selection-bg);
+}
+
+/* ── Focus ────────────────────────────────────────────────────────────────
+ * Accessibility: a visible focus ring on every interactive element.
+ * Neither source theme provided one consistently. */
+
+:focus-visible {
+	outline: 2px solid var(--primidian-border-focus);
+	outline-offset: 2px;
+	border-radius: var(--primidian-radius-xs);
+}
+
+/* ── Cursor ───────────────────────────────────────────────────────────── */
+
+.clickable-icon,
+.nav-file-title,
+.nav-folder-title,
+button,
+.checkbox-container,
+input[type='checkbox'],
+.workspace-tab-header,
+.side-dock-ribbon-action {
+	cursor: var(--primidian-cursor);
+}

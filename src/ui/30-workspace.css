@@ -1,0 +1,98 @@
+/* ── UI · WORKSPACE, RIBBON, SIDEBARS ──────────────────────────────────── */
+
+.workspace {
+	background-color: var(--primidian-bg-primary-alt);
+}
+
+/* ── Ribbon ───────────────────────────────────────────────────────────── */
+
+.workspace-ribbon {
+	background-color: var(--primidian-bg-primary-alt);
+	border-color: var(--primidian-border);
+}
+
+.workspace-ribbon.mod-left.is-collapsed,
+.workspace-ribbon.mod-right.is-collapsed {
+	border-color: var(--primidian-border);
+}
+
+/* Clean-room motion: icons rest at reduced opacity and resolve to the accent
+ * on hover. Obsidianite used `transition: all` (banned by PR-1); Primidian lists
+ * the animated properties explicitly. */
+.side-dock-ribbon-action,
+.side-dock-ribbon-tab,
+.workspace-ribbon-collapse-btn,
+.sidebar-toggle-button {
+	opacity: var(--primidian-icon-opacity);
+	transition: opacity var(--primidian-motion-fast) var(--primidian-ease-standard),
+		color var(--primidian-motion-fast) var(--primidian-ease-standard),
+		background-color var(--primidian-motion-fast) var(--primidian-ease-standard);
+}
+
+.side-dock-ribbon-action:hover,
+.side-dock-ribbon-tab:hover,
+.workspace-ribbon-collapse-btn:hover,
+.sidebar-toggle-button:hover {
+	opacity: var(--primidian-icon-opacity-hover);
+	color: var(--primidian-accent);
+}
+
+/* ── Split / leaf ─────────────────────────────────────────────────────── */
+
+.workspace-split.mod-root .workspace-leaf {
+	background-color: var(--primidian-bg-primary);
+}
+
+.workspace-leaf-content {
+	background-color: var(--primidian-bg-primary);
+}
+
+.workspace-split.mod-left-split .workspace-leaf-content,
+.workspace-split.mod-right-split .workspace-leaf-content {
+	background-color: var(--primidian-bg-primary-alt);
+}
+
+.workspace-drop-overlay::before {
+	background-color: var(--primidian-surface-selected);
+	border-radius: var(--primidian-radius-m);
+}
+
+.workspace-leaf-resize-handle {
+	transition: background-color var(--primidian-motion-fast) var(--primidian-ease-standard);
+}
+
+.workspace-leaf-resize-handle:hover {
+	background-color: var(--primidian-accent);
+}
+
+/* ── View header ──────────────────────────────────────────────────────── */
+
+.view-header {
+	background-color: transparent;
+	border-bottom: var(--primidian-border-width) solid var(--primidian-border);
+}
+
+.view-header-title {
+	color: var(--primidian-text-muted);
+	font-weight: var(--primidian-font-weight-medium);
+	transition: color var(--primidian-motion-fast) var(--primidian-ease-standard);
+}
+
+.workspace-leaf.mod-active .view-header-title {
+	color: var(--primidian-accent);
+}
+
+.view-header-icon {
+	color: var(--primidian-text-muted);
+}
+
+.workspace-leaf.mod-active .view-header-icon {
+	color: var(--primidian-accent);
+}
+
+/* ── Vault profile ────────────────────────────────────────────────────── */
+
+.workspace-sidedock-vault-profile {
+	border-top: var(--primidian-border-width) solid var(--primidian-border);
+	color: var(--primidian-text-muted);
+}

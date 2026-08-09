@@ -1,0 +1,133 @@
+/* ── SYSTEM · GRADIENTS ────────────────────────────────────────────────────
+ *
+ * Global gradient system (brief §9).
+ *
+ * THREE-LEVEL CASCADE, resolved entirely by CSS variable fallback chaining —
+ * no branching, no duplicated rules:
+ *
+ *   Level 1  --primidian-grad-1/-2/-angle          global      (tokens/14)
+ *   Level 2  --primidian-<c>-grad-1/-2/-angle      component   (tokens/14,
+ *                                              each defaulting to Level 1)
+ *   Level 3  --primidian-<c>-gradient              resolved    (here)
+ *
+ * A user who sets only the global colours gets consistent gradients
+ * everywhere. A user who sets a component's colours overrides just that
+ * component while the rest continue to track the global.
+ *
+ * THIS FILE LOADS AFTER ALL COMPONENTS, so the master off-switch can
+ * neutralise them without specificity tricks (rule VR-2).
+ * ──────────────────────────────────────────────────────────────────────── */
+
+/* ── Level 3 · resolved gradients ─────────────────────────────────────── */
+
+body {
+	--primidian-h-gradient: linear-gradient(
+		var(--primidian-h-grad-angle),
+		var(--primidian-h-grad-1),
+		var(--primidian-h-grad-2)
+	);
+
+	--primidian-bold-gradient: linear-gradient(
+		var(--primidian-bold-grad-angle),
+		var(--primidian-bold-grad-1),
+		var(--primidian-bold-grad-2)
+	);
+
+	--primidian-divider-gradient: linear-gradient(
+		90deg,
+		transparent,
+		var(--primidian-divider-grad-1),
+		var(--primidian-divider-grad-2),
+		transparent
+	);
+
+	--primidian-link-gradient: linear-gradient(
+		90deg,
+		var(--primidian-link-grad-1),
+		var(--primidian-link-grad-2)
+	);
+}
+
+/* ══ MASTER OFF-SWITCH ══════════════════════════════════════════════════
+ *
+ * When gradients are disabled, every component falls back to the solid
+ * colour it ALREADY declares unconditionally in its own file. Nothing needs
+ * recomputing and nothing can end up invisible.
+ *
+ * This is also LAYER 4 of the Bug #2 fix: with gradients off,
+ * -webkit-text-fill-color: transparent is never set anywhere in the theme,
+ * so the inheritance failure is structurally impossible. It is the
+ * guaranteed user escape hatch.
+ */
+
+body.primidian-gradients-off {
+	--primidian-h-gradient: none;
+	--primidian-bold-gradient: none;
+	--primidian-link-gradient: none;
+}
+
+body.primidian-gradients-off :is(strong, .cm-strong),
+body.primidian-gradients-off .markdown-rendered :is(h1, h2, h3, h4, h5, h6) {
+	background-image: none;
+	-webkit-background-clip: initial;
+	background-clip: initial;
+	-webkit-text-fill-color: initial;
+}
+
+/* Explicit solid restatements, so the fallback is unambiguous. */
+body.primidian-gradients-off :is(.markdown-rendered strong, .cm-s-obsidian .cm-strong) {
+	color: var(--primidian-bold-color);
+}
+
+body.primidian-gradients-off .markdown-rendered h1 { color: var(--primidian-h1-color); }
+body.primidian-gradients-off .markdown-rendered h2 { color: var(--primidian-h2-color); }
+body.primidian-gradients-off .markdown-rendered h3 { color: var(--primidian-h3-color); }
+body.primidian-gradients-off .markdown-rendered h4 { color: var(--primidian-h4-color); }
+body.primidian-gradients-off .markdown-rendered h5 { color: var(--primidian-h5-color); }
+body.primidian-gradients-off .markdown-rendered h6 { color: var(--primidian-h6-color); }
+
+/* ── Dividers ─────────────────────────────────────────────────────────────
+ * The three gradient-based divider styles set `background-color: transparent`
+ * because their gradient IMAGE provides the fill. Removing the image alone
+ * would therefore leave an invisible rule — so the flat colour must be
+ * restored in the same breath. Both halves are required; neither is
+ * sufficient on its own.
+ *
+ * The styles remain mutually distinguishable with gradients off, because
+ * their differences are geometric (width, thickness, caps, glyph, motion)
+ * rather than chromatic — which was the point of the Phase 1 redesign. */
+
+body.primidian-gradients-off {
+	--primidian-divider-gradient: none;
+}
+
+body.primidian-gradients-off.primidian-divider-gradient,
+body.primidian-gradients-off.primidian-divider-decorative,
+body.primidian-gradients-off.primidian-divider-animated {
+	--primidian-divider-image: none;
+}
+
+body.primidian-gradients-off.primidian-divider-gradient .markdown-rendered hr,
+body.primidian-gradients-off.primidian-divider-gradient .markdown-source-view.mod-cm6 .cm-line hr,
+body.primidian-gradients-off.primidian-divider-decorative .markdown-rendered hr,
+body.primidian-gradients-off.primidian-divider-decorative .markdown-source-view.mod-cm6 .cm-line hr,
+body.primidian-gradients-off.primidian-divider-animated .markdown-rendered hr,
+body.primidian-gradients-off.primidian-divider-animated .markdown-source-view.mod-cm6 .cm-line hr {
+	background-color: var(--primidian-divider-color);
+}
+
+/* The Animated style's travelling highlight is a gradient too. With
+ * gradients off it becomes a plain moving block, which looks wrong — so the
+ * shimmer is retired and the rule returns to full opacity. */
+body.primidian-gradients-off.primidian-divider-animated {
+	--primidian-divider-shimmer-display: none;
+	--primidian-divider-opacity: 1;
+}
+
+/* Blockquote decorative bars become solid rather than gradient. */
+body.primidian-gradients-off .markdown-rendered blockquote:not(.callout)::before,
+body.primidian-gradients-off .markdown-rendered blockquote:not(.callout)::after {
+	background-image: none;
+	background-color: var(--primidian-quote-border-color);
+	opacity: 0.5;
+}

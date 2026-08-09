@@ -1,0 +1,94 @@
+/* ══════════════════════════════════════════════════════════════════════════
+ *
+ *   PLUGIN COMPATIBILITY — TASK LIST KANBAN
+ *   github.com/erikars/task-list-kanban   ·   tested against v2.13.0
+ *   by Chris Kerr & Erika Rice Scherpelz
+ *
+ * ══════════════════════════════════════════════════════════════════════════
+ *
+ * ── READ THIS FIRST: WHY THIS FILE IS ALMOST EMPTY ──────────────────────
+ *
+ * The Task List Kanban checkbox bug is NOT fixed here. It is fixed in
+ * src/components/60-checkboxes.css, by removing the structural assumption
+ * that caused it.
+ *
+ * The plugin renders an `appearance: none` <input> and explicitly delegates
+ * all painting to the theme. Primidian's core checkbox component paints the
+ * input itself, with no ancestor dependency — so it satisfies that
+ * delegation automatically, in exactly the same way it does for a normal
+ * Obsidian task list. No override is required for CORRECTNESS.
+ *
+ * The size of this file is the measure of whether the root-cause fix was
+ * right. Two cosmetic rules and zero !important means it was.
+ *
+ * ── WHAT IS ACTUALLY HERE ───────────────────────────────────────────────
+ *
+ * Only harmonisation with the plugin's own sizing token. The plugin sets
+ * `--task-status-marker-size` on the marker wrapper and forces the input to
+ * that exact width/height with !important. Primidian respects that (it does not
+ * fight it), but two proportional values look better when rescaled with it:
+ * the border width and the marker glyph size.
+ *
+ * ── ADDING A NEW PLUGIN COMPATIBILITY LAYER ─────────────────────────────
+ *
+ * 1. Create src/compat/9N-compat-<plugin>.css.
+ * 2. First ask: is this a plugin quirk, or a structural assumption in a
+ *    Primidian component? If the latter, FIX THE COMPONENT — a compat file that
+ *    grows large is a signal the core is wrong.
+ * 3. Reassign tokens or set narrowly-scoped properties. No !important.
+ * 4. Document the plugin, version tested, and the reason for each rule.
+ * 5. Compat files load last and are individually deletable without
+ *    affecting the core theme.
+ *
+ * ══════════════════════════════════════════════════════════════════════════
+ */
+
+/* ── 1. Border width scales with the plugin's marker size ─────────────────
+ * The plugin's markers can be considerably smaller than a document
+ * checkbox. A fixed 2px border on a 14px box reads as heavy; this keeps the
+ * border proportional while never dropping below a hairline. */
+
+.task-status-marker input[type='checkbox'].source-status-checkbox {
+	border-width: max(1px, calc(var(--task-status-marker-size, 16px) / 11));
+	border-radius: calc(var(--primidian-checkbox-shape-radius) * 0.85);
+}
+
+/* ── 2. Marker glyph scales with the plugin's marker size ───────────────── */
+
+.task-status-marker input[type='checkbox'].source-status-checkbox::after {
+	-webkit-mask-size: calc(var(--task-status-marker-size, 16px) * 0.7);
+	mask-size: calc(var(--task-status-marker-size, 16px) * 0.7);
+}
+
+/* ── 3. Card content preview inherits Primidian's markdown styling ────────────
+ * Not a fix — an observation worth recording. The plugin renders card text
+ * via MarkdownRenderer into `.content-preview.markdown-rendered`. Because
+ * every Primidian component targets `.markdown-rendered` rather than
+ * `.markdown-preview-view`, card content receives correct inline code,
+ * links, tags and emphasis with no plugin-specific CSS at all.
+ *
+ * Under Obsidianite this container was completely unstyled — the secondary
+ * half of Bug #2. See docs/05 §4.
+ *
+ * The single rule below simply prevents Primidian's list indentation from
+ * fighting the plugin's own zero-padding card layout. */
+
+.task-row-content .content-preview.markdown-rendered ul.contains-task-list {
+	padding-inline-start: 0;
+}
+
+/* ── 4. Opt-out ───────────────────────────────────────────────────────────
+ * Style Settings toggle, for users who prefer the plugin's own sizing
+ * proportions untouched. Reverts to Primidian's document-checkbox proportions. */
+
+body.primidian-compat-tlk-off .task-status-marker input[type='checkbox'].source-status-checkbox {
+	border-width: var(--primidian-checkbox-border-width);
+	border-radius: var(--primidian-checkbox-shape-radius);
+}
+
+body.primidian-compat-tlk-off
+	.task-status-marker
+	input[type='checkbox'].source-status-checkbox::after {
+	-webkit-mask-size: var(--primidian-checkbox-marker-size);
+	mask-size: var(--primidian-checkbox-marker-size);
+}

@@ -1,0 +1,86 @@
+/* ── TIER 2 · SEMANTIC · LIGHT PALETTE ─────────────────────────────────────
+ *
+ * DELIBERATELY DESIGNED, NOT INVERTED (brief §16).
+ *
+ * Obsidianite shipped no light mode at all — its light block was commented
+ * out with a note that it was unfinished. Primidian treats light as first-class.
+ *
+ * Key design decisions, and why a naive inversion fails:
+ *
+ *  1. ACCENT DARKENS.  --primidian-c-cyan-500 (#0fb6d6) on white gives roughly
+ *     2.3:1 contrast — far below WCAG AA. Light mode anchors on cyan-600/700
+ *     for text-bearing accents while keeping cyan-500 for large fills.
+ *
+ *  2. MAGENTA DARKENS TOO. magenta-500 on white is ~3.1:1. Light mode uses
+ *     magenta-600/700 wherever the colour carries glyphs.
+ *
+ *  3. SURFACES CARRY A VIOLET TINT.  Pure white would sever the visual link
+ *     to the dark theme. A 250° hue at very low saturation keeps the family
+ *     resemblance without looking grey.
+ *
+ *  4. BORDERS NEED MORE ALPHA.  A 12% accent border is visible on near-black
+ *     but disappears on near-white. Light mode uses 18-22%.
+ * ──────────────────────────────────────────────────────────────────────── */
+
+.theme-light {
+	/* ── Surfaces ────────────────────────────────────────────────────── */
+	--primidian-bg-primary: var(--primidian-c-neutral-0);
+	--primidian-bg-primary-alt: var(--primidian-c-neutral-50);
+	--primidian-bg-secondary: var(--primidian-c-neutral-25);
+	--primidian-bg-secondary-alt: var(--primidian-c-neutral-50);
+	--primidian-bg-elevated: var(--primidian-c-white);
+	--primidian-bg-sunken: var(--primidian-c-neutral-100);
+
+	/* ── Text ────────────────────────────────────────────────────────── */
+	--primidian-text-normal: var(--primidian-c-neutral-800);
+	--primidian-text-muted: var(--primidian-c-neutral-600);
+	--primidian-text-faint: var(--primidian-c-neutral-400);
+	--primidian-text-on-accent: var(--primidian-c-white);
+	--primidian-text-error: var(--primidian-c-red-700);
+	--primidian-text-success: var(--primidian-c-green-700);
+	--primidian-text-warning: var(--primidian-c-amber-700);
+
+	/* ── Accents · darkened for contrast (design note 1 & 2) ─────────── */
+	--primidian-accent: var(--primidian-c-cyan-700);
+	--primidian-accent-hover: var(--primidian-c-cyan-800);
+	--primidian-accent-muted: var(--primidian-c-cyan-600);
+	--primidian-accent-bright: var(--primidian-c-cyan-500);
+
+	--primidian-accent-alt: var(--primidian-c-magenta-700);
+	--primidian-accent-alt-hover: var(--primidian-c-magenta-800);
+	--primidian-accent-alt-muted: var(--primidian-c-magenta-600);
+
+	--primidian-accent-tertiary: var(--primidian-c-blue-600);
+
+	/* ── Borders · higher alpha (design note 4) ──────────────────────── */
+	--primidian-border: color-mix(in srgb, var(--primidian-accent) 18%, transparent);
+	--primidian-border-hover: color-mix(in srgb, var(--primidian-accent) 45%, transparent);
+	--primidian-border-focus: var(--primidian-accent);
+	--primidian-border-strong: color-mix(in srgb, var(--primidian-accent) 30%, transparent);
+
+	/* ── Interactive surfaces ────────────────────────────────────────── */
+	--primidian-surface-hover: color-mix(in srgb, var(--primidian-accent) 7%, transparent);
+	--primidian-surface-active: color-mix(in srgb, var(--primidian-accent) 12%, transparent);
+	--primidian-surface-selected: color-mix(in srgb, var(--primidian-accent) 15%, transparent);
+
+	/* ── Selection & search ──────────────────────────────────────────── */
+	--primidian-selection-bg: color-mix(in srgb, var(--primidian-accent) 20%, transparent);
+	--primidian-highlight-bg: color-mix(in srgb, var(--primidian-c-amber-500) 40%, transparent);
+	--primidian-highlight-text: var(--primidian-c-neutral-900);
+	--primidian-search-bg: color-mix(in srgb, var(--primidian-c-amber-500) 45%, transparent);
+
+	/* ── Semantic colour set ─────────────────────────────────────────── */
+	--primidian-color-red: var(--primidian-c-red-600);
+	--primidian-color-orange: var(--primidian-c-orange-600);
+	--primidian-color-amber: var(--primidian-c-amber-600);
+	--primidian-color-green: var(--primidian-c-green-600);
+	--primidian-color-cyan: var(--primidian-c-cyan-600);
+	--primidian-color-blue: var(--primidian-c-blue-600);
+	--primidian-color-purple: var(--primidian-c-purple-600);
+	--primidian-color-magenta: var(--primidian-c-magenta-600);
+
+	/* ── Shadows · softer, cooler ────────────────────────────────────── */
+	--primidian-shadow-s: 0 1px 2px hsl(250 20% 40% / 0.1);
+	--primidian-shadow-m: 0 4px 12px hsl(250 20% 40% / 0.12);
+	--primidian-shadow-l: 0 14px 32px hsl(250 20% 40% / 0.16);
+}

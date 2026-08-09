@@ -1,0 +1,178 @@
+/* ── COMPONENT · SYNTAX HIGHLIGHTING ───────────────────────────────────────
+ *
+ * DECISION G-4 — the vendored Prism-Dracula theme (Obsidianite lines
+ * 1163-1481, ~320 lines, © Gustavo Costa / Jon Leopard, MIT) is NOT carried
+ * into Primidian.
+ *
+ * Reasons:
+ *   1. No documented dependency required it.
+ *   2. Its palette (Dracula purple/pink/green) clashes with Obsidianite's
+ *      cyan/magenta identity — it was visibly a foreign body.
+ *   3. It hard-coded rgb(40,41,54) as the code background, which is why
+ *      Reading Mode and Live Preview disagreed (defect F-9).
+ *   4. It introduced a third-party copyright holder into the licence surface
+ *      for no benefit.
+ *
+ * Instead, ONE palette (--primidian-syntax-*) drives BOTH highlighters:
+ *   - CodeMirror 6 `.cm-*` classes            → Live Preview
+ *   - Obsidian's bundled Prism `.token.*`     → Reading Mode
+ *
+ * This is why syntax colours now match across modes, and why a user changing
+ * one syntax colour in Style Settings changes it in both.
+ * ──────────────────────────────────────────────────────────────────────── */
+
+/* ══ CodeMirror 6 · Live Preview ════════════════════════════════════════ */
+
+.cm-s-obsidian .HyperMD-codeblock .cm-comment,
+.cm-s-obsidian .cm-hmd-codeblock.cm-comment {
+	color: var(--primidian-syntax-comment);
+	font-style: italic;
+}
+
+.cm-s-obsidian .HyperMD-codeblock .cm-keyword,
+.cm-s-obsidian .cm-hmd-codeblock.cm-keyword {
+	color: var(--primidian-syntax-keyword);
+}
+
+.cm-s-obsidian .HyperMD-codeblock .cm-string,
+.cm-s-obsidian .HyperMD-codeblock .cm-string-2,
+.cm-s-obsidian .cm-hmd-codeblock.cm-string {
+	color: var(--primidian-syntax-string);
+}
+
+.cm-s-obsidian .HyperMD-codeblock .cm-number,
+.cm-s-obsidian .cm-hmd-codeblock.cm-number {
+	color: var(--primidian-syntax-number);
+}
+
+.cm-s-obsidian .HyperMD-codeblock .cm-def,
+.cm-s-obsidian .cm-hmd-codeblock.cm-def {
+	color: var(--primidian-syntax-function);
+}
+
+.cm-s-obsidian .HyperMD-codeblock .cm-variable,
+.cm-s-obsidian .cm-hmd-codeblock.cm-variable {
+	color: var(--primidian-syntax-variable);
+}
+
+.cm-s-obsidian .HyperMD-codeblock .cm-variable-2,
+.cm-s-obsidian .HyperMD-codeblock .cm-property {
+	color: var(--primidian-syntax-property);
+}
+
+.cm-s-obsidian .HyperMD-codeblock .cm-variable-3,
+.cm-s-obsidian .HyperMD-codeblock .cm-type {
+	color: var(--primidian-syntax-type);
+}
+
+.cm-s-obsidian .HyperMD-codeblock .cm-operator {
+	color: var(--primidian-syntax-operator);
+}
+
+.cm-s-obsidian .HyperMD-codeblock .cm-punctuation,
+.cm-s-obsidian .HyperMD-codeblock .cm-bracket {
+	color: var(--primidian-syntax-punctuation);
+}
+
+.cm-s-obsidian .HyperMD-codeblock .cm-atom {
+	color: var(--primidian-syntax-constant);
+}
+
+.cm-s-obsidian .HyperMD-codeblock .cm-tag {
+	color: var(--primidian-syntax-tag);
+}
+
+.cm-s-obsidian .HyperMD-codeblock .cm-attribute,
+.cm-s-obsidian .HyperMD-codeblock .cm-qualifier {
+	color: var(--primidian-syntax-attribute);
+}
+
+.cm-s-obsidian .HyperMD-codeblock .cm-builtin {
+	color: var(--primidian-syntax-builtin);
+}
+
+.cm-s-obsidian .HyperMD-codeblock .cm-meta {
+	color: var(--primidian-syntax-comment);
+}
+
+/* ══ Prism · Reading Mode ═══════════════════════════════════════════════ */
+
+.markdown-rendered .token.comment,
+.markdown-rendered .token.prolog,
+.markdown-rendered .token.cdata {
+	color: var(--primidian-syntax-comment);
+	font-style: italic;
+}
+
+.markdown-rendered .token.keyword,
+.markdown-rendered .token.important,
+.markdown-rendered .token.atrule {
+	color: var(--primidian-syntax-keyword);
+}
+
+.markdown-rendered .token.string,
+.markdown-rendered .token.char,
+.markdown-rendered .token.attr-value,
+.markdown-rendered .token.inserted {
+	color: var(--primidian-syntax-string);
+}
+
+.markdown-rendered .token.number,
+.markdown-rendered .token.boolean {
+	color: var(--primidian-syntax-number);
+}
+
+.markdown-rendered .token.function,
+.markdown-rendered .token.class-name {
+	color: var(--primidian-syntax-function);
+}
+
+.markdown-rendered .token.variable,
+.markdown-rendered .token.symbol {
+	color: var(--primidian-syntax-variable);
+}
+
+.markdown-rendered .token.property,
+.markdown-rendered .token.attr-name {
+	color: var(--primidian-syntax-property);
+}
+
+.markdown-rendered .token.operator,
+.markdown-rendered .token.entity,
+.markdown-rendered .token.url {
+	color: var(--primidian-syntax-operator);
+}
+
+.markdown-rendered .token.punctuation {
+	color: var(--primidian-syntax-punctuation);
+}
+
+.markdown-rendered .token.constant {
+	color: var(--primidian-syntax-constant);
+}
+
+.markdown-rendered .token.tag,
+.markdown-rendered .token.deleted {
+	color: var(--primidian-syntax-tag);
+}
+
+.markdown-rendered .token.selector {
+	color: var(--primidian-syntax-type);
+}
+
+.markdown-rendered .token.builtin,
+.markdown-rendered .token.namespace {
+	color: var(--primidian-syntax-builtin);
+}
+
+.markdown-rendered .token.regex {
+	color: var(--primidian-syntax-regex);
+}
+
+.markdown-rendered .token.bold {
+	font-weight: var(--primidian-bold-weight);
+}
+
+.markdown-rendered .token.italic {
+	font-style: italic;
+}

@@ -1,0 +1,89 @@
+/* ── COMPONENT · PROPERTIES / FRONTMATTER ──────────────────────────────────
+ * NEW IN PRIMIDIAN. Obsidianite had no properties styling (defect F-17).
+ * ──────────────────────────────────────────────────────────────────────── */
+
+.metadata-container {
+	background-color: var(--primidian-props-bg);
+	border: var(--primidian-border-width) solid var(--primidian-border);
+	border-radius: var(--primidian-props-radius);
+	padding: var(--primidian-space-2) var(--primidian-space-3);
+	margin-block-end: var(--primidian-space-4);
+	font-size: var(--primidian-props-size);
+}
+
+.metadata-properties-heading {
+	color: var(--primidian-text-muted);
+	font-weight: var(--primidian-props-key-weight);
+}
+
+.metadata-property {
+	border-radius: var(--primidian-radius-xs);
+	transition: background-color var(--primidian-motion-fast) var(--primidian-ease-standard);
+}
+
+.metadata-property:hover {
+	background-color: var(--primidian-surface-hover);
+}
+
+.metadata-property-key,
+.metadata-property-key-input {
+	color: var(--primidian-props-key-color);
+	font-weight: var(--primidian-props-key-weight);
+}
+
+.metadata-property-value,
+.metadata-property-value .metadata-input-longtext {
+	color: var(--primidian-props-value-color);
+}
+
+.metadata-property-icon {
+	color: var(--primidian-text-faint);
+}
+
+.metadata-property:hover .metadata-property-icon {
+	color: var(--primidian-accent);
+}
+
+/* Multi-value pills (tags, lists) */
+.metadata-property .multi-select-pill {
+	background-color: var(--primidian-tag-bg);
+	color: var(--primidian-tag-color);
+	border: var(--primidian-border-width) solid var(--primidian-tag-border-color);
+	border-radius: var(--primidian-tag-radius);
+	transition: background-color var(--primidian-motion-fast) var(--primidian-ease-standard);
+}
+
+.metadata-property .multi-select-pill:hover {
+	background-color: var(--primidian-tag-hover-bg);
+}
+
+.metadata-add-button {
+	color: var(--primidian-text-faint);
+	transition: color var(--primidian-motion-fast) var(--primidian-ease-standard);
+}
+
+.metadata-add-button:hover {
+	color: var(--primidian-accent);
+}
+
+/* Checkbox properties reuse the core checkbox component automatically —
+ * another consequence of styling the input rather than a parent. */
+
+/* ── Raw YAML frontmatter (source mode) ───────────────────────────────── */
+
+.markdown-source-view.mod-cm6 .cm-line.HyperMD-frontmatter {
+	background-color: var(--primidian-bg-secondary);
+	color: var(--primidian-text-muted);
+	font-family: var(--primidian-font-monospace);
+	font-size: 0.88em;
+}
+
+.markdown-source-view.mod-cm6 .cm-hmd-frontmatter {
+	color: var(--primidian-text-muted);
+}
+
+.markdown-source-view.mod-cm6 .HyperMD-frontmatter-start,
+.markdown-source-view.mod-cm6 .HyperMD-frontmatter-end {
+	color: var(--primidian-text-faint);
+	border-color: var(--primidian-border);
+}

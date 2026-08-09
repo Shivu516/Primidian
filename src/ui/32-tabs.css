@@ -1,0 +1,229 @@
+/* ── UI · TABS ─────────────────────────────────────────────────────────────
+ *
+ * ╔══════════════════════════════════════════════════════════════════════╗
+ * ║  PHASE 3 · TAB MOTION — CLEAN-ROOM REIMPLEMENTATION                  ║
+ * ╚══════════════════════════════════════════════════════════════════════╝
+ *
+ * Primary was studied to understand WHAT makes its tab interaction feel
+ * good. No Primary CSS was copied; the analysis is recorded in docs/15 and
+ * summarised here so a future maintainer can see the reasoning.
+ *
+ * ── BEHAVIOURS IDENTIFIED IN PRIMARY (technique, not code) ──────────────
+ *
+ *   1. Inactive hover LIFTS the tab a couple of pixels (translateY, up).
+ *   2. Inactive press SINKS it by the same amount (translateY, down).
+ *      Together these read as a physical button, and cost nothing because
+ *      both are compositor-only transforms.
+ *   3. The active tab is a RAISED CARD, expressed with a layered inset
+ *      box-shadow — a light line along the top edge, a darker line along
+ *      the bottom, plus a small drop shadow.
+ *   4. Active emphasis is CO-ORDINATED: container border, icon and title
+ *      all take the same colour simultaneously.
+ *   5. The close button FILLS with that colour on hover and flips its
+ *      glyph to the on-accent colour.
+ *
+ * ── WHAT PRIMIDIAN DOES DIFFERENTLY, AND WHY ────────────────────────────────
+ *
+ *   · Primary rotates through three alternating accent colours by
+ *     :nth-child(3n+1/2/3). That is Primary's own Bauhaus identity and
+ *     would be out of place in Obsidianite's two-accent scheme, so Primidian
+ *     uses a single accent.
+ *   · Primary's transitions are written as
+ *     `transition: border, box-shadow, transform var(--button-anim)` —
+ *     a malformed comma list in which only the LAST segment receives the
+ *     timing function. Primidian writes explicit property/duration/easing
+ *     triplets throughout (perf rule PR-12).
+ *   · Primidian adds an animated indicator wipe, which Primary does not have.
+ *
+ * All motion here is transform / opacity / colour / box-shadow only —
+ * nothing that triggers layout — and every rule respects the global
+ * animation toggle and prefers-reduced-motion via systems/81-motion.css.
+ * ──────────────────────────────────────────────────────────────────────── */
+
+.workspace-tab-header-container {
+	background-color: var(--primidian-bg-primary-alt);
+	border-bottom: var(--primidian-border-width) solid var(--primidian-border);
+}
+
+/* ── Base ─────────────────────────────────────────────────────────────────
+ * `position: relative` establishes the containing block for the indicator.
+ * The transform is declared here (not only on :hover) so the transition
+ * runs in BOTH directions — a detail that separates polished motion from a
+ * hover effect that snaps back. */
+
+.workspace-tab-header {
+	position: relative;
+	opacity: var(--primidian-tab-inactive-opacity);
+	transform: translateY(0);
+	transition: opacity var(--primidian-motion-fast) var(--primidian-ease-standard),
+		transform var(--primidian-motion-fast) var(--primidian-ease-overshoot),
+		background-color var(--primidian-motion-fast) var(--primidian-ease-standard),
+		box-shadow var(--primidian-motion-fast) var(--primidian-ease-standard);
+}
+
+/* ── Inactive: hover lifts, press sinks (behaviours 1 and 2) ──────────── */
+
+.workspace-tab-header:not(.is-active):hover {
+	opacity: 1;
+	transform: translateY(calc(-1 * var(--primidian-tab-lift)));
+}
+
+.workspace-tab-header:not(.is-active):active {
+	transform: translateY(var(--primidian-tab-press));
+	transition-duration: var(--primidian-motion-superfast);
+}
+
+/* ── Active: the raised card (behaviour 3) ────────────────────────────────
+ * A light inset line along the top edge and a shade along the bottom, plus
+ * a small drop shadow. Independently authored values; the technique of
+ * layering insets to fake elevation is a general CSS idiom. */
+
+.workspace-tab-header.is-active {
+	opacity: 1;
+	transform: translateY(0);
+	background-color: var(--primidian-bg-primary);
+	box-shadow: inset 0 1px 0 0 color-mix(in srgb, var(--primidian-accent) 22%, transparent),
+		inset 0 -1px 0 0 color-mix(in srgb, var(--primidian-bg-sunken) 60%, transparent),
+		var(--primidian-shadow-s);
+}
+
+body:not(.primidian-animations-off) .workspace-tab-header.is-active {
+	animation: primidian-tab-activate var(--primidian-motion-fast) var(--primidian-ease-overshoot);
+}
+
+/* ── Inner surface ────────────────────────────────────────────────────── */
+
+.workspace-tab-header-inner {
+	border-radius: var(--primidian-tab-radius);
+	transition: background-color var(--primidian-motion-fast) var(--primidian-ease-standard),
+		color var(--primidian-motion-fast) var(--primidian-ease-standard);
+}
+
+.workspace-tab-header.is-active .workspace-tab-header-inner {
+	background-color: var(--primidian-surface-active);
+}
+
+.workspace-tab-header:not(.is-active):hover .workspace-tab-header-inner {
+	background-color: var(--primidian-surface-hover);
+}
+
+/* ── Co-ordinated active emphasis (behaviour 4) ───────────────────────── */
+
+.workspace-tab-header-inner-icon,
+.workspace-tab-header-inner-title {
+	transition: color var(--primidian-motion-fast) var(--primidian-ease-standard);
+}
+
+.workspace-tab-header.is-active .workspace-tab-header-inner-icon,
+.workspace-tab-header.is-active .workspace-tab-header-inner-title {
+	color: var(--primidian-accent);
+}
+
+.workspace-tab-header:not(.is-active):hover .workspace-tab-header-inner-title,
+.workspace-tab-header:not(.is-active):hover .workspace-tab-header-inner-icon {
+	color: var(--primidian-text-normal);
+}
+
+/* ── Active indicator ─────────────────────────────────────────────────────
+ * Wipes out from the centre on activation via scaleX. Primidian's own addition;
+ * Primary has no equivalent. scaleX is compositor-only. */
+
+.workspace-tabs .workspace-tab-header.is-active::after {
+	content: '';
+	position: absolute;
+	inset: auto var(--primidian-tab-indicator-inset) 0 var(--primidian-tab-indicator-inset);
+	height: var(--primidian-tab-indicator-height);
+	border-radius: var(--primidian-radius-pill);
+	background-color: var(--primidian-accent);
+	transform: scaleX(1);
+	transform-origin: center;
+	pointer-events: none;
+}
+
+body:not(.primidian-animations-off) .workspace-tabs .workspace-tab-header.is-active::after {
+	animation: primidian-tab-indicator-in var(--primidian-motion-moderate)
+		var(--primidian-ease-overshoot);
+}
+
+/* Sidebar tabs are icon-only and narrow; a bottom indicator reads as noise. */
+.mod-left-split .workspace-tab-header.is-active::after,
+.mod-right-split .workspace-tab-header.is-active::after {
+	display: none;
+}
+
+/* ── Close button and status icon (behaviour 5) ───────────────────────────
+ * Hidden until the tab is hovered or active, then fills with the accent. */
+
+.workspace-tab-header-inner-close-button,
+.workspace-tab-header-status-icon {
+	border-radius: var(--primidian-radius-xs);
+	opacity: 0;
+	transform: scale(0.85);
+	transition: opacity var(--primidian-motion-fast) var(--primidian-ease-standard),
+		transform var(--primidian-motion-fast) var(--primidian-ease-overshoot),
+		background-color var(--primidian-motion-superfast) var(--primidian-ease-standard),
+		color var(--primidian-motion-superfast) var(--primidian-ease-standard);
+}
+
+.workspace-tab-header:hover .workspace-tab-header-inner-close-button,
+.workspace-tab-header.is-active .workspace-tab-header-inner-close-button,
+.workspace-tab-header:hover .workspace-tab-header-status-icon,
+.workspace-tab-header.is-active .workspace-tab-header-status-icon {
+	opacity: 1;
+	transform: scale(1);
+}
+
+.workspace-tab-header-inner-close-button:hover,
+.workspace-tab-header-status-icon:hover {
+	color: var(--primidian-text-on-accent);
+	background-color: var(--primidian-accent);
+}
+
+.workspace-tab-header-inner-close-button:active,
+.workspace-tab-header-status-icon:active {
+	color: var(--primidian-text-on-accent);
+	background-color: var(--primidian-accent-hover);
+	transform: scale(0.9);
+}
+
+/* Mobile: no hover, so the close button must always be reachable. */
+body.is-mobile .workspace-tab-header-inner-close-button {
+	opacity: 1;
+	transform: scale(1);
+}
+
+/* ── New-tab button ───────────────────────────────────────────────────── */
+
+.workspace-tab-header-new-tab,
+.workspace-tab-header-tab-list {
+	transition: color var(--primidian-motion-fast) var(--primidian-ease-standard),
+		transform var(--primidian-motion-fast) var(--primidian-ease-overshoot);
+}
+
+.workspace-tab-header-new-tab:hover,
+.workspace-tab-header-tab-list:hover {
+	color: var(--primidian-accent);
+	transform: translateY(calc(-1 * var(--primidian-tab-lift)));
+}
+
+.workspace-tab-header-new-tab .workspace-tab-header-inner-icon:hover {
+	color: var(--primidian-accent);
+}
+
+/* ── Granular opt-out ─────────────────────────────────────────────────────
+ * Removes the lift/sink and the entry animations while keeping colour
+ * feedback, for users who want a calmer tab bar without disabling all
+ * theme motion. */
+
+body.primidian-anim-no-tabs .workspace-tab-header,
+body.primidian-anim-no-tabs .workspace-tab-header:not(.is-active):hover,
+body.primidian-anim-no-tabs .workspace-tab-header:not(.is-active):active,
+body.primidian-anim-no-tabs .workspace-tab-header-new-tab:hover,
+body.primidian-anim-no-tabs .workspace-tab-header-tab-list:hover {
+	transform: none;
+}
+
+body.primidian-anim-no-tabs .workspace-tab-header.is-active,
+body.primidian-anim-no-tabs .workspace-tabs .workspace-tab-header.is-active::after {
+	animation: none;
+}

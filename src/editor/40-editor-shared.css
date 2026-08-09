@@ -1,0 +1,78 @@
+/* ── EDITOR · SHARED ───────────────────────────────────────────────────────
+ *
+ * Rules valid in BOTH Live Preview and Reading Mode.
+ *
+ * Obsidianite kept two divergent implementations for most components, which
+ * is why its code blocks looked different in each mode (defect F-9). Primidian
+ * puts everything mode-agnostic here and keeps 41/42 for genuine mode
+ * differences only.
+ * ──────────────────────────────────────────────────────────────────────── */
+
+.markdown-source-view,
+.markdown-reading-view,
+.markdown-preview-view {
+	background-color: var(--primidian-bg-primary);
+}
+
+/* Content width */
+.markdown-source-view.mod-cm6 .cm-contentContainer,
+.markdown-preview-sizer {
+	max-width: var(--primidian-content-width);
+}
+
+/* ── Images & media ───────────────────────────────────────────────────── */
+
+.markdown-rendered img,
+.markdown-rendered video,
+.cm-s-obsidian img {
+	border-radius: var(--primidian-image-radius);
+	max-width: 100%;
+}
+
+/* ── Footnotes ────────────────────────────────────────────────────────── */
+
+.markdown-rendered sup.footnote-ref a,
+.cm-s-obsidian .cm-footref {
+	color: var(--primidian-accent);
+	text-decoration: none;
+	font-weight: var(--primidian-font-weight-medium);
+}
+
+.markdown-rendered .footnotes {
+	border-top: var(--primidian-border-width) solid var(--primidian-border);
+	color: var(--primidian-text-muted);
+	font-size: 0.9em;
+}
+
+/* ── Math ─────────────────────────────────────────────────────────────── */
+
+.math,
+mjx-container {
+	color: var(--primidian-text-normal);
+}
+
+.markdown-rendered mjx-container[display='true'] {
+	padding: var(--primidian-space-2) 0;
+}
+
+/* ── Frontmatter (raw YAML view) ──────────────────────────────────────── */
+
+.cm-s-obsidian .cm-def,
+.cm-s-obsidian .cm-atom {
+	color: var(--primidian-text-muted);
+}
+
+.cm-s-obsidian .cm-meta {
+	color: var(--primidian-accent);
+}
+
+.cm-s-obsidian .cm-string {
+	color: var(--primidian-accent-alt);
+}
+
+/* ── Horizontal scroll containers ─────────────────────────────────────── */
+
+.markdown-rendered .block-language-dataview,
+.markdown-rendered .table-wrapper {
+	border-radius: var(--primidian-radius-m);
+}

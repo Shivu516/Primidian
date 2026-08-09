@@ -1,0 +1,127 @@
+/* ── COMPONENT · HEADINGS ──────────────────────────────────────────────────
+ *
+ * Base implementation. Variant-specific decoration lives in
+ * src/variants/71-variants-headings.css and only reassigns tokens.
+ *
+ * FIX F-8: targets .markdown-rendered (all reading contexts) rather than
+ *          Obsidianite's .markdown-preview-section (main pane only).
+ * FIX F-13: Obsidianite used `border-width: 35%`, which is invalid CSS and
+ *          was silently discarded. Primidian uses a real length token.
+ * ──────────────────────────────────────────────────────────────────────── */
+
+.markdown-rendered :is(h1, h2, h3, h4, h5, h6),
+.markdown-source-view.mod-cm6 .HyperMD-header {
+	font-family: var(--primidian-font-text);
+	position: relative;
+	margin-block-start: var(--primidian-h-margin-top);
+	margin-block-end: var(--primidian-h-margin-bottom);
+}
+
+/* Live Preview headings keep the editor's own line box; only vertical
+ * rhythm is applied so the two modes agree. Obsidianite applied 20px of
+ * padding on all four sides here, causing a visible jump between modes. */
+.markdown-source-view.mod-cm6 .HyperMD-header {
+	padding-block: 0.15em;
+}
+
+/* ── Per-level sizing and colour ──────────────────────────────────────── */
+
+.markdown-rendered h1,
+.markdown-source-view.mod-cm6 .cm-header-1 {
+	font-size: var(--primidian-h1-size);
+	font-weight: var(--primidian-h1-weight);
+	letter-spacing: var(--primidian-h1-spacing);
+	text-transform: var(--primidian-h1-transform);
+	color: var(--primidian-h1-color);
+}
+
+.markdown-rendered h2,
+.markdown-source-view.mod-cm6 .cm-header-2 {
+	font-size: var(--primidian-h2-size);
+	font-weight: var(--primidian-h2-weight);
+	letter-spacing: var(--primidian-h2-spacing);
+	text-transform: var(--primidian-h2-transform);
+	color: var(--primidian-h2-color);
+}
+
+.markdown-rendered h3,
+.markdown-source-view.mod-cm6 .cm-header-3 {
+	font-size: var(--primidian-h3-size);
+	font-weight: var(--primidian-h3-weight);
+	letter-spacing: var(--primidian-h3-spacing);
+	text-transform: var(--primidian-h3-transform);
+	color: var(--primidian-h3-color);
+}
+
+.markdown-rendered h4,
+.markdown-source-view.mod-cm6 .cm-header-4 {
+	font-size: var(--primidian-h4-size);
+	font-weight: var(--primidian-h4-weight);
+	letter-spacing: var(--primidian-h4-spacing);
+	text-transform: var(--primidian-h4-transform);
+	color: var(--primidian-h4-color);
+}
+
+.markdown-rendered h5,
+.markdown-source-view.mod-cm6 .cm-header-5 {
+	font-size: var(--primidian-h5-size);
+	font-weight: var(--primidian-h5-weight);
+	letter-spacing: var(--primidian-h5-spacing);
+	text-transform: var(--primidian-h5-transform);
+	color: var(--primidian-h5-color);
+}
+
+.markdown-rendered h6,
+.markdown-source-view.mod-cm6 .cm-header-6 {
+	font-size: var(--primidian-h6-size);
+	font-weight: var(--primidian-h6-weight);
+	letter-spacing: var(--primidian-h6-spacing);
+	text-transform: var(--primidian-h6-transform);
+	color: var(--primidian-h6-color);
+}
+
+/* ── Underline (variant-driven) ───────────────────────────────────────────
+ * Rendered as a pseudo-element rather than border-image so that the
+ * gradient can fade to `transparent` instead of to a hard-coded background
+ * colour. Obsidianite baked #100e17 into its gradient, which broke whenever
+ * the user changed the background. */
+
+.markdown-rendered :is(h2, h3, h4, h5, h6)::after,
+.markdown-source-view.mod-cm6 :is(.HyperMD-header-2, .HyperMD-header-3, .HyperMD-header-4, .HyperMD-header-5, .HyperMD-header-6)::after {
+	content: '';
+	display: var(--primidian-h-underline-display);
+	position: absolute;
+	left: 0;
+	right: 0;
+	bottom: calc(-1 * var(--primidian-h-underline-padding));
+	height: var(--primidian-h-underline-width);
+	background-image: var(--primidian-h-underline-image);
+	background-color: transparent;
+	pointer-events: none;
+}
+
+/* ── Accent bar (variant-driven) ──────────────────────────────────────── */
+
+.markdown-rendered :is(h1, h2, h3, h4, h5, h6)::before {
+	content: '';
+	display: var(--primidian-h-bar-display);
+	position: absolute;
+	left: calc(-1 * (var(--primidian-h-bar-width) + var(--primidian-space-3)));
+	top: 0.15em;
+	bottom: 0.15em;
+	width: var(--primidian-h-bar-width);
+	border-radius: var(--primidian-radius-pill);
+	background-color: var(--primidian-h-marker-color);
+	pointer-events: none;
+}
+
+/* ── Headings in constrained contexts ─────────────────────────────────────
+ * Embeds, popovers and Canvas cards are small; full heading margins would
+ * dominate them. */
+
+.markdown-embed .markdown-rendered :is(h1, h2, h3, h4, h5, h6),
+.hover-popover .markdown-rendered :is(h1, h2, h3, h4, h5, h6),
+.canvas-node-content .markdown-rendered :is(h1, h2, h3, h4, h5, h6) {
+	margin-block-start: 0.6em;
+	margin-block-end: 0.4em;
+}

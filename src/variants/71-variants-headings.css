@@ -1,0 +1,80 @@
+/* ── VARIANTS · HEADINGS ───────────────────────────────────────────────────
+ * Same contract as dividers: reassign tokens only.
+ * ──────────────────────────────────────────────────────────────────────── */
+
+/* ── Obsidianite (default) ────────────────────────────────────────────────
+ * H1 is accent-coloured with no rule; H2-H6 carry the magenta underline
+ * fading to transparent. This is the stock Obsidianite signature.
+ *
+ * Note the gradient terminates in `transparent`, not a hard-coded #100e17
+ * as Obsidianite did — so it survives the user changing the background. */
+
+body.primidian-heading-obsidianite {
+	--primidian-h-underline-display: block;
+	--primidian-h-underline-image: linear-gradient(
+		to right,
+		var(--primidian-h-underline-color),
+		transparent 55%
+	);
+	--primidian-h-bar-display: none;
+}
+
+/* ── Minimal · size and weight only ───────────────────────────────────── */
+
+body.primidian-heading-minimal {
+	--primidian-h-underline-display: none;
+	--primidian-h-bar-display: none;
+	--primidian-h-margin-top: 1.5em;
+	--primidian-h-margin-bottom: 0.5em;
+}
+
+/* ── Gradient · gradient-clipped heading text ─────────────────────────────
+ * Gated behind the gradient master switch. Falls back to the solid
+ * per-level colour when gradients are off, because that colour is always
+ * declared in the base file. */
+
+body.primidian-heading-gradient {
+	--primidian-h-underline-display: none;
+	--primidian-h-bar-display: none;
+}
+
+body.primidian-heading-gradient:not(.primidian-gradients-off) .markdown-rendered :is(h1, h2, h3) {
+	background-image: var(--primidian-h-gradient);
+	-webkit-background-clip: text;
+	background-clip: text;
+	-webkit-text-fill-color: transparent;
+	width: fit-content;
+}
+
+/* a11y + Bug #2 defence: nested inline elements must not inherit the
+ * transparent fill. Same reset pattern as 53-emphasis.css. */
+body.primidian-heading-gradient
+	.markdown-rendered
+	:is(h1, h2, h3)
+	:is(code, kbd, mark, a, .tag, .math) {
+	-webkit-text-fill-color: initial;
+	background-image: none;
+	-webkit-background-clip: initial;
+	background-clip: initial;
+}
+
+/* ── Bordered · uniform full-width rule, documentation style ──────────── */
+
+body.primidian-heading-bordered {
+	--primidian-h-underline-display: block;
+	--primidian-h-underline-image: linear-gradient(
+		to right,
+		var(--primidian-h-underline-color),
+		var(--primidian-h-underline-color)
+	);
+	--primidian-h-bar-display: none;
+	--primidian-h-underline-width: 1px;
+}
+
+/* ── Accent Bar · a short vertical bar to the left ────────────────────── */
+
+body.primidian-heading-accentbar {
+	--primidian-h-underline-display: none;
+	--primidian-h-bar-display: block;
+	--primidian-h-bar-width: 3px;
+}

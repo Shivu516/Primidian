@@ -1,0 +1,55 @@
+/*
+ * ══════════════════════════════════════════════════════════════════════════
+ *
+ *   ██████╗ ██████╗ ██╗███╗   ███╗██╗██████╗ ██╗ █████╗ ███╗   ██╗
+ *   ██╔══██╗██╔══██╗██║████╗ ████║██║██╔══██╗██║██╔══██╗████╗  ██║
+ *   ██████╔╝██████╔╝██║██╔████╔██║██║██║  ██║██║███████║██╔██╗ ██║
+ *   ██╔═══╝ ██╔══██╗██║██║╚██╔╝██║██║██║  ██║██║██╔══██║██║╚██╗██║
+ *   ██║     ██║  ██║██║██║ ╚═╝ ██║██║██████╔╝██║██║  ██║██║ ╚████║
+ *   ╚═╝     ╚═╝  ╚═╝╚═╝╚═╝     ╚═╝╚═╝╚═════╝ ╚═╝╚═╝  ╚═╝╚═╝  ╚═══╝
+ *
+ *   PRIMIDIAN  ·  v1.1.0
+ *   Obsidianite's visual identity, engineered.
+ *
+ * ══════════════════════════════════════════════════════════════════════════
+ *
+ *   Licensed under the MIT License. See LICENSE.
+ *
+ *   ── VISUAL FOUNDATION ───────────────────────────────────────────────────
+ *   Derived from OBSIDIANITE by Benny Guo (bennyxguo) — MIT License.
+ *       https://github.com/bennyxguo/Obsidian-Obsidianite
+ *   Portions of this theme's visual design and CSS are adapted from
+ *   Obsidianite under the terms of the MIT License.
+ *
+ *   ── DESIGN INSPIRATION ──────────────────────────────────────────────────
+ *   Primidian's token architecture, animation system and customisation
+ *   approach were INSPIRED BY the excellent work in PRIMARY by Cecilia May
+ *   (@ceciliamay) — GPLv3.
+ *       https://github.com/primary-theme/obsidian
+ *       https://ko-fi.com/ceciliamay
+ *
+ *   NO CODE FROM PRIMARY IS INCLUDED IN THIS THEME. All Primary-inspired
+ *   functionality was independently reimplemented. Please support Cecilia's
+ *   work at the Ko-fi link above.
+ *
+ *   ── PLUGIN COMPATIBILITY ────────────────────────────────────────────────
+ *   Style Settings      — mgmeyers (MIT)
+ *   Task List Kanban    — Chris Kerr & Erika Rice Scherpelz
+ *
+ *   ── ARCHITECTURE ────────────────────────────────────────────────────────
+ *   Tier 1  --primidian-c-*   primitives   (src/tokens/10)
+ *   Tier 2  --primidian-*     semantic     (src/tokens/11-13)
+ *   Tier 3  --primidian-<c>-* component    (src/tokens/14)
+ *   Tier 4  Obsidian vars bridge       (src/tokens/15)
+ *
+ *   THE PRIMIDIAN DIRECTIVE
+ *   Every themeable value is a custom property declared at body /
+ *   .theme-dark / .theme-light and consumed via var(). Style Settings
+ *   injects at body.css-settings-manager (0,2,1) — defaults declared above
+ *   that specificity, or with !important, become uncustomisable.
+ *
+ *   DO NOT EDIT theme.css DIRECTLY — it is generated.
+ *   Edit src/ and run `npm run build`.
+ *
+ * ══════════════════════════════════════════════════════════════════════════
+ */

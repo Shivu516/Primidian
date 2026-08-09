@@ -1,0 +1,235 @@
+/* ── COMPONENT · CODE BLOCKS ───────────────────────────────────────────────
+ *
+ * FIX F-9: Obsidianite had two divergent implementations — Live Preview used
+ *   #191621 while Reading Mode used the vendored Dracula's rgb(40,41,54).
+ *   The same code block looked different in each mode. Primidian drives both
+ *   from a single --primidian-code-bg token.
+ *
+ * FIX (upstream issue #44): Obsidianite painted a fake rounded top corner
+ *   with an absolutely-positioned ::before on .HyperMD-codeblock-begin-bg.
+ *   That rectangle covered the first line of code in Live Preview. Primidian
+ *   uses border-radius on the real container; the pseudo-element is gone.
+ *
+ * FIX F-10: the `pre[class$='javascript']:before` language-label trick never
+ *   matched modern Obsidian output ([class$=] tests the END of the whole
+ *   class attribute, and Obsidian emits e.g. "language-js is-loaded").
+ *   Removed. Language labels are a documented future milestone; Primidian styles
+ *   Obsidian's native .code-block-flair instead.
+ *
+ * DECISION G-4: the vendored Prism-Dracula block is NOT carried over. Syntax
+ *   colours are re-derived from the Primidian palette in 56-syntax.css.
+ * ──────────────────────────────────────────────────────────────────────── */
+
+/* ── Reading Mode ─────────────────────────────────────────────────────── */
+
+.markdown-rendered pre {
+	position: relative;
+	background-color: var(--primidian-code-bg);
+	border: var(--primidian-code-border-width) solid var(--primidian-code-border);
+	border-radius: var(--primidian-code-radius);
+	padding: var(--primidian-code-padding);
+	margin-block: 1em;
+	overflow: auto;
+}
+
+.markdown-rendered pre > code {
+	background-color: transparent;
+	color: var(--primidian-code-color);
+	font-family: var(--primidian-font-monospace);
+	font-size: var(--primidian-code-size);
+	line-height: var(--primidian-code-line-height);
+	padding: 0;
+	border: none;
+	border-radius: 0;
+	/* Reset any inherited gradient clipping (Bug #2 defence). */
+	-webkit-text-fill-color: initial;
+	background-image: none;
+	-webkit-background-clip: initial;
+	background-clip: initial;
+}
+
+/* ── Live Preview ─────────────────────────────────────────────────────── */
+
+.markdown-source-view.mod-cm6 .HyperMD-codeblock {
+	background-color: var(--primidian-code-bg);
+	color: var(--primidian-code-color);
+	font-family: var(--primidian-font-monospace);
+	font-size: var(--primidian-code-size);
+	line-height: var(--primidian-code-line-height);
+	padding-inline: var(--primidian-code-padding);
+	border-left: var(--primidian-code-border-width) solid var(--primidian-code-border);
+	border-right: var(--primidian-code-border-width) solid var(--primidian-code-border);
+}
+
+.markdown-source-view.mod-cm6 .HyperMD-codeblock-begin {
+	border-top: var(--primidian-code-border-width) solid var(--primidian-code-border);
+	border-top-left-radius: var(--primidian-code-radius);
+	border-top-right-radius: var(--primidian-code-radius);
+	padding-top: 0.4em;
+}
+
+.markdown-source-view.mod-cm6 .HyperMD-codeblock-end {
+	border-bottom: var(--primidian-code-border-width) solid var(--primidian-code-border);
+	border-bottom-left-radius: var(--primidian-code-radius);
+	border-bottom-right-radius: var(--primidian-code-radius);
+	padding-bottom: 0.4em;
+}
+
+/* The fence delimiters themselves */
+.cm-s-obsidian .cm-formatting-code-block {
+	color: var(--primidian-text-faint);
+	opacity: 0.55;
+}
+
+/* ── Language flair ───────────────────────────────────────────────────────
+ * Obsidian's own native language indicator. Primidian styles it; it does not
+ * attempt to synthesise labels. */
+
+.markdown-source-view.mod-cm6 .code-block-flair,
+.markdown-rendered .code-block-flair {
+	color: var(--primidian-code-flair-color);
+	background-color: var(--primidian-code-flair-bg);
+	border: var(--primidian-border-width) solid var(--primidian-border);
+	border-radius: var(--primidian-code-flair-radius);
+	font-family: var(--primidian-font-interface);
+	font-size: var(--primidian-code-flair-size);
+	font-weight: var(--primidian-font-weight-semibold);
+	text-transform: uppercase;
+	letter-spacing: 0.04em;
+	padding: 0.15em 0.7em;
+	opacity: 0.85;
+	transition: opacity var(--primidian-motion-fast) var(--primidian-ease-standard);
+}
+
+.markdown-source-view.mod-cm6 .code-block-flair:hover,
+.markdown-rendered .code-block-flair:hover {
+	opacity: 1;
+}
+
+body.primidian-no-code-flair .code-block-flair {
+	display: none;
+}
+
+/* ── Copy button ──────────────────────────────────────────────────────────
+ * Styled only — Obsidian provides the button. Advanced copy-button features
+ * are a documented future milestone. */
+
+.markdown-rendered button.copy-code-button {
+	color: var(--primidian-text-muted);
+	background-color: var(--primidian-bg-primary-alt);
+	border: var(--primidian-border-width) solid var(--primidian-border);
+	border-radius: var(--primidian-radius-s);
+	font-size: 0.72em;
+	opacity: 0;
+	transition: opacity var(--primidian-motion-fast) var(--primidian-ease-standard),
+		color var(--primidian-motion-fast) var(--primidian-ease-standard);
+}
+
+.markdown-rendered pre:hover button.copy-code-button {
+	opacity: 1;
+}
+
+.markdown-rendered button.copy-code-button:hover {
+	color: var(--primidian-accent);
+}
+
+/* ── Indented (non-fenced) code ───────────────────────────────────────── */
+
+.cm-s-obsidian .cm-hmd-indented-code {
+	color: var(--primidian-code-color);
+	font-family: var(--primidian-font-monospace);
+}
+
+/* ══════════════════════════════════════════════════════════════════════════
+ *  PHASE 6 · CODE BLOCK LINE NUMBERS
+ * ══════════════════════════════════════════════════════════════════════════
+ *
+ * ── DOM INVESTIGATION (done before implementing, per instruction) ───────
+ *
+ * LIVE PREVIEW (CodeMirror 6)
+ *   Every source line is its own element:
+ *       <div class="cm-line HyperMD-codeblock HyperMD-codeblock-bg">…</div>
+ *   with .HyperMD-codeblock-begin / -end marking the ``` fences.
+ *   Discrete sibling elements → CSS counters work reliably.        ✅
+ *
+ * READING MODE (Prism)
+ *   Obsidian emits ONE text node containing newline characters:
+ *       <pre><code class="language-js">line1\nline2\nline3</code></pre>
+ *   There is no per-line element. CSS counters increment per ELEMENT, and
+ *   there is no selector that can address a line of text inside a text
+ *   node. CSS-only line numbering is therefore STRUCTURALLY IMPOSSIBLE
+ *   here — not merely difficult.                                    ❌
+ *
+ *   Corroborating evidence: Obsidianite shipped ~40 lines of Prism
+ *   line-number CSS (its lines 1442-1481) targeting
+ *   `.line-numbers-rows > span`. That DOM is generated by the Prism
+ *   line-numbers JAVASCRIPT plugin, which Obsidian does not bundle. The
+ *   selectors never matched anything, which is why the feature never
+ *   worked in Obsidianite either. Primidian does not repeat that mistake.
+ *
+ *   Approaches considered and rejected for Reading Mode:
+ *     · repeating-linear-gradient "ruler" — cannot show digits, and
+ *       desynchronises the moment a line wraps
+ *     · ::before with a hard-coded digit string — wrong for any length
+ *     · counters on .token spans — tokens do not map 1:1 to lines
+ *   Each is a fragile hack. Per the instruction, the limitation is
+ *   documented instead. A future release may add numbering via a small
+ *   companion snippet or by shipping the Prism plugin.
+ *
+ * ── WHAT THIS IMPLEMENTATION DOES NOT TOUCH ─────────────────────────────
+ *   syntax highlighting · scrolling · wrapping · copy button ·
+ *   language flair · plugin-rendered blocks · the code text itself
+ *
+ * The numbers are drawn on a ::before pseudo-element of each code line and
+ * are `user-select: none`, so selecting and copying code yields the code
+ * only — never the numbers.
+ * ────────────────────────────────────────────────────────────────────── */
+
+body.primidian-linenum-on .markdown-source-view.mod-cm6 .HyperMD-codeblock-begin {
+	counter-reset: primidian-codeline;
+}
+
+body.primidian-linenum-on
+	.markdown-source-view.mod-cm6
+	.HyperMD-codeblock:not(.HyperMD-codeblock-begin):not(.HyperMD-codeblock-end) {
+	counter-increment: primidian-codeline;
+	/* Reserve the gutter. This selector is (0,6,1) versus the base block
+	 * rule's (0,3,0), so it wins on specificity alone — no !important. */
+	padding-inline-start: calc(
+		var(--primidian-code-padding) + var(--primidian-linenum-width) + var(--primidian-linenum-gap)
+	);
+	position: relative;
+}
+
+body.primidian-linenum-on
+	.markdown-source-view.mod-cm6
+	.HyperMD-codeblock:not(.HyperMD-codeblock-begin):not(.HyperMD-codeblock-end)::before {
+	content: counter(primidian-codeline);
+	position: absolute;
+	left: var(--primidian-code-padding);
+	width: var(--primidian-linenum-width);
+	text-align: right;
+	color: var(--primidian-linenum-color);
+	opacity: var(--primidian-linenum-opacity);
+	font-family: var(--primidian-font-monospace);
+	font-size: var(--primidian-linenum-size);
+	font-variant-numeric: tabular-nums;
+	line-height: inherit;
+	user-select: none;
+	-webkit-user-select: none;
+	pointer-events: none;
+}
+
+/* Optional separator rule between gutter and code. */
+body.primidian-linenum-on
+	.markdown-source-view.mod-cm6
+	.HyperMD-codeblock:not(.HyperMD-codeblock-begin):not(.HyperMD-codeblock-end)::after {
+	content: '';
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	left: calc(var(--primidian-code-padding) + var(--primidian-linenum-width) + var(--primidian-linenum-gap) / 2);
+	width: var(--primidian-linenum-divider-width);
+	background-color: var(--primidian-code-border);
+	pointer-events: none;
+}

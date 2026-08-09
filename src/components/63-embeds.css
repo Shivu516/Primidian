@@ -1,0 +1,94 @@
+/* ── COMPONENT · EMBEDS & TRANSCLUSIONS ────────────────────────────────────
+ * NEW IN PRIMIDIAN. Obsidianite had no embed styling (defect F-17).
+ *
+ * Note that embed CONTENT is styled automatically, because every Primidian
+ * component targets `.markdown-rendered` rather than `.markdown-preview-view`
+ * (see src/editor/42). This file styles the embed CONTAINER only.
+ * ──────────────────────────────────────────────────────────────────────── */
+
+.markdown-rendered .markdown-embed,
+.markdown-rendered .file-embed {
+	background-color: var(--primidian-embed-bg);
+	border: var(--primidian-embed-border-width) solid var(--primidian-embed-border-color);
+	border-left-width: var(--primidian-quote-border-width);
+	border-left-color: var(--primidian-accent-muted);
+	border-radius: var(--primidian-embed-radius);
+	padding: var(--primidian-embed-padding);
+	margin-block: 0.8em;
+	transition: border-color var(--primidian-motion-fast) var(--primidian-ease-standard);
+}
+
+.markdown-rendered .markdown-embed:hover {
+	border-color: var(--primidian-border-hover);
+	border-left-color: var(--primidian-accent);
+}
+
+.markdown-rendered .markdown-embed-title,
+.markdown-rendered .embed-title {
+	color: var(--primidian-embed-title-color);
+	font-size: var(--primidian-embed-title-size);
+	font-weight: var(--primidian-embed-title-weight);
+	line-height: 1.5;
+	padding-bottom: var(--primidian-space-1);
+	border-bottom: var(--primidian-border-width) solid var(--primidian-border);
+	margin-bottom: var(--primidian-space-2);
+	text-align: left;
+}
+
+.markdown-rendered .markdown-embed-title:empty,
+.markdown-rendered .embed-title:empty {
+	display: none;
+}
+
+.markdown-rendered .markdown-embed-link,
+.markdown-rendered .file-embed-link {
+	color: var(--primidian-text-faint);
+	opacity: 0;
+	transition: opacity var(--primidian-motion-fast) var(--primidian-ease-standard),
+		color var(--primidian-motion-fast) var(--primidian-ease-standard);
+}
+
+.markdown-rendered .markdown-embed:hover .markdown-embed-link,
+.markdown-rendered .file-embed:hover .file-embed-link {
+	opacity: 1;
+}
+
+.markdown-rendered .markdown-embed-link:hover {
+	color: var(--primidian-accent);
+}
+
+/* Embedded content should not re-apply the outer note's top margin */
+.markdown-rendered .markdown-embed-content > .markdown-preview-view,
+.markdown-rendered .markdown-embed-content .markdown-rendered > *:first-child {
+	margin-block-start: 0;
+	padding: 0;
+}
+
+/* ── Unresolved / broken embeds ───────────────────────────────────────── */
+
+.markdown-rendered .markdown-embed.is-loaded:empty::after,
+.markdown-rendered .file-embed.mod-empty {
+	color: var(--primidian-text-faint);
+	font-style: italic;
+}
+
+/* ── Live Preview inline embeds ───────────────────────────────────────── */
+
+.markdown-source-view.mod-cm6 .internal-embed {
+	border-radius: var(--primidian-embed-radius);
+}
+
+/* ── Canvas cards ─────────────────────────────────────────────────────── */
+
+.canvas-node-content {
+	border-radius: var(--primidian-radius-m);
+}
+
+.canvas-node-container {
+	border-radius: var(--primidian-radius-m);
+	border-color: var(--primidian-border);
+}
+
+.canvas-node.is-selected .canvas-node-container {
+	border-color: var(--primidian-accent);
+}

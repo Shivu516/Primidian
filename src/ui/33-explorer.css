@@ -1,0 +1,110 @@
+/* ── UI · FILE EXPLORER, SEARCH, OUTLINE, BACKLINKS ────────────────────── */
+
+.nav-file-title,
+.nav-folder-title {
+	border: var(--primidian-border-width) solid transparent;
+	border-radius: var(--primidian-radius-s);
+	color: var(--primidian-text-muted);
+	transition: color var(--primidian-motion-fast) var(--primidian-ease-standard),
+		background-color var(--primidian-motion-fast) var(--primidian-ease-standard),
+		border-color var(--primidian-motion-fast) var(--primidian-ease-standard);
+}
+
+body:not(.is-grabbing) .nav-file-title:hover,
+body:not(.is-grabbing) .nav-folder-title:hover {
+	color: var(--primidian-accent);
+	background-color: var(--primidian-surface-hover);
+	border-color: var(--primidian-border-hover);
+}
+
+.nav-file-title.is-active,
+.nav-folder-title.is-active,
+.tree-item-self.is-active {
+	color: var(--primidian-accent);
+	background-color: var(--primidian-surface-selected);
+	border-color: var(--primidian-border-strong);
+}
+
+.nav-folder.mod-root > .nav-folder-title {
+	color: var(--primidian-accent);
+	font-weight: var(--primidian-font-weight-semibold);
+}
+
+.nav-folder-collapse-indicator,
+.tree-item-icon.collapse-icon {
+	color: var(--primidian-accent);
+	transition: transform var(--primidian-motion-fast) var(--primidian-ease-standard),
+		color var(--primidian-motion-fast) var(--primidian-ease-standard);
+}
+
+.nav-file-tag {
+	color: var(--primidian-accent);
+	background-color: var(--primidian-tag-bg);
+	border-radius: var(--primidian-radius-xs);
+}
+
+/* ── Search ───────────────────────────────────────────────────────────── */
+
+.search-input-container input,
+.search-input-container input:active,
+.search-input-container input:focus {
+	border-radius: var(--primidian-input-radius);
+	background-color: var(--primidian-bg-secondary);
+	transition: box-shadow var(--primidian-motion-fast) var(--primidian-ease-standard),
+		background-color var(--primidian-motion-fast) var(--primidian-ease-standard);
+}
+
+.search-result-file-title {
+	color: var(--primidian-accent);
+	font-weight: var(--primidian-font-weight-medium);
+}
+
+.search-result-file-match {
+	border-radius: var(--primidian-radius-s);
+	transition: background-color var(--primidian-motion-fast) var(--primidian-ease-standard);
+}
+
+.search-result-file-match:hover {
+	background-color: var(--primidian-surface-hover);
+}
+
+.search-result-file-matched-text,
+.suggestion-highlight {
+	color: var(--primidian-highlight-text);
+	background-color: var(--primidian-search-bg);
+	border-radius: var(--primidian-radius-xs);
+}
+
+.tree-item-flair,
+.pane-list-item-ending-flair {
+	color: var(--primidian-text-faint);
+	transition: color var(--primidian-motion-fast) var(--primidian-ease-standard);
+}
+
+.tree-item-self:hover .tree-item-flair {
+	color: var(--primidian-accent);
+}
+
+/* ── Outline & backlinks ──────────────────────────────────────────────── */
+
+.outline .tree-item-inner,
+.backlink-pane .tree-item-inner {
+	color: var(--primidian-text-muted);
+}
+
+.outline .tree-item-self:hover .tree-item-inner,
+.backlink-pane .tree-item-self:hover .tree-item-inner {
+	color: var(--primidian-accent);
+}
+
+/* ── Tag pane ─────────────────────────────────────────────────────────── */
+
+.tag-pane-tag-text {
+	color: var(--primidian-accent);
+}
+
+.tag-pane-tag-count {
+	color: var(--primidian-text-faint);
+	background-color: var(--primidian-bg-secondary);
+	border-radius: var(--primidian-radius-pill);
+}

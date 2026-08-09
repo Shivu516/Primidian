@@ -1,0 +1,58 @@
+/* ── BASE · TYPOGRAPHY ─────────────────────────────────────────────────── */
+
+body {
+	--font-text: var(--primidian-font-text);
+	--font-interface: var(--primidian-font-interface);
+	--font-monospace: var(--primidian-font-monospace);
+	font-family: var(--primidian-font-interface);
+}
+
+.markdown-rendered,
+.markdown-source-view.mod-cm6 .cm-scroller,
+.markdown-preview-view {
+	font-family: var(--primidian-font-text);
+	font-size: var(--primidian-font-size);
+	font-weight: var(--primidian-font-weight);
+	line-height: var(--primidian-line-height);
+	color: var(--primidian-text-normal);
+}
+
+.markdown-rendered p,
+.markdown-source-view.mod-cm6 .cm-line {
+	line-height: var(--primidian-line-height);
+}
+
+/* Monospace surfaces */
+code,
+pre,
+kbd,
+samp,
+.HyperMD-codeblock,
+.cm-inline-code,
+.markdown-rendered .math {
+	font-family: var(--primidian-font-monospace);
+	font-variant-ligatures: contextual;
+}
+
+/* ── <kbd> ────────────────────────────────────────────────────────────────
+ * Obsidianite carried a bare `-webkit-text-fill-color: initial` here as an
+ * escape hatch for its gradient-bold rule. Primidian keeps the reset (it is still
+ * correct and necessary) but now also gives <kbd> a real visual treatment —
+ * and the systemic fix in 54-inline-code.css means the reset is defence in
+ * depth rather than the only thing standing between the user and invisible
+ * text. See docs/05 §2.3. */
+
+kbd {
+	-webkit-text-fill-color: initial;
+	display: inline-block;
+	padding: 0.1em 0.4em;
+	font-size: 0.82em;
+	font-family: var(--primidian-font-monospace);
+	line-height: 1.4;
+	color: var(--primidian-text-normal);
+	background-color: var(--primidian-bg-elevated);
+	border: 1px solid var(--primidian-border-strong);
+	border-bottom-width: 2px;
+	border-radius: var(--primidian-radius-xs);
+	vertical-align: baseline;
+}

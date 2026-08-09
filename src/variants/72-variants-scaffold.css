@@ -1,0 +1,76 @@
+/* ── VARIANTS · SCAFFOLD ───────────────────────────────────────────────────
+ *
+ * Per brief §8 and §20, only dividers and headings ship a full variant set
+ * in v1. The components below get their class-select, their default option,
+ * and their variant block established NOW so that:
+ *
+ *   1. The Style Settings key and its default are locked in from v1.0. A
+ *      later addition can never invalidate an existing user's saved config
+ *      (risk R-12 — Style Settings discards orphaned keys silently).
+ *   2. The base/variant separation is already correct, so adding option two
+ *      is the five-step recipe in docs/08 §6 with no core-file edits.
+ *
+ * Each block below is a real, functioning default — not a placeholder.
+ * ──────────────────────────────────────────────────────────────────────── */
+
+/* ── Callouts ─────────────────────────────────────────────────────────── */
+
+body.primidian-callout-standard {
+	--primidian-callout-bg-opacity: 8%;
+	--primidian-callout-title-bg-opacity: 14%;
+	--primidian-callout-accent-width: 3px;
+	--primidian-callout-icon-display: flex;
+}
+
+/* ── Code blocks ──────────────────────────────────────────────────────── */
+
+body.primidian-codeblock-standard {
+	--primidian-code-border-width: 1px;
+	--primidian-code-radius: var(--primidian-radius-m);
+}
+
+/* ── Checkboxes ───────────────────────────────────────────────────────── */
+
+body.primidian-checkbox-rounded {
+	--primidian-checkbox-shape-radius: var(--primidian-radius-xs);
+}
+
+/* ── Tags ─────────────────────────────────────────────────────────────── */
+
+body.primidian-tag-pill {
+	--primidian-tag-radius: var(--primidian-radius-pill);
+	--primidian-tag-border-width: 1px;
+	--primidian-tag-decoration: none;
+}
+
+/* ── Links ────────────────────────────────────────────────────────────── */
+
+body.primidian-link-sweep {
+	--primidian-link-sweep-rest: 5px;
+	--primidian-link-sweep-hover: 60px;
+	--primidian-link-decoration: none;
+}
+
+/* ── Tables ───────────────────────────────────────────────────────────── */
+
+body.primidian-table-standard {
+	--primidian-table-stripe-opacity: 0%;
+	--primidian-table-border-width: 1px;
+}
+
+/* ── Blockquotes ──────────────────────────────────────────────────────── */
+
+body.primidian-blockquote-obsidianite {
+	--primidian-quote-bar-display: block;
+	--primidian-quote-glyph-display: none;
+}
+
+/* ── Status bar ───────────────────────────────────────────────────────── */
+
+body.primidian-statusbar-floating {
+	--primidian-statusbar-opacity: 0.45;
+}
+
+body.primidian-statusbar-docked {
+	--primidian-statusbar-opacity: 1;
+}

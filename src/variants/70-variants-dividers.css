@@ -1,0 +1,215 @@
+/* ── VARIANTS · DIVIDERS ───────────────────────────────────────────────────
+ *
+ * PHASE 1 REDESIGN — each style now has a distinct STRUCTURAL identity.
+ *
+ * The previous set was criticised, correctly, for being colour-only:
+ * Decorative / Gradient / Animated shared one shape, and Standard / Minimal
+ * differed only in spacing.
+ *
+ * Each style now differs on at least two geometric axes, so all five remain
+ * distinguishable even if the user sets every colour token identically:
+ *
+ *   Style        Fill        Width  Thick  Caps  Glyph  Motion
+ *   ─────────────────────────────────────────────────────────────────────
+ *   Standard     flat        100%   2px    dots  no     none
+ *   Minimal      flat         38%   1px    no    no     none
+ *   Gradient     gradient    100%   2px    no    no     none
+ *   Decorative   gradient     92%   1px    no    YES    hover only
+ *   Animated     gradient    100%   2px    no    no     YES travelling
+ *
+ * Contract (docs/08 §2): a variant may only reassign component tokens or
+ * toggle a decorative pseudo-element's display. Exactly one variant class is
+ * always present on <body>.
+ * ──────────────────────────────────────────────────────────────────────── */
+
+/* ══ LINE PATTERN ═══════════════════════════════════════════════════════
+ * An orthogonal axis: composes with any of the five styles below. The
+ * dashed/dotted masks themselves live in components/51-dividers.css so the
+ * pattern applies to gradient fills as well as flat ones. */
+
+body.primidian-divider-solid {
+	/* No mask — the default. Declared so the class-select always has a
+	 * matching rule and the build's cross-check passes. */
+	--primidian-divider-pattern: none;
+}
+
+/* ══ STANDARD ═══════════════════════════════════════════════════════════
+ * A confident, conventional rule: full width, noticeably thicker than
+ * Minimal, flat colour, with small dots at each end that give it a
+ * deliberate "typeset" finish. No gradient, no glyph. */
+
+body.primidian-divider-standard {
+	--primidian-divider-thickness: 2px;
+	--primidian-divider-width: 100%;
+	--primidian-divider-image: none;
+	--primidian-divider-glyph-display: none;
+	--primidian-divider-cap-display: block;
+	--primidian-divider-cap-size: 5px;
+	--primidian-divider-shimmer-display: none;
+	--primidian-divider-opacity: 1;
+}
+
+/* ══ MINIMAL ════════════════════════════════════════════════════════════
+ * A short, hairline, centred rule — a breath rather than a barrier.
+ * Distinguished from Standard by WIDTH (38% vs 100%), thickness, no caps
+ * and tighter spacing. The width difference alone keeps them separable at
+ * any colour. */
+
+body.primidian-divider-minimal {
+	--primidian-divider-thickness: 1px;
+	--primidian-divider-width: 38%;
+	--primidian-divider-image: none;
+	--primidian-divider-glyph-display: none;
+	--primidian-divider-cap-display: none;
+	--primidian-divider-shimmer-display: none;
+	--primidian-divider-space-above: 1.6em;
+	--primidian-divider-space-below: 1.6em;
+	--primidian-divider-opacity: 0.5;
+}
+
+/* ══ GRADIENT ═══════════════════════════════════════════════════════════
+ * A full-bleed band that fades in from nothing, peaks at the centre and
+ * fades out again. No glyph, no caps — its identity is the soft-edged
+ * horizontal wash, which is visibly different from Standard's hard,
+ * end-capped rule even in a single colour. */
+
+body.primidian-divider-gradient {
+	--primidian-divider-thickness: 2px;
+	--primidian-divider-width: 100%;
+	--primidian-divider-image: linear-gradient(
+		90deg,
+		transparent 0%,
+		var(--primidian-divider-grad-1) 28%,
+		var(--primidian-divider-grad-2) 72%,
+		transparent 100%
+	);
+	--primidian-divider-glyph-display: none;
+	--primidian-divider-cap-display: none;
+	--primidian-divider-shimmer-display: none;
+	--primidian-divider-opacity: 1;
+}
+
+/* Gradient fills the box, so the flat colour underneath must not show. */
+body.primidian-divider-gradient .markdown-rendered hr,
+body.primidian-divider-gradient .markdown-source-view.mod-cm6 .cm-line hr {
+	background-color: transparent;
+	background-size: 100% 100%;
+}
+
+/* ══ DECORATIVE ═════════════════════════════════════════════════════════
+ * The Obsidianite signature, preserved: a fading rule interrupted by a
+ * rotated centred glyph. Kept structurally distinct from Gradient by the
+ * glyph itself plus a slightly inset width and a thinner rule, so the two
+ * never read as the same thing. */
+
+body.primidian-divider-decorative {
+	--primidian-divider-thickness: 1px;
+	--primidian-divider-width: 92%;
+	--primidian-divider-image: linear-gradient(
+		90deg,
+		transparent 0%,
+		var(--primidian-divider-grad-1) 30%,
+		var(--primidian-divider-grad-2) 70%,
+		transparent 100%
+	);
+	--primidian-divider-glyph-display: inline-block;
+	--primidian-divider-cap-display: none;
+	--primidian-divider-shimmer-display: none;
+	--primidian-divider-opacity: 1;
+}
+
+body.primidian-divider-decorative .markdown-rendered hr,
+body.primidian-divider-decorative .markdown-source-view.mod-cm6 .cm-line hr {
+	background-color: transparent;
+	background-size: 100% 100%;
+	overflow: visible;
+}
+
+/* A gentle hover response — the glyph settles back to upright. */
+body.primidian-divider-decorative:not(.primidian-animations-off)
+	.markdown-rendered
+	hr:hover::after {
+	transform: translate(-50%, -50%) rotate(0deg) scale(1.1);
+	color: var(--primidian-accent);
+}
+
+/* ══ ANIMATED ═══════════════════════════════════════════════════════════
+ * A genuinely moving divider: a bright highlight travels along the rule on
+ * a slow loop. This is NOT the static Gradient appearance with a hover
+ * effect bolted on — the motion is the identity.
+ *
+ * Performance: the shimmer is a separate absolutely-positioned ::before
+ * layer animated purely with `transform: translate3d`. No background-
+ * position animation (which repaints), no layout properties, no filter.
+ * The base rule underneath is deliberately dimmed so the travelling
+ * highlight has something to read against.
+ *
+ * Note this variant reassigns --primidian-divider-cap-display to none and
+ * reuses ::before for the shimmer, which is why caps and shimmer are
+ * mutually exclusive by design. */
+
+body.primidian-divider-animated {
+	--primidian-divider-thickness: 2px;
+	--primidian-divider-width: 100%;
+	--primidian-divider-image: linear-gradient(
+		90deg,
+		transparent 0%,
+		var(--primidian-divider-grad-1) 30%,
+		var(--primidian-divider-grad-2) 70%,
+		transparent 100%
+	);
+	--primidian-divider-glyph-display: none;
+	--primidian-divider-cap-display: none;
+	--primidian-divider-shimmer-display: block;
+	--primidian-divider-opacity: 0.55;
+}
+
+body.primidian-divider-animated .markdown-rendered hr,
+body.primidian-divider-animated .markdown-source-view.mod-cm6 .cm-line hr {
+	background-color: transparent;
+	background-size: 100% 100%;
+	overflow: hidden; /* clip the travelling highlight to the rule */
+}
+
+/* The travelling highlight. ::before is repurposed from the end caps.
+ *
+ * The layer spans the full rule and carries a NARROW gradient as its
+ * background (width set by --primidian-divider-shimmer-width). Translating the
+ * layer by ±100% of itself sweeps that narrow band cleanly across and off
+ * both ends, at any rule width. See the keyframe in systems/81-motion.css. */
+body.primidian-divider-animated .markdown-rendered hr::before,
+body.primidian-divider-animated .markdown-source-view.mod-cm6 .cm-line hr::before {
+	content: '';
+	display: var(--primidian-divider-shimmer-display);
+	position: absolute;
+	inset: 0;
+	transform: translate3d(-100%, 0, 0);
+	background-image: linear-gradient(
+		90deg,
+		transparent,
+		var(--primidian-divider-color),
+		transparent
+	);
+	background-repeat: no-repeat;
+	background-size: var(--primidian-divider-shimmer-width) 100%;
+	background-position: center;
+	pointer-events: none;
+	animation: primidian-divider-shimmer var(--primidian-divider-shimmer-duration) linear infinite;
+}
+
+/* Respect the global animation switch — degrade to a static rule at full
+ * opacity so the divider never looks half-finished. */
+body.primidian-divider-animated.primidian-animations-off {
+	--primidian-divider-opacity: 1;
+	--primidian-divider-shimmer-display: none;
+}
+
+/* prefers-reduced-motion is handled globally in systems/81-motion.css, but
+ * the shimmer is purely decorative so it is removed outright rather than
+ * merely shortened to 0.01ms (which would leave it frozen mid-track). */
+@media (prefers-reduced-motion: reduce) {
+	body.primidian-divider-animated:not(.primidian-motion-force) {
+		--primidian-divider-opacity: 1;
+		--primidian-divider-shimmer-display: none;
+	}
+}

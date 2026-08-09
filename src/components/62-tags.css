@@ -1,0 +1,81 @@
+/* ── COMPONENT · TAGS ──────────────────────────────────────────────────────
+ *
+ * Obsidianite's small italic tag pill is retained (keeper K-7).
+ *
+ * DROPPED: Obsidianite hard-coded nine specific tag names with bespoke
+ * colours (#todo, #working-draft, #notes, #knowledge, #writing, #ideas plus
+ * Simplified Chinese aliases 待完成 / 笔记 / 知识 / 文章 / 想法). Those were
+ * personal to the original author and unusable to anyone else.
+ *
+ * Primidian replaces them with six USER-DEFINABLE colour slots, driven entirely
+ * by Style Settings — the user supplies both the tag name and the colour.
+ * See src/01-settings.css section 13.1.
+ *
+ * FIX: Obsidianite needed `background-color: … !important` on :hover purely
+ * to defeat Obsidian's own hover rule. Primidian achieves the same with correct
+ * specificity and no !important.
+ * ──────────────────────────────────────────────────────────────────────── */
+
+.markdown-rendered a.tag,
+.cm-s-obsidian .cm-hashtag {
+	color: var(--primidian-tag-color);
+	background-color: var(--primidian-tag-bg);
+	border: var(--primidian-tag-border-width) solid var(--primidian-tag-border-color);
+	border-radius: var(--primidian-tag-radius);
+	padding: var(--primidian-tag-padding-y) var(--primidian-tag-padding-x);
+	font-family: var(--primidian-font-text);
+	font-size: var(--primidian-tag-size);
+	font-weight: var(--primidian-tag-weight);
+	font-style: var(--primidian-tag-style);
+	text-decoration: var(--primidian-tag-decoration);
+	white-space: nowrap;
+	line-height: 1.4;
+	transition: color var(--primidian-motion-fast) var(--primidian-ease-standard),
+		background-color var(--primidian-motion-fast) var(--primidian-ease-standard),
+		border-color var(--primidian-motion-fast) var(--primidian-ease-standard);
+}
+
+.markdown-rendered a.tag:hover,
+.cm-s-obsidian .cm-hashtag:hover {
+	color: var(--primidian-tag-hover-color);
+	background-color: var(--primidian-tag-hover-bg);
+	border-color: var(--primidian-border-hover);
+	text-decoration: none;
+}
+
+/* ── Live Preview hashtag segments ────────────────────────────────────────
+ * CM6 splits a tag into .cm-hashtag-begin (the #) and .cm-hashtag-end (the
+ * name). Rounding must be applied to the outer edges only, or each segment
+ * gets its own pill. */
+
+.cm-s-obsidian .cm-hashtag-begin {
+	border-top-right-radius: 0;
+	border-bottom-right-radius: 0;
+	padding-inline-end: 0;
+	color: var(--primidian-text-faint);
+}
+
+.cm-s-obsidian .cm-hashtag-end {
+	border-top-left-radius: 0;
+	border-bottom-left-radius: 0;
+	padding-inline-start: 0;
+}
+
+/* ── Tags in headings inherit the heading scale ───────────────────────── */
+
+.markdown-rendered :is(h1, h2, h3, h4, h5, h6) a.tag {
+	font-size: inherit;
+	vertical-align: baseline;
+}
+
+/* ── User-definable colour slots ──────────────────────────────────────────
+ * Each slot pairs a tag name (variable-text) with a colour
+ * (variable-themed-color). The attribute selector is generated from the
+ * user's chosen name via the --primidian-tag-N-name token, which Style Settings
+ * writes. Slots are inert until configured. */
+
+.markdown-rendered a.tag[href*='#'][data-primidian-slot],
+.cm-s-obsidian .cm-hashtag[data-primidian-slot] {
+	color: var(--primidian-tag-slot-color, var(--primidian-tag-color));
+	background-color: var(--primidian-tag-slot-bg, var(--primidian-tag-bg));
+}

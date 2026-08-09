@@ -1,0 +1,75 @@
+/* ── COMPONENT · LISTS ─────────────────────────────────────────────────────
+ *
+ * NOTE ON WHAT IS *NOT* HERE
+ *
+ * Obsidianite carried three layout hacks in this area, all of which existed
+ * only to make room for its fake checkbox:
+ *
+ *     .markdown-preview-view ul > li.task-list-item { text-indent: -3em }
+ *     .contains-task-list .task-list-item { padding-left: 30px }
+ *     .markdown-preview-view .list-collapse-indicator { margin-left: -80px !important }
+ *
+ * All three are gone. Primidian's checkbox is the input itself and occupies its
+ * own inline box in normal flow, so no gutter needs reserving and no negative
+ * offsets need compensating. Task lists now use Obsidian's native list
+ * geometry, which is also why they survive being re-parented by plugins.
+ *
+ * See 60-checkboxes.css and docs/04.
+ * ──────────────────────────────────────────────────────────────────────── */
+
+.markdown-rendered ul,
+.markdown-rendered ol {
+	padding-inline-start: 1.6em;
+}
+
+.markdown-rendered li {
+	margin-block: var(--primidian-list-spacing);
+}
+
+.markdown-rendered li > p {
+	margin-block: 0.2em;
+}
+
+/* ── Markers ──────────────────────────────────────────────────────────── */
+
+.markdown-rendered ul > li::marker {
+	color: var(--primidian-list-marker-color);
+	font-weight: var(--primidian-list-marker-weight);
+}
+
+.markdown-rendered ol > li::marker {
+	color: var(--primidian-list-number-color);
+	font-weight: var(--primidian-list-marker-weight);
+}
+
+/* Live Preview bullet */
+.markdown-source-view.mod-cm6 .list-bullet::after {
+	background-color: var(--primidian-list-marker-color);
+}
+
+.cm-s-obsidian .cm-formatting-list-ol {
+	color: var(--primidian-list-number-color);
+	font-weight: var(--primidian-list-marker-weight);
+}
+
+/* ── Indent guides (Reading Mode) ─────────────────────────────────────── */
+
+.markdown-rendered .list-collapse-indicator {
+	color: var(--primidian-text-faint);
+	transition: color var(--primidian-motion-fast) var(--primidian-ease-standard);
+}
+
+.markdown-rendered .list-collapse-indicator:hover {
+	color: var(--primidian-accent);
+}
+
+/* ── Definition lists ─────────────────────────────────────────────────── */
+
+.markdown-rendered dt {
+	color: var(--primidian-accent);
+	font-weight: var(--primidian-font-weight-semibold);
+}
+
+.markdown-rendered dd {
+	color: var(--primidian-text-muted);
+}

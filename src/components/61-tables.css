@@ -1,0 +1,86 @@
+/* ── COMPONENT · TABLES ────────────────────────────────────────────────────
+ * NEW IN PRIMIDIAN. Obsidianite had no table styling (defect F-17).
+ * ──────────────────────────────────────────────────────────────────────── */
+
+.markdown-rendered table {
+	border-collapse: separate;
+	border-spacing: 0;
+	width: 100%;
+	margin-block: 1em;
+	border: var(--primidian-table-border-width) solid var(--primidian-table-border-color);
+	border-radius: var(--primidian-table-radius);
+	overflow: hidden;
+}
+
+.markdown-rendered th,
+.markdown-rendered td {
+	padding: var(--primidian-table-cell-padding);
+	border-bottom: var(--primidian-table-border-width) solid var(--primidian-table-border-color);
+	border-right: var(--primidian-table-border-width) solid var(--primidian-table-border-color);
+}
+
+.markdown-rendered th:last-child,
+.markdown-rendered td:last-child {
+	border-right: none;
+}
+
+.markdown-rendered tbody tr:last-child td {
+	border-bottom: none;
+}
+
+/* ── Header ───────────────────────────────────────────────────────────── */
+
+.markdown-rendered thead th {
+	background-color: var(--primidian-table-header-bg);
+	color: var(--primidian-table-header-color);
+	font-weight: var(--primidian-table-header-weight);
+	text-transform: var(--primidian-table-header-transform);
+	letter-spacing: 0.01em;
+	border-bottom: var(--primidian-border-width-thick) solid var(--primidian-table-border-color);
+}
+
+/* ── Rows ─────────────────────────────────────────────────────────────── */
+
+.markdown-rendered tbody tr {
+	transition: background-color var(--primidian-motion-fast) var(--primidian-ease-standard);
+}
+
+.markdown-rendered tbody tr:hover {
+	background-color: var(--primidian-table-row-hover-bg);
+}
+
+/* Striping is opt-in via the Striped variant, which raises the opacity */
+.markdown-rendered tbody tr:nth-child(even) {
+	background-color: color-mix(
+		in srgb,
+		var(--primidian-table-stripe-bg) var(--primidian-table-stripe-opacity),
+		transparent
+	);
+}
+
+/* ── Live Preview tables ──────────────────────────────────────────────── */
+
+.markdown-source-view.mod-cm6 .cm-table-widget table {
+	border-color: var(--primidian-table-border-color);
+}
+
+.markdown-source-view.mod-cm6 .table-cell-wrapper {
+	color: var(--primidian-text-normal);
+}
+
+/* ── Table controls ───────────────────────────────────────────────────── */
+
+.markdown-source-view.mod-cm6 .table-col-btn,
+.markdown-source-view.mod-cm6 .table-row-btn {
+	background-color: var(--primidian-bg-secondary);
+	color: var(--primidian-text-muted);
+	border-radius: var(--primidian-radius-xs);
+	transition: background-color var(--primidian-motion-fast) var(--primidian-ease-standard),
+		color var(--primidian-motion-fast) var(--primidian-ease-standard);
+}
+
+.markdown-source-view.mod-cm6 .table-col-btn:hover,
+.markdown-source-view.mod-cm6 .table-row-btn:hover {
+	background-color: var(--primidian-surface-active);
+	color: var(--primidian-accent);
+}

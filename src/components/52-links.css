@@ -1,0 +1,102 @@
+/* ── COMPONENT · LINKS ─────────────────────────────────────────────────────
+ *
+ * Obsidianite's signature "sweep" link (keeper K-4): rather than a
+ * text-decoration underline, a small repeating background gradient is
+ * anchored at the baseline and grows to fill the line box on hover.
+ *
+ * FIX F-12: Obsidianite line 696 read `cm-s-obsidian span.cm-link…` —
+ *   missing the leading dot, so the entire rule was dead and editor-mode
+ *   external links never received their accent. Corrected here.
+ *
+ * PERF: Obsidianite transitioned the `background` shorthand, forcing a full
+ *   re-rasterisation. Primidian transitions `background-size` only.
+ * ──────────────────────────────────────────────────────────────────────── */
+
+.markdown-rendered :is(a.internal-link, a.external-link, a.tag),
+.cm-s-obsidian :is(.cm-link, .cm-hmd-internal-link, .cm-url) {
+	text-decoration: var(--primidian-link-decoration);
+}
+
+/* ── The sweep ────────────────────────────────────────────────────────── */
+
+.markdown-rendered a.internal-link,
+.markdown-rendered a.external-link,
+.cm-s-obsidian .cm-hmd-internal-link .cm-underline,
+.cm-s-obsidian .cm-link:not(.cm-formatting-link) .cm-underline {
+	color: var(--primidian-link-color);
+	background-repeat: no-repeat;
+	background-position: 0 100%;
+	background-size: 100% var(--primidian-link-sweep-rest);
+	text-decoration: none;
+	border-radius: 2px;
+	transition: background-size var(--primidian-motion-moderate) var(--primidian-ease-standard),
+		color var(--primidian-motion-fast) var(--primidian-ease-standard),
+		-webkit-text-fill-color var(--primidian-motion-fast) var(--primidian-ease-standard);
+}
+
+/* Internal links — accent */
+.markdown-rendered a.internal-link,
+.cm-s-obsidian .cm-hmd-internal-link .cm-underline {
+	background-image: linear-gradient(
+		to bottom,
+		var(--primidian-link-internal-accent) 0%,
+		var(--primidian-link-internal-accent) 100%
+	);
+}
+
+/* External links — secondary accent */
+.markdown-rendered a.external-link,
+.cm-s-obsidian .cm-link:not(.cm-formatting-link) .cm-underline {
+	background-image: linear-gradient(
+		to bottom,
+		var(--primidian-link-external-accent) 0%,
+		var(--primidian-link-external-accent) 100%
+	);
+	padding: 0;
+}
+
+/* Unresolved links */
+.markdown-rendered a.internal-link.is-unresolved {
+	color: var(--primidian-link-unresolved-color);
+	background-image: linear-gradient(
+		to bottom,
+		var(--primidian-link-unresolved-accent) 0%,
+		var(--primidian-link-unresolved-accent) 100%
+	);
+}
+
+/* ── Hover: the sweep fills the line box ──────────────────────────────── */
+
+.markdown-rendered a.internal-link:hover,
+.markdown-rendered a.external-link:hover,
+.cm-s-obsidian .cm-hmd-internal-link .cm-underline:hover,
+.cm-s-obsidian .cm-link:not(.cm-formatting-link) .cm-underline:hover {
+	background-size: 100% var(--primidian-link-sweep-hover);
+	color: var(--primidian-link-hover-color);
+	-webkit-text-fill-color: var(--primidian-link-hover-color);
+	text-decoration: none;
+}
+
+/* ── Generic anchors ──────────────────────────────────────────────────── */
+
+.markdown-rendered a {
+	color: var(--primidian-link-color);
+	text-decoration: none;
+}
+
+.markdown-rendered a:hover {
+	text-decoration: none;
+}
+
+/* ── Link inside a heading inherits the heading colour ────────────────── */
+
+.markdown-rendered :is(h1, h2, h3, h4, h5, h6) a {
+	color: inherit;
+	background-image: none;
+	background-size: 100% var(--primidian-link-sweep-rest);
+}
+
+.markdown-rendered :is(h1, h2, h3, h4, h5, h6) a:hover {
+	color: var(--primidian-accent-hover);
+	-webkit-text-fill-color: var(--primidian-accent-hover);
+}

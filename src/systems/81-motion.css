@@ -1,0 +1,143 @@
+/* ── SYSTEM · MOTION ───────────────────────────────────────────────────────
+ *
+ * CLEAN-ROOM NOTE (decision G-1)
+ *
+ * Primary was studied as a quality benchmark, not a source. The lessons
+ * taken are architectural, not textual:
+ *
+ *   - motion quality comes from CONSISTENT SHORT TRANSITIONS on interactive
+ *     states, not from elaborate choreography (Primary: 53 transitions,
+ *     3 keyframes — a ratio worth matching)
+ *   - a NAMED duration + easing scale keeps a large theme coherent
+ *   - an OVERSHOOT stop makes an entry animation feel physical
+ *
+ * Everything below — the token names, the durations, the bezier values, the
+ * keyframe stops — was authored independently for Primidian. No Primary code is
+ * present. Two things Primary does were deliberately NOT reproduced:
+ *
+ *   1. Its margin-animating popup keyframe. Animating `margin-top` triggers
+ *      layout on every frame; Primidian uses `transform` (PR-3).
+ *   2. Its malformed `transition: border, box-shadow, transform <timing>`
+ *      lists, where only the last segment receives the timing function.
+ *      Every Primidian transition is an explicit property/duration/easing triplet.
+ *
+ * Primidian also ADDS what Primary lacks entirely: prefers-reduced-motion support.
+ * ──────────────────────────────────────────────────────────────────────── */
+
+/* ── Keyframes · compositor-only properties ───────────────────────────── */
+
+@keyframes primidian-enter-up {
+	from {
+		opacity: 0;
+		transform: translate3d(0, 7px, 0) scale(0.985);
+	}
+	to {
+		opacity: 1;
+		transform: translate3d(0, 0, 0) scale(1);
+	}
+}
+
+@keyframes primidian-enter-down {
+	from {
+		opacity: 0;
+		transform: translate3d(0, -7px, 0);
+	}
+	to {
+		opacity: 1;
+		transform: translate3d(0, 0, 0);
+	}
+}
+
+@keyframes primidian-fade {
+	from {
+		opacity: 0;
+	}
+	to {
+		opacity: 1;
+	}
+}
+
+/* Phase 1 — the Animated divider's travelling highlight.
+ *
+ * The shimmer layer spans the FULL width of the rule and carries a narrow
+ * gradient as its background (sized by --primidian-divider-shimmer-width). The
+ * layer itself is then translated from -100% to +100% of its own width, so
+ * the highlight enters from off-left and exits off-right regardless of how
+ * wide the rule or the highlight is. Percentages resolve against the
+ * element, so no vw units and no brittle arithmetic are involved.
+ *
+ * transform-only → runs on the compositor, no repaint, no layout. */
+@keyframes primidian-divider-shimmer {
+	from {
+		transform: translate3d(-100%, 0, 0);
+	}
+	to {
+		transform: translate3d(100%, 0, 0);
+	}
+}
+
+/* Phase 3 — the active-tab indicator wipes in from the centre rather than
+ * simply appearing. scaleX only; no layout, no repaint of the tab itself. */
+@keyframes primidian-tab-indicator-in {
+	from {
+		transform: scaleX(0);
+		opacity: 0;
+	}
+	to {
+		transform: scaleX(1);
+		opacity: 1;
+	}
+}
+
+/* Phase 3 — a newly-activated tab settles into place. Deliberately subtle:
+ * a 2px rise with a slight overshoot, matching the button vocabulary. */
+@keyframes primidian-tab-activate {
+	from {
+		transform: translateY(2px);
+	}
+	to {
+		transform: translateY(0);
+	}
+}
+
+/* ══ OFF-RAMP 1 · explicit user switch ══════════════════════════════════
+ * Independent of the OS setting, for users who simply prefer no motion.
+ * The !important here is an accessibility-override, exempt from the
+ * functional budget (I-5). 0.01ms rather than 0s so that transitionend /
+ * animationend still fire and no plugin JS waiting on them hangs. */
+
+body.primidian-animations-off *,
+body.primidian-animations-off *::before,
+body.primidian-animations-off *::after {
+	animation-duration: 0.01ms !important; /* a11y */
+	animation-iteration-count: 1 !important; /* a11y */
+	transition-duration: 0.01ms !important; /* a11y */
+	scroll-behavior: auto !important; /* a11y */
+}
+
+/* ══ OFF-RAMP 2 · system preference ═════════════════════════════════════
+ * Respected BY DEFAULT. `body:not(.primidian-motion-force)` lets a user who
+ * enables OS reduced-motion for unrelated reasons opt back in. */
+
+@media (prefers-reduced-motion: reduce) {
+	body:not(.primidian-motion-force) *,
+	body:not(.primidian-motion-force) *::before,
+	body:not(.primidian-motion-force) *::after {
+		animation-duration: 0.01ms !important; /* a11y */
+		animation-iteration-count: 1 !important; /* a11y */
+		transition-duration: 0.01ms !important; /* a11y */
+		scroll-behavior: auto !important; /* a11y */
+	}
+}
+
+/* ══ OFF-RAMP 3 · granular toggles ══════════════════════════════════════
+ * No !important needed — these target specific properties on specific
+ * elements, so ordinary cascade order suffices. */
+
+body.primidian-anim-no-hover-lift button:not(.clickable-icon):active {
+	transform: none;
+}
+
+body.primidian-anim-no-hover-lift input[type='range']::-webkit-slider-thumb:hover {
+	transform: none;
+}

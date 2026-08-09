@@ -1,0 +1,283 @@
+/* ── TIER 4 · OBSIDIAN BRIDGE ──────────────────────────────────────────────
+ *
+ * Assign Obsidian's own CSS variables FROM Primidian's semantic tokens.
+ *
+ * WHY THIS LAYER EXISTS — this is the single highest-leverage file in the
+ * theme. Obsidian core and virtually every plugin read Obsidian's variables.
+ * By bridging rather than fighting, Primidian gets correct styling for free in:
+ *
+ *   - every native Obsidian surface we never explicitly style
+ *   - Task List Kanban (reads --background-primary, --interactive-accent,
+ *     --text-muted, --radius-s, --size-4-2, --border-width, --checkbox-size)
+ *   - Dataview, Tasks, Kanban, Calendar, Excalidraw, and the rest
+ *
+ * A theme that only overrode selectors would need bespoke rules for each.
+ *
+ * FIX F-6: Obsidianite set --interactive-accent-rgb to a hex string, but
+ * Obsidian and plugins expect a comma-separated "r,g,b" triplet for use in
+ * rgba(). Primidian emits a real triplet via --primidian-accent-rgb, which Style
+ * Settings maintains through the accent setting's rgb-values alt-format.
+ * ──────────────────────────────────────────────────────────────────────── */
+
+.theme-dark {
+	/* Literal triplet fallback matching --primidian-c-cyan-500. Style Settings
+	 * overwrites this via alt-format when the user changes the accent. */
+	--primidian-accent-rgb: 15, 182, 214;
+	--primidian-accent-alt-rgb: 244, 86, 157;
+}
+
+.theme-light {
+	--primidian-accent-rgb: 9, 110, 138;
+	--primidian-accent-alt-rgb: 184, 30, 100;
+}
+
+.theme-dark,
+.theme-light {
+	/* ── Backgrounds ─────────────────────────────────────────────────── */
+	--background-primary: var(--primidian-bg-primary);
+	--background-primary-alt: var(--primidian-bg-primary-alt);
+	--background-secondary: var(--primidian-bg-secondary);
+	--background-secondary-alt: var(--primidian-bg-secondary-alt);
+
+	--background-modifier-hover: var(--primidian-surface-hover);
+	--background-modifier-active-hover: var(--primidian-surface-active);
+	--background-modifier-border: var(--primidian-border);
+	--background-modifier-border-hover: var(--primidian-border-hover);
+	--background-modifier-border-focus: var(--primidian-border-focus);
+	--background-modifier-form-field: var(--primidian-bg-secondary);
+	--background-modifier-error: color-mix(in srgb, var(--primidian-color-red) 20%, transparent);
+	--background-modifier-error-hover: color-mix(in srgb, var(--primidian-color-red) 32%, transparent);
+	--background-modifier-success: color-mix(in srgb, var(--primidian-color-green) 20%, transparent);
+	--background-modifier-message: var(--primidian-bg-elevated);
+
+	/* ── Text ────────────────────────────────────────────────────────── */
+	--text-normal: var(--primidian-text-normal);
+	--text-muted: var(--primidian-text-muted);
+	--text-faint: var(--primidian-text-faint);
+	--text-on-accent: var(--primidian-text-on-accent);
+	--text-accent: var(--primidian-accent);
+	--text-accent-hover: var(--primidian-accent-hover);
+	--text-error: var(--primidian-text-error);
+	--text-success: var(--primidian-text-success);
+	--text-warning: var(--primidian-text-warning);
+	--text-selection: var(--primidian-selection-bg);
+	--text-highlight-bg: var(--primidian-highlight-bg);
+
+	/* ── Interactive ─────────────────────────────────────────────────── */
+	--interactive-normal: var(--primidian-bg-secondary);
+	--interactive-hover: var(--primidian-bg-elevated);
+	--interactive-accent: var(--primidian-accent);
+	--interactive-accent-hover: var(--primidian-accent-hover);
+	--interactive-accent-rgb: var(--primidian-accent-rgb); /* F-6 FIXED */
+
+	/* ── Radius ──────────────────────────────────────────────────────── */
+	--radius-s: var(--primidian-radius-s);
+	--radius-m: var(--primidian-radius-m);
+	--radius-l: var(--primidian-radius-l);
+	--radius-xl: var(--primidian-radius-xl);
+
+	/* ── Typography ──────────────────────────────────────────────────── */
+	--font-text-theme: var(--primidian-font-text);
+	--font-interface-theme: var(--primidian-font-interface);
+	--font-monospace-theme: var(--primidian-font-monospace);
+	--font-text-size: var(--primidian-font-size);
+	--line-height-normal: var(--primidian-line-height);
+
+	--h1-color: var(--primidian-h1-color);
+	--h2-color: var(--primidian-h2-color);
+	--h3-color: var(--primidian-h3-color);
+	--h4-color: var(--primidian-h4-color);
+	--h5-color: var(--primidian-h5-color);
+	--h6-color: var(--primidian-h6-color);
+	--h1-size: var(--primidian-h1-size);
+	--h2-size: var(--primidian-h2-size);
+	--h3-size: var(--primidian-h3-size);
+	--h4-size: var(--primidian-h4-size);
+	--h5-size: var(--primidian-h5-size);
+	--h6-size: var(--primidian-h6-size);
+	--h1-weight: var(--primidian-h1-weight);
+	--h2-weight: var(--primidian-h2-weight);
+	--h3-weight: var(--primidian-h3-weight);
+	--h4-weight: var(--primidian-h4-weight);
+	--h5-weight: var(--primidian-h5-weight);
+	--h6-weight: var(--primidian-h6-weight);
+
+	--bold-color: var(--primidian-bold-color);
+	--bold-weight: var(--primidian-bold-weight);
+	--italic-color: var(--primidian-italic-color);
+
+	/* ── Code ────────────────────────────────────────────────────────── */
+	--code-background: var(--primidian-code-bg);
+	--code-normal: var(--primidian-code-color);
+	--code-size: var(--primidian-code-size);
+	--code-white-space: pre-wrap;
+
+	--code-comment: var(--primidian-syntax-comment);
+	--code-function: var(--primidian-syntax-function);
+	--code-important: var(--primidian-syntax-keyword);
+	--code-keyword: var(--primidian-syntax-keyword);
+	--code-operator: var(--primidian-syntax-operator);
+	--code-property: var(--primidian-syntax-property);
+	--code-punctuation: var(--primidian-syntax-punctuation);
+	--code-string: var(--primidian-syntax-string);
+	--code-tag: var(--primidian-syntax-tag);
+	--code-value: var(--primidian-syntax-number);
+
+	/* ── Checkboxes — read by Obsidian core AND by Task List Kanban ──── */
+	--checkbox-size: var(--primidian-checkbox-size);
+	--checkbox-radius: var(--primidian-checkbox-radius);
+	--checkbox-border-color: var(--primidian-checkbox-border-color);
+	--checkbox-border-color-hover: var(--primidian-checkbox-border-hover);
+	--checkbox-color: var(--primidian-checkbox-checked-bg);
+	--checkbox-color-hover: var(--primidian-accent-hover);
+	--checkbox-marker-color: var(--primidian-checkbox-marker-color);
+	--checklist-done-color: var(--primidian-task-done-color);
+	--checklist-done-decoration: var(--primidian-task-done-decoration);
+
+	/* ── Links ───────────────────────────────────────────────────────── */
+	--link-color: var(--primidian-link-color);
+	--link-color-hover: var(--primidian-link-hover-color);
+	--link-decoration: var(--primidian-link-decoration);
+	--link-decoration-hover: var(--primidian-link-decoration);
+	--link-external-color: var(--primidian-link-color);
+	--link-external-color-hover: var(--primidian-link-hover-color);
+	--link-unresolved-color: var(--primidian-link-unresolved-color);
+	--link-unresolved-opacity: 1;
+	--link-unresolved-decoration-style: none;
+
+	/* ── Tags ────────────────────────────────────────────────────────── */
+	--tag-color: var(--primidian-tag-color);
+	--tag-background: var(--primidian-tag-bg);
+	--tag-background-hover: var(--primidian-tag-hover-bg);
+	--tag-radius: var(--primidian-tag-radius);
+	--tag-padding-x: var(--primidian-tag-padding-x);
+	--tag-padding-y: var(--primidian-tag-padding-y);
+	--tag-border-width: var(--primidian-tag-border-width);
+	--tag-border-color: var(--primidian-tag-border-color);
+	--tag-decoration: var(--primidian-tag-decoration);
+	--tag-size: var(--primidian-tag-size);
+	--tag-weight: var(--primidian-tag-weight);
+
+	/* ── Blockquote ──────────────────────────────────────────────────── */
+	--blockquote-border-color: var(--primidian-quote-border-color);
+	--blockquote-border-thickness: var(--primidian-quote-border-width);
+	--blockquote-color: var(--primidian-quote-color);
+	--blockquote-background-color: var(--primidian-quote-bg);
+	--blockquote-font-style: var(--primidian-quote-style);
+
+	/* ── Callouts ────────────────────────────────────────────────────── */
+	--callout-radius: var(--primidian-callout-radius);
+	--callout-border-width: 0px;
+	--callout-padding: var(--primidian-callout-padding);
+	--callout-title-color: var(--primidian-callout-title-color);
+	--callout-title-size: var(--primidian-callout-title-size);
+	--callout-title-weight: var(--primidian-callout-title-weight);
+
+	/* ── Tables ──────────────────────────────────────────────────────── */
+	--table-border-color: var(--primidian-table-border-color);
+	--table-border-width: var(--primidian-table-border-width);
+	--table-header-background: var(--primidian-table-header-bg);
+	--table-header-color: var(--primidian-table-header-color);
+	--table-header-weight: var(--primidian-table-header-weight);
+	--table-row-alt-background: var(--primidian-table-stripe-bg);
+	--table-row-background-hover: var(--primidian-table-row-hover-bg);
+	--table-cell-padding: var(--primidian-table-cell-padding);
+
+	/* ── Lists ───────────────────────────────────────────────────────── */
+	--list-marker-color: var(--primidian-list-marker-color);
+	--list-indent-guide-color: color-mix(
+		in srgb,
+		var(--primidian-list-indent-color) 35%,
+		transparent
+	);
+
+	/* ── Embeds ──────────────────────────────────────────────────────── */
+	--embed-background: var(--primidian-embed-bg);
+	--embed-border-left: var(--primidian-embed-border-width) solid var(--primidian-embed-border-color);
+	--embed-padding: 0;
+	--embed-font-style: inherit;
+
+	/* ── Metadata / properties ───────────────────────────────────────── */
+	--metadata-background: var(--primidian-props-bg);
+	--metadata-label-text-color: var(--primidian-props-key-color);
+	--metadata-input-text-color: var(--primidian-props-value-color);
+	--metadata-divider-color: var(--primidian-border);
+
+	/* ── Chrome ──────────────────────────────────────────────────────── */
+	--titlebar-background: var(--primidian-titlebar-bg);
+	--titlebar-background-focused: var(--primidian-titlebar-bg);
+	--titlebar-text-color: var(--primidian-text-muted);
+	--titlebar-text-color-focused: var(--primidian-accent);
+	--titlebar-border-color: var(--primidian-border);
+
+	--status-bar-background: var(--primidian-statusbar-bg);
+	--status-bar-text-color: var(--primidian-text-muted);
+	--status-bar-border-color: var(--primidian-border);
+
+	--ribbon-background: var(--primidian-bg-primary-alt);
+	--ribbon-background-collapsed: var(--primidian-bg-primary-alt);
+
+	--tab-background-active: var(--primidian-bg-primary);
+	--tab-text-color: var(--primidian-text-muted);
+	--tab-text-color-active: var(--primidian-accent);
+	--tab-text-color-focused-active: var(--primidian-accent);
+	--tab-text-color-focused-highlighted: var(--primidian-accent);
+	--tab-radius-active: var(--primidian-tab-radius);
+	--tab-outline-color: var(--primidian-border);
+
+	--nav-item-color: var(--primidian-text-muted);
+	--nav-item-color-hover: var(--primidian-accent);
+	--nav-item-color-active: var(--primidian-accent);
+	--nav-item-color-selected: var(--primidian-accent);
+	--nav-item-background-hover: var(--primidian-surface-hover);
+	--nav-item-background-active: var(--primidian-surface-active);
+	--nav-item-background-selected: var(--primidian-surface-selected);
+
+	--modal-background: var(--primidian-bg-elevated);
+	--modal-border-color: var(--primidian-border);
+	--modal-radius: var(--primidian-modal-radius);
+
+	--prompt-border-color: var(--primidian-border);
+	--divider-color: var(--primidian-border);
+	--divider-color-hover: var(--primidian-border-hover);
+
+	--icon-color: var(--primidian-text-muted);
+	--icon-color-hover: var(--primidian-accent);
+	--icon-color-active: var(--primidian-accent);
+	--icon-color-focused: var(--primidian-accent);
+	--icon-opacity: var(--primidian-icon-opacity);
+	--icon-opacity-hover: var(--primidian-icon-opacity-hover);
+	--icon-opacity-active: 1;
+
+	--input-radius: var(--primidian-input-radius);
+	--button-radius: var(--primidian-button-radius);
+
+	--scrollbar-thumb-bg: var(--primidian-scrollbar-thumb);
+	--scrollbar-active-thumb-bg: var(--primidian-scrollbar-thumb-hover);
+	--scrollbar-bg: transparent;
+
+	--hr-color: var(--primidian-divider-color);
+	--hr-thickness: var(--primidian-divider-thickness);
+
+	--indentation-guide-color: color-mix(
+		in srgb,
+		var(--primidian-list-indent-color) 30%,
+		transparent
+	);
+	--indentation-guide-color-active: color-mix(
+		in srgb,
+		var(--primidian-list-indent-color) 70%,
+		transparent
+	);
+
+	--file-line-width: var(--primidian-content-width);
+
+	--graph-line: var(--primidian-border-strong);
+	--graph-node: var(--primidian-text-muted);
+	--graph-node-focused: var(--primidian-accent);
+	--graph-node-tag: var(--primidian-accent-alt);
+	--graph-node-attachment: var(--primidian-color-green);
+
+	--canvas-color-1: var(--primidian-accent-rgb);
+	--canvas-dot-pattern: var(--primidian-border);
+}

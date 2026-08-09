@@ -1,0 +1,408 @@
+/* ── COMPONENT · CHECKBOXES ────────────────────────────────────────────────
+ *
+ * ╔══════════════════════════════════════════════════════════════════════╗
+ * ║  BUG #1 — ROOT-CAUSE FIX  ·  TASK LIST KANBAN CHECKBOX RENDERING     ║
+ * ╚══════════════════════════════════════════════════════════════════════╝
+ *
+ * ── WHY OBSIDIANITE'S IMPLEMENTATION WORKED FOR NORMAL TASK LISTS ───────
+ *
+ *   Obsidianite hid the real input and painted a substitute on the PARENT:
+ *
+ *       .contains-task-list .task-list-item input[type=checkbox] { opacity: 0 }
+ *       .contains-task-list .task-list-item::before  { position:absolute; left:-25px }
+ *       .contains-task-list .task-list-item::after   { the tick }
+ *       .contains-task-list .task-list-item          { padding-left: 30px }
+ *
+ *   Obsidian's own markdown renderer emits exactly the DOM this assumes:
+ *
+ *       <ul class="contains-task-list">          ← required ancestor  ✔
+ *         <li class="task-list-item">            ← positioned block box ✔
+ *           <input type="checkbox">              ← hidden hit target
+ *
+ *   Both preconditions hold, the 30px gutter exists, and the substitute
+ *   renders neatly inside it. For canonical markdown lists it worked well.
+ *
+ * ── WHY IT FAILED FOR TASK LIST KANBAN ──────────────────────────────────
+ *
+ *   TaskStatusMarker.svelte (plugin main.js:15336-15342) emits:
+ *
+ *       <span class="task-status-marker …">      ← NOT a <ul>, NOT .contains-task-list
+ *         <span class="task-list-item HyperMD-task-line" data-task="x">
+ *           <input type="checkbox" class="task-list-item-checkbox source-status-checkbox"
+ *                  data-task="x">
+ *
+ *   and the plugin's own scoped CSS forces:
+ *
+ *       .task-status-marker .task-list-item { display: contents !important }
+ *       .task-status-marker .source-status-checkbox { appearance: none !important }
+ *
+ *   Three independent failures resulted:
+ *
+ *     1. NO `.contains-task-list` ANCESTOR  → every ::before/::after rule
+ *        failed to match. No box, no tick was ever drawn.
+ *     2. `.task-list-item` IS A <span> WITH `display: contents` → it
+ *        generates no box, so even a matching absolutely-positioned
+ *        pseudo-element would have had no containing block.
+ *     3. THE PLUGIN STRIPS `appearance` AND PAINTS NOTHING ITSELF — it
+ *        explicitly delegates rendering to the theme. Obsidianite had
+ *        exactly ONE `input[type=` rule in 1,481 lines, and that rule only
+ *        set `opacity: 0`. Nothing was left to draw the control.
+ *
+ *   Inside card bodies (where MarkdownRenderer DOES emit a real list) the
+ *   outcome was worse: the plugin's `padding-left: 0 !important` removed the
+ *   gutter, `.task { overflow: hidden }` clipped the substitute at left:-25px,
+ *   and Obsidianite's `opacity: 0` still won on the nested subtask inputs.
+ *   Doubly invisible.
+ *
+ * ── HOW PRIMIDIAN AVOIDS THE STRUCTURAL ASSUMPTION ──────────────────────────
+ *
+ *   RULE 2 (docs/13 §2): a component's rendering must depend only on the
+ *   element that semantically IS that component — never on an ancestor.
+ *
+ *   Therefore: THE CHECKBOX IS THE INPUT.
+ *
+ *     · `appearance: none` on the input itself
+ *     · the box     = the input's own border + background
+ *     · the marker  = the input's own ::after at inset: 0
+ *     · no ancestor selector participates in painting
+ *     · `opacity` is never used to hide anything
+ *
+ *   Consequences:
+ *     · no `.contains-task-list` needed          → failure 1 impossible
+ *     · no parent box needed                     → failure 2 impossible
+ *     · the theme accepts the plugin's delegation → failure 3 resolved
+ *     · nothing is positioned outside the input  → clipping impossible
+ *     · no gutter is reserved                    → padding overrides harmless
+ *
+ *   This is a THEME COMPONENT, not a plugin patch. It works in any DOM that
+ *   contains an <input type="checkbox">, which is the only thing it
+ *   semantically requires. Task List Kanban needs no special treatment for
+ *   correctness — see src/compat/95 for the two purely cosmetic sizing rules.
+ *
+ * Full analysis: docs/04-bug-01-task-list-kanban.md
+ * ──────────────────────────────────────────────────────────────────────── */
+
+/* ══ CORE · the checkbox is the input ═══════════════════════════════════ */
+
+input[type='checkbox'] {
+	appearance: none;
+	-webkit-appearance: none;
+
+	position: relative;
+	flex-shrink: 0;
+	box-sizing: border-box;
+	display: inline-block;
+	vertical-align: middle;
+
+	width: var(--primidian-checkbox-size);
+	height: var(--primidian-checkbox-size);
+	margin: 0 var(--primidian-checkbox-gap) 0 0;
+	padding: 0;
+
+	background-color: var(--primidian-checkbox-bg);
+	border: var(--primidian-checkbox-border-width) solid var(--primidian-checkbox-border-color);
+	border-radius: var(--primidian-checkbox-shape-radius);
+
+	cursor: var(--primidian-cursor);
+
+	transition: background-color var(--primidian-motion-fast) var(--primidian-ease-standard),
+		border-color var(--primidian-motion-fast) var(--primidian-ease-standard),
+		box-shadow var(--primidian-motion-superfast) var(--primidian-ease-standard);
+}
+
+input[type='checkbox']:hover {
+	border-color: var(--primidian-checkbox-border-hover);
+	box-shadow: var(--primidian-checkbox-shadow-hover);
+}
+
+input[type='checkbox']:focus-visible {
+	outline: 2px solid var(--primidian-border-focus);
+	outline-offset: 2px;
+}
+
+/* ── The marker ───────────────────────────────────────────────────────────
+ * Drawn on the INPUT'S OWN pseudo-element, at inset:0 of the input. It can
+ * never be clipped by an ancestor's overflow and never depends on a parent's
+ * box, because it is inside the box it decorates. */
+
+input[type='checkbox']::after {
+	content: '';
+	position: absolute;
+	inset: 0;
+
+	background-color: var(--primidian-checkbox-marker-color);
+
+	-webkit-mask-image: var(--primidian-checkbox-icon-check);
+	mask-image: var(--primidian-checkbox-icon-check);
+	-webkit-mask-position: center;
+	mask-position: center;
+	-webkit-mask-repeat: no-repeat;
+	mask-repeat: no-repeat;
+	-webkit-mask-size: var(--primidian-checkbox-marker-size);
+	mask-size: var(--primidian-checkbox-marker-size);
+
+	/* Obsidianite's "bounce" feel, reimplemented as a single overshoot
+	 * transform instead of a border-width keyframe. Same perceived motion,
+	 * compositor-only, no layout cost, and user-tunable. */
+	transform: scale(0.4);
+	opacity: 0;
+	transition: transform var(--primidian-motion-fast) var(--primidian-ease-overshoot),
+		opacity var(--primidian-motion-superfast) linear;
+}
+
+/* ── Checked ──────────────────────────────────────────────────────────── */
+
+input[type='checkbox']:checked {
+	background-color: var(--primidian-checkbox-checked-bg);
+	border-color: var(--primidian-checkbox-checked-border);
+}
+
+input[type='checkbox']:checked::after {
+	transform: scale(1);
+	opacity: 1;
+}
+
+body.primidian-anim-no-checkbox input[type='checkbox']::after {
+	transition: none;
+}
+
+/* ── Indeterminate ────────────────────────────────────────────────────── */
+
+input[type='checkbox']:indeterminate {
+	background-color: var(--primidian-checkbox-checked-bg);
+	border-color: var(--primidian-checkbox-checked-border);
+}
+
+input[type='checkbox']:indeterminate::after {
+	-webkit-mask-image: var(--primidian-checkbox-icon-dash);
+	mask-image: var(--primidian-checkbox-icon-dash);
+	transform: scale(1);
+	opacity: 1;
+}
+
+/* ══ TASK STATES · data-task ════════════════════════════════════════════
+ *
+ * Three selector shapes are required to cover every DOM Obsidian and its
+ * plugins produce. All three are ancestor-agnostic in the sense that matters:
+ * none of them requires a specific ancestor in order to PAINT — the li[]
+ * forms only narrow which input is matched.
+ *
+ *   input[data-task="X"]          Task List Kanban (sets data-task on the
+ *                                 input itself — main.js:15423)
+ *   li[data-task="X"] > input     Obsidian tight lists (both modes)
+ *   li[data-task="X"] > p > input Obsidian loose lists (Reading Mode)
+ *
+ * Obsidianite supported NO custom states at all. This is new capability.
+ * ─────────────────────────────────────────────────────────────────────── */
+
+/* ── [/] In progress ──────────────────────────────────────────────────── */
+input[type='checkbox']:checked[data-task='/'],
+li[data-task='/'] > input[type='checkbox']:checked,
+li[data-task='/'] > p > input[type='checkbox']:checked {
+	background-color: var(--primidian-task-progress-color);
+	border-color: var(--primidian-task-progress-color);
+}
+
+input[type='checkbox']:checked[data-task='/']::after,
+li[data-task='/'] > input[type='checkbox']:checked::after,
+li[data-task='/'] > p > input[type='checkbox']:checked::after {
+	-webkit-mask-image: var(--primidian-checkbox-icon-dash);
+	mask-image: var(--primidian-checkbox-icon-dash);
+}
+
+/* ── [-] Cancelled ────────────────────────────────────────────────────── */
+input[type='checkbox']:checked[data-task='-'],
+li[data-task='-'] > input[type='checkbox']:checked,
+li[data-task='-'] > p > input[type='checkbox']:checked {
+	background-color: var(--primidian-task-cancelled-color);
+	border-color: var(--primidian-task-cancelled-color);
+}
+
+input[type='checkbox']:checked[data-task='-']::after,
+li[data-task='-'] > input[type='checkbox']:checked::after,
+li[data-task='-'] > p > input[type='checkbox']:checked::after {
+	-webkit-mask-image: var(--primidian-checkbox-icon-cross);
+	mask-image: var(--primidian-checkbox-icon-cross);
+}
+
+/* ── [>] Forwarded ────────────────────────────────────────────────────── */
+input[type='checkbox']:checked[data-task='>'],
+li[data-task='>'] > input[type='checkbox']:checked,
+li[data-task='>'] > p > input[type='checkbox']:checked {
+	background-color: var(--primidian-task-forwarded-color);
+	border-color: var(--primidian-task-forwarded-color);
+}
+
+input[type='checkbox']:checked[data-task='>']::after,
+li[data-task='>'] > input[type='checkbox']:checked::after,
+li[data-task='>'] > p > input[type='checkbox']:checked::after {
+	-webkit-mask-image: var(--primidian-checkbox-icon-forward);
+	mask-image: var(--primidian-checkbox-icon-forward);
+}
+
+/* ── [<] Scheduled ────────────────────────────────────────────────────── */
+input[type='checkbox']:checked[data-task='<'],
+li[data-task='<'] > input[type='checkbox']:checked,
+li[data-task='<'] > p > input[type='checkbox']:checked {
+	background-color: var(--primidian-task-forwarded-color);
+	border-color: var(--primidian-task-forwarded-color);
+}
+
+input[type='checkbox']:checked[data-task='<']::after,
+li[data-task='<'] > input[type='checkbox']:checked::after,
+li[data-task='<'] > p > input[type='checkbox']:checked::after {
+	-webkit-mask-image: var(--primidian-checkbox-icon-back);
+	mask-image: var(--primidian-checkbox-icon-back);
+}
+
+/* ── [?] Question ─────────────────────────────────────────────────────── */
+input[type='checkbox']:checked[data-task='?'],
+li[data-task='?'] > input[type='checkbox']:checked,
+li[data-task='?'] > p > input[type='checkbox']:checked {
+	background-color: var(--primidian-task-question-color);
+	border-color: var(--primidian-task-question-color);
+}
+
+input[type='checkbox']:checked[data-task='?']::after,
+li[data-task='?'] > input[type='checkbox']:checked::after,
+li[data-task='?'] > p > input[type='checkbox']:checked::after {
+	-webkit-mask-image: var(--primidian-checkbox-icon-question);
+	mask-image: var(--primidian-checkbox-icon-question);
+}
+
+/* ── [!] Important ────────────────────────────────────────────────────── */
+input[type='checkbox']:checked[data-task='!'],
+li[data-task='!'] > input[type='checkbox']:checked,
+li[data-task='!'] > p > input[type='checkbox']:checked {
+	background-color: var(--primidian-task-important-color);
+	border-color: var(--primidian-task-important-color);
+}
+
+input[type='checkbox']:checked[data-task='!']::after,
+li[data-task='!'] > input[type='checkbox']:checked::after,
+li[data-task='!'] > p > input[type='checkbox']:checked::after {
+	-webkit-mask-image: var(--primidian-checkbox-icon-bang);
+	mask-image: var(--primidian-checkbox-icon-bang);
+}
+
+/* ── [*] Star ─────────────────────────────────────────────────────────── */
+input[type='checkbox']:checked[data-task='*'],
+li[data-task='*'] > input[type='checkbox']:checked,
+li[data-task='*'] > p > input[type='checkbox']:checked {
+	background-color: var(--primidian-task-star-color);
+	border-color: var(--primidian-task-star-color);
+}
+
+input[type='checkbox']:checked[data-task='*']::after,
+li[data-task='*'] > input[type='checkbox']:checked::after,
+li[data-task='*'] > p > input[type='checkbox']:checked::after {
+	-webkit-mask-image: var(--primidian-checkbox-icon-star);
+	mask-image: var(--primidian-checkbox-icon-star);
+}
+
+/* ── ["] Quote ────────────────────────────────────────────────────────── */
+input[type='checkbox']:checked[data-task='"'],
+li[data-task='"'] > input[type='checkbox']:checked,
+li[data-task='"'] > p > input[type='checkbox']:checked {
+	background-color: var(--primidian-task-quote-color);
+	border-color: var(--primidian-task-quote-color);
+}
+
+input[type='checkbox']:checked[data-task='"']::after,
+li[data-task='"'] > input[type='checkbox']:checked::after,
+li[data-task='"'] > p > input[type='checkbox']:checked::after {
+	-webkit-mask-image: var(--primidian-checkbox-icon-quote);
+	mask-image: var(--primidian-checkbox-icon-quote);
+}
+
+/* ── [i] Info ─────────────────────────────────────────────────────────── */
+input[type='checkbox']:checked[data-task='i'],
+li[data-task='i'] > input[type='checkbox']:checked,
+li[data-task='i'] > p > input[type='checkbox']:checked {
+	background-color: var(--primidian-task-info-color);
+	border-color: var(--primidian-task-info-color);
+}
+
+input[type='checkbox']:checked[data-task='i']::after,
+li[data-task='i'] > input[type='checkbox']:checked::after,
+li[data-task='i'] > p > input[type='checkbox']:checked::after {
+	-webkit-mask-image: var(--primidian-checkbox-icon-info);
+	mask-image: var(--primidian-checkbox-icon-info);
+}
+
+/* ── [b] Bookmark ─────────────────────────────────────────────────────── */
+input[type='checkbox']:checked[data-task='b'],
+li[data-task='b'] > input[type='checkbox']:checked,
+li[data-task='b'] > p > input[type='checkbox']:checked {
+	background-color: var(--primidian-task-bookmark-color);
+	border-color: var(--primidian-task-bookmark-color);
+}
+
+input[type='checkbox']:checked[data-task='b']::after,
+li[data-task='b'] > input[type='checkbox']:checked::after,
+li[data-task='b'] > p > input[type='checkbox']:checked::after {
+	-webkit-mask-image: var(--primidian-checkbox-icon-bookmark);
+	mask-image: var(--primidian-checkbox-icon-bookmark);
+}
+
+/* ══ TASK LINE TEXT ═════════════════════════════════════════════════════ */
+
+.markdown-rendered li.task-list-item.is-checked,
+.markdown-source-view.mod-cm6 .HyperMD-task-line[data-task='x'],
+.markdown-source-view.mod-cm6 .HyperMD-task-line[data-task='X'] {
+	color: var(--primidian-task-done-color);
+	text-decoration: var(--primidian-task-done-decoration);
+	text-decoration-color: color-mix(
+		in srgb,
+		var(--primidian-task-done-color) 60%,
+		transparent
+	);
+	opacity: var(--primidian-task-done-opacity);
+}
+
+/* A completed parent must not strike through its incomplete children */
+.markdown-rendered li.task-list-item.is-checked ul > li:not(.is-checked),
+.markdown-rendered li.task-list-item.is-checked ol > li:not(.is-checked) {
+	color: var(--primidian-text-normal);
+	text-decoration: none;
+	opacity: 1;
+}
+
+/* Cancelled tasks read as struck-through regardless of checked state */
+.markdown-rendered li.task-list-item[data-task='-'],
+.markdown-source-view.mod-cm6 .HyperMD-task-line[data-task='-'] {
+	color: var(--primidian-task-cancelled-color);
+	text-decoration: line-through;
+}
+
+body.primidian-no-task-strike .markdown-rendered li.task-list-item.is-checked,
+body.primidian-no-task-strike .markdown-source-view.mod-cm6 .HyperMD-task-line[data-task='x'] {
+	text-decoration: none;
+}
+
+/* ══ LAYOUT ═════════════════════════════════════════════════════════════
+ * Minimal, because the input now occupies its own inline box in normal flow.
+ * Compare with Obsidianite, which needed a 30px gutter, a -3em text-indent
+ * and a -80px collapse-indicator offset to support its parent-painted box. */
+
+.markdown-rendered li.task-list-item {
+	list-style: none;
+}
+
+.markdown-rendered ul.contains-task-list {
+	padding-inline-start: 1.6em;
+}
+
+.markdown-rendered .task-list-item-checkbox {
+	margin-inline-end: var(--primidian-checkbox-gap);
+}
+
+/* Live Preview vertical alignment */
+.markdown-source-view.mod-cm6 .task-list-item-checkbox {
+	position: relative;
+	top: var(--primidian-checkbox-top);
+}
+
+.markdown-source-view.mod-cm6 .task-list-label {
+	padding-top: 0;
+}

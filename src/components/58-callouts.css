@@ -1,0 +1,139 @@
+/* ── COMPONENT · CALLOUTS ──────────────────────────────────────────────────
+ *
+ * NEW IN PRIMIDIAN. Obsidianite had zero callout rules (defect F-5), so callouts
+ * inherited blockquote styling and looked broken.
+ *
+ * Implementation uses color-mix() against the editor background rather than
+ * pre-computed alpha variables, so a single --callout-color per type drives
+ * the background, the title bar and the accent edge coherently — in both
+ * light and dark mode, without duplicated tokens.
+ * ──────────────────────────────────────────────────────────────────────── */
+
+.markdown-rendered .callout,
+.markdown-source-view.mod-cm6 .callout {
+	--callout-radius: var(--primidian-callout-radius);
+	position: relative;
+	overflow: hidden;
+	padding: 0;
+	margin-block: 1em;
+	border: var(--primidian-callout-border-width) solid
+		color-mix(in srgb, rgb(var(--callout-color)) 25%, transparent);
+	border-radius: var(--primidian-callout-radius);
+	background-color: color-mix(
+		in srgb,
+		rgb(var(--callout-color)) var(--primidian-callout-bg-opacity),
+		var(--primidian-bg-primary)
+	);
+	mix-blend-mode: normal;
+}
+
+/* Left accent edge */
+.markdown-rendered .callout::before,
+.markdown-source-view.mod-cm6 .callout::before {
+	content: '';
+	position: absolute;
+	inset: 0 auto 0 0;
+	width: var(--primidian-callout-accent-width);
+	background-color: rgb(var(--callout-color));
+	pointer-events: none;
+}
+
+/* ── Title ────────────────────────────────────────────────────────────── */
+
+.markdown-rendered .callout-title,
+.markdown-source-view.mod-cm6 .callout-title {
+	padding: var(--primidian-callout-title-padding);
+	padding-inline-start: calc(var(--primidian-callout-accent-width) + var(--primidian-space-3));
+	background-color: color-mix(
+		in srgb,
+		rgb(var(--callout-color)) var(--primidian-callout-title-bg-opacity),
+		transparent
+	);
+	font-size: var(--primidian-callout-title-size);
+	font-weight: var(--primidian-callout-title-weight);
+	color: var(--primidian-callout-title-color);
+	gap: var(--primidian-space-2);
+	align-items: center;
+}
+
+.markdown-rendered .callout-icon,
+.markdown-source-view.mod-cm6 .callout-icon {
+	display: var(--primidian-callout-icon-display);
+	color: rgb(var(--callout-color));
+	align-items: center;
+}
+
+.markdown-rendered .callout-title-inner {
+	color: var(--primidian-callout-title-color);
+}
+
+/* ── Content ──────────────────────────────────────────────────────────── */
+
+.markdown-rendered .callout-content,
+.markdown-source-view.mod-cm6 .callout-content {
+	padding: var(--primidian-callout-padding);
+	padding-inline-start: calc(var(--primidian-callout-accent-width) + var(--primidian-space-3));
+}
+
+.markdown-rendered .callout-content > *:first-child {
+	margin-block-start: 0;
+}
+
+.markdown-rendered .callout-content > *:last-child {
+	margin-block-end: 0;
+}
+
+/* ── Collapsible ──────────────────────────────────────────────────────── */
+
+.markdown-rendered .callout.is-collapsible .callout-title {
+	cursor: var(--primidian-cursor);
+}
+
+.markdown-rendered .callout.is-collapsible.is-collapsed .callout-title {
+	border-radius: var(--primidian-callout-radius);
+}
+
+.markdown-rendered .callout-fold {
+	color: rgb(var(--callout-color));
+	opacity: 0.7;
+	transition: transform var(--primidian-motion-fast) var(--primidian-ease-standard),
+		opacity var(--primidian-motion-fast) var(--primidian-ease-standard);
+}
+
+.markdown-rendered .callout-title:hover .callout-fold {
+	opacity: 1;
+}
+
+/* ── Type colours ─────────────────────────────────────────────────────────
+ * Obsidian expects --callout-color as a bare "r, g, b" triplet.
+ * Derived here from Primidian's semantic colour set. */
+
+.theme-dark,
+.theme-light {
+	--callout-default: var(--primidian-accent-rgb);
+	--callout-info: var(--primidian-accent-rgb);
+	--callout-summary: var(--primidian-accent-rgb);
+	--callout-tip: 45, 206, 168;
+	--callout-success: 63, 191, 127;
+	--callout-question: 173, 138, 245;
+	--callout-warning: 240, 168, 40;
+	--callout-failure: 233, 84, 84;
+	--callout-danger: 233, 84, 84;
+	--callout-bug: 233, 84, 84;
+	--callout-example: 173, 138, 245;
+	--callout-quote: 150, 150, 160;
+	--callout-important: var(--primidian-accent-alt-rgb);
+	--callout-todo: var(--primidian-accent-rgb);
+	--callout-abstract: 45, 206, 168;
+	--callout-note: var(--primidian-accent-rgb);
+}
+
+/* ── Nested content harmony ───────────────────────────────────────────── */
+
+.markdown-rendered .callout blockquote:not(.callout) {
+	background-color: transparent;
+}
+
+.markdown-rendered .callout pre {
+	background-color: color-mix(in srgb, var(--primidian-bg-sunken) 60%, transparent);
+}

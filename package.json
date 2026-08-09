@@ -1,0 +1,13 @@
+{
+	"name": "primidian",
+	"version": "1.1.0",
+	"description": "Primidian - Obsidianite's visual identity, engineered. An Obsidian theme.",
+	"license": "MIT",
+	"type": "module",
+	"private": true,
+	"scripts": {
+		"build": "node build.mjs",
+		"watch": "node build.mjs --watch",
+		"check": "node build.mjs --check"
+	}
+}

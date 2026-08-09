@@ -1,0 +1,104 @@
+/* ── TIER 1 · PRIMITIVES ───────────────────────────────────────────────────
+ *
+ * Raw colour ramps. These are the ONLY place literal colour values appear.
+ *
+ * INVARIANT I-4: --primidian-c-* must never be referenced outside src/tokens/.
+ * Everything downstream reads a Tier-2 semantic token instead. This is what
+ * makes future colour profiles a matter of re-anchoring ~8 values.
+ *
+ * All values are hsl() so that:
+ *   - Style Settings hsl-split can derive h/s/l components
+ *   - color-mix() and relative lightness shifts behave predictably
+ *
+ * Ramp convention: -0 lightest → -1000 darkest, in ABSOLUTE lightness terms.
+ * Dark mode reads from the high end, light mode from the low end. One ramp,
+ * two mappings — half the tokens of a two-ramp system.
+ *
+ * Anchors marked (Obsidianite) reproduce the original theme's exact colours,
+ * so Primidian looks like Obsidianite out of the box.
+ * ──────────────────────────────────────────────────────────────────────── */
+
+:root {
+	/* ── Neutral · cool violet-tinted greys ──────────────────────────────
+	 * Hue 255 preserves Obsidianite's violet-black character. A neutral
+	 * grey here would read as "generic dark theme" and lose the identity. */
+	--primidian-c-neutral-0: hsl(250, 20%, 99%);
+	--primidian-c-neutral-25: hsl(250, 24%, 97%);
+	--primidian-c-neutral-50: hsl(250, 22%, 95%);
+	--primidian-c-neutral-100: hsl(250, 18%, 90%);
+	--primidian-c-neutral-200: hsl(250, 14%, 80%);
+	--primidian-c-neutral-300: hsl(250, 10%, 68%);
+	--primidian-c-neutral-400: hsl(250, 8%, 56%);
+	--primidian-c-neutral-500: hsl(250, 8%, 45%);
+	--primidian-c-neutral-600: hsl(251, 9%, 36%);
+	--primidian-c-neutral-700: hsl(252, 12%, 27%);
+	--primidian-c-neutral-800: hsl(255, 16%, 18%);
+	--primidian-c-neutral-850: hsl(255, 18%, 14%);
+	--primidian-c-neutral-900: hsl(255, 19%, 11%); /* #191621 (Obsidianite bg-secondary) */
+	--primidian-c-neutral-950: hsl(255, 26%, 7%); /*  #100e17 (Obsidianite bg-primary)   */
+	--primidian-c-neutral-975: hsl(258, 24%, 6%); /*  #0d0b12 (Obsidianite bg-alt)       */
+	--primidian-c-neutral-1000: hsl(258, 26%, 3%);
+
+	/* Body text neutral — Obsidianite's #bebebe is warm-neutral, not violet */
+	--primidian-c-ink-300: hsl(0, 0%, 75%); /* #bebebe (Obsidianite text-normal) */
+
+	/* ── Cyan · the primary accent ───────────────────────────────────── */
+	--primidian-c-cyan-100: hsl(190, 90%, 88%);
+	--primidian-c-cyan-200: hsl(190, 90%, 80%);
+	--primidian-c-cyan-300: hsl(190, 92%, 70%); /* #6bcafb-ish (Obsidianite text-a) */
+	--primidian-c-cyan-400: hsl(190, 96%, 61%); /* #3dd7fb (Obsidianite accent-rgb) */
+	--primidian-c-cyan-500: hsl(190, 87%, 45%); /* #0fb6d6 (Obsidianite text-accent) */
+	--primidian-c-cyan-600: hsl(191, 88%, 37%);
+	--primidian-c-cyan-700: hsl(192, 88%, 29%);
+	--primidian-c-cyan-800: hsl(193, 86%, 22%);
+
+	/* ── Magenta · the secondary accent ──────────────────────────────── */
+	--primidian-c-magenta-200: hsl(333, 90%, 86%);
+	--primidian-c-magenta-300: hsl(333, 89%, 78%);
+	--primidian-c-magenta-400: hsl(333, 88%, 71%);
+	--primidian-c-magenta-500: hsl(333, 88%, 65%); /* #f4569d (Obsidianite sub-accent) */
+	--primidian-c-magenta-600: hsl(333, 74%, 53%);
+	--primidian-c-magenta-700: hsl(334, 72%, 42%);
+	--primidian-c-magenta-800: hsl(334, 70%, 33%);
+
+	/* ── Blue · bold-gradient + structural highlights ────────────────── */
+	--primidian-c-blue-300: hsl(212, 97%, 78%); /* #87c2fd (Obsidianite bold grad 1) */
+	--primidian-c-blue-400: hsl(221, 89%, 72%); /* #7aa2f7 (Obsidianite strong)      */
+	--primidian-c-blue-500: hsl(217, 88%, 60%);
+	--primidian-c-blue-600: hsl(219, 76%, 48%);
+	--primidian-c-blue-700: hsl(221, 74%, 38%);
+
+	/* ── Purple · italic + bold-gradient terminus ────────────────────── */
+	--primidian-c-purple-200: hsl(272, 90%, 86%); /* #dcb9fc (Obsidianite bold grad 2) */
+	--primidian-c-purple-400: hsl(261, 87%, 78%); /* #bb9af7 (Obsidianite em)          */
+	--primidian-c-purple-500: hsl(261, 72%, 66%);
+	--primidian-c-purple-600: hsl(261, 62%, 54%);
+	--primidian-c-purple-700: hsl(262, 60%, 43%);
+
+	/* ── Green · success, completed tasks ────────────────────────────── */
+	--primidian-c-green-300: hsl(151, 70%, 72%);
+	--primidian-c-green-500: hsl(151, 68%, 50%);
+	--primidian-c-green-600: hsl(152, 66%, 39%);
+	--primidian-c-green-700: hsl(153, 66%, 30%);
+
+	/* ── Amber · warning, in-progress ────────────────────────────────── */
+	--primidian-c-amber-300: hsl(42, 96%, 74%);
+	--primidian-c-amber-500: hsl(42, 96%, 57%);
+	--primidian-c-amber-600: hsl(38, 90%, 47%);
+	--primidian-c-amber-700: hsl(34, 88%, 38%);
+
+	/* ── Red · error, important ──────────────────────────────────────── */
+	--primidian-c-red-300: hsl(358, 92%, 78%);
+	--primidian-c-red-500: hsl(358, 85%, 64%);
+	--primidian-c-red-600: hsl(358, 72%, 51%);
+	--primidian-c-red-700: hsl(358, 70%, 41%);
+
+	/* ── Orange · quotes, tips ───────────────────────────────────────── */
+	--primidian-c-orange-300: hsl(24, 94%, 74%);
+	--primidian-c-orange-500: hsl(24, 90%, 58%);
+	--primidian-c-orange-600: hsl(22, 84%, 48%);
+
+	/* ── Absolutes ───────────────────────────────────────────────────── */
+	--primidian-c-white: hsl(0, 0%, 100%);
+	--primidian-c-black: hsl(0, 0%, 0%);
+}

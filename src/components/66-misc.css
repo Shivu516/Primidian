@@ -1,0 +1,89 @@
+/* ── COMPONENT · MISCELLANEOUS ─────────────────────────────────────────── */
+
+/* ── Mermaid ──────────────────────────────────────────────────────────── */
+
+.markdown-rendered .mermaid {
+	background-color: transparent;
+}
+
+.markdown-rendered .mermaid .node rect,
+.markdown-rendered .mermaid .node circle,
+.markdown-rendered .mermaid .node polygon {
+	fill: var(--primidian-bg-secondary);
+	stroke: var(--primidian-accent);
+}
+
+.markdown-rendered .mermaid .edgePath .path {
+	stroke: var(--primidian-text-muted);
+}
+
+/* ── Graph view ───────────────────────────────────────────────────────── */
+
+.graph-view.color-fill {
+	color: var(--primidian-text-muted);
+}
+
+.graph-view.color-fill-focused {
+	color: var(--primidian-accent);
+}
+
+.graph-view.color-line {
+	color: var(--primidian-border-strong);
+}
+
+.graph-view.color-text {
+	color: var(--primidian-text-normal);
+}
+
+.graph-view.color-circle {
+	color: var(--primidian-accent);
+}
+
+/* ── Task / progress bars (generic) ───────────────────────────────────── */
+
+progress {
+	accent-color: var(--primidian-accent);
+}
+
+/* ── Print ────────────────────────────────────────────────────────────── */
+
+@media print {
+	.markdown-rendered {
+		color: #000;
+		background: #fff;
+	}
+
+	/* Gradient-clipped text does not print. Force solid. */
+	.markdown-rendered strong,
+	.markdown-rendered :is(h1, h2, h3, h4, h5, h6) {
+		background-image: none;
+		-webkit-text-fill-color: initial;
+		color: #000;
+	}
+}
+
+/* ── Forced colours / Windows High Contrast ───────────────────────────────
+ * a11y: gradient-clipped text is invisible in forced-colors mode because the
+ * background is discarded while the transparent fill is retained. Neither
+ * source theme handled this. */
+
+@media (forced-colors: active) {
+	.markdown-rendered strong,
+	.cm-s-obsidian .cm-strong,
+	.markdown-rendered :is(h1, h2, h3, h4, h5, h6) {
+		background-image: none;
+		-webkit-text-fill-color: initial;
+		forced-color-adjust: auto;
+	}
+
+	/* Let the OS paint checkboxes in forced-colors mode; Primidian's masked
+	 * marker is a background image and would be discarded. */
+	input[type='checkbox'] {
+		forced-color-adjust: auto;
+		appearance: checkbox;
+	}
+
+	input[type='checkbox']::after {
+		display: none;
+	}
+}

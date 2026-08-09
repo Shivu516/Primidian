@@ -1,0 +1,1768 @@
+/* @settings
+
+name: Primidian
+id: primidian
+settings:
+    -
+        id: primidian-about
+        type: heading
+        level: 1
+        collapsed: true
+        title: About & Guide
+    -
+        id: primidian-about-text
+        type: info-text
+        markdown: true
+        description: "**Primidian** — Obsidianite's visual identity, engineered. Every setting below has a **Restore default** button (the circular arrow). Section headings have one too, and so does the top-level heading — use it to reset the entire theme."
+    -
+        id: primidian-about-profiles
+        type: info-text
+        markdown: true
+        description: "**Saving your setup:** use the *Export* link at the top of this panel to save all your settings to a JSON file, and *Import* to restore them. This is also how you keep multiple colour setups side by side until built-in colour profiles arrive in a future release."
+    -
+        id: primidian-about-attribution
+        type: info-text
+        markdown: true
+        description: "Visual foundation adapted from **Obsidianite** by Benny Guo (MIT). Animation and token architecture inspired by **Primary** by Cecilia May — no Primary code is included; please consider supporting her work."
+
+    -
+        id: primidian-colours
+        type: heading
+        level: 1
+        collapsed: true
+        title: Colours
+    -
+        id: primidian-colours-info
+        type: info-text
+        markdown: true
+        description: "The **Accent** colour cascades to headings, links, tags, checkboxes, borders and Obsidian's own accent UI. Changing just that one value re-tints most of the theme."
+    -
+        id: primidian-colours-core
+        type: heading
+        level: 2
+        collapsed: true
+        title: Core Colours
+    -
+        id: primidian-accent
+        type: variable-themed-color
+        format: hsl
+        title: Accent Colour
+        description: The primary accent. Drives headings, links, tags, checkboxes and borders.
+        default-light: 'hsl(192, 88%, 29%)'
+        default-dark: 'hsl(190, 87%, 45%)'
+        alt-format:
+            -
+                id: primidian-accent-rgb
+                format: rgb-values
+    -
+        id: primidian-accent-alt
+        type: variable-themed-color
+        format: hsl
+        title: Secondary Accent Colour
+        description: Used for external links, heading underlines and gradient terminals.
+        default-light: 'hsl(334, 72%, 42%)'
+        default-dark: 'hsl(333, 88%, 65%)'
+        alt-format:
+            -
+                id: primidian-accent-alt-rgb
+                format: rgb-values
+    -
+        id: primidian-bg-primary
+        type: variable-themed-color
+        format: hsl
+        title: Background — Primary
+        description: The main editor and note background.
+        default-light: 'hsl(250, 20%, 99%)'
+        default-dark: 'hsl(255, 26%, 7%)'
+    -
+        id: primidian-bg-secondary
+        type: variable-themed-color
+        format: hsl
+        title: Background — Secondary
+        description: Code blocks, table headers, input fields and sidebars.
+        default-light: 'hsl(250, 24%, 97%)'
+        default-dark: 'hsl(255, 19%, 11%)'
+    -
+        id: primidian-bg-elevated
+        type: variable-themed-color
+        format: hsl
+        title: Background — Elevated
+        description: Modals, popovers, menus and tooltips.
+        default-light: 'hsl(0, 0%, 100%)'
+        default-dark: 'hsl(255, 18%, 14%)'
+    -
+        id: primidian-text-normal
+        type: variable-themed-color
+        format: hsl
+        title: Text — Normal
+        description: Body text.
+        default-light: 'hsl(255, 16%, 18%)'
+        default-dark: 'hsl(0, 0%, 75%)'
+    -
+        id: primidian-text-muted
+        type: variable-themed-color
+        format: hsl
+        title: Text — Muted
+        description: Secondary text, interface labels, blockquotes.
+        default-light: 'hsl(251, 9%, 36%)'
+        default-dark: 'hsl(250, 8%, 56%)'
+    -
+        id: primidian-text-faint
+        type: variable-themed-color
+        format: hsl
+        title: Text — Faint
+        description: The least prominent text. Formatting marks, placeholders, completed tasks.
+        default-light: 'hsl(250, 8%, 56%)'
+        default-dark: 'hsl(250, 8%, 45%)'
+    -
+        id: primidian-border
+        type: variable-themed-color
+        format: hsl
+        opacity: true
+        title: Border Colour
+        description: Dividing lines, input outlines and card edges.
+        default-light: 'hsla(192, 88%, 29%, 0.18)'
+        default-dark: 'hsla(190, 87%, 45%, 0.12)'
+
+    -
+        id: primidian-typography
+        type: heading
+        level: 1
+        collapsed: true
+        title: Typography
+    -
+        id: primidian-typography-info
+        type: info-text
+        markdown: true
+        description: "Primidian bundles **no fonts** — this keeps the theme small and avoids font licensing constraints. Install your preferred fonts on your system, then name them here. Recommended: *Rubik* or *Inter* for text, *JetBrains Mono* or *Cascadia Code* for code."
+    -
+        id: primidian-font-text
+        type: variable-text
+        title: Text Font
+        description: Font family for note content. Falls back through Rubik, Inter, then the system UI font.
+        default: "'Rubik', 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif"
+    -
+        id: primidian-font-interface
+        type: variable-text
+        title: Interface Font
+        description: Font family for the Obsidian interface.
+        default: "'Rubik', 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif"
+    -
+        id: primidian-font-monospace
+        type: variable-text
+        title: Monospace Font
+        description: Font family for inline code and code blocks.
+        default: "'JetBrains Mono', 'Fira Code', 'Cascadia Code', 'SF Mono', Menlo, Consolas, monospace"
+    -
+        id: primidian-font-size
+        type: variable-number
+        format: px
+        title: Base Font Size
+        description: Font size for note content.
+        default: 17
+    -
+        id: primidian-font-weight
+        type: variable-number
+        title: Body Font Weight
+        description: Weight of normal body text. 400 is regular, 300 is light.
+        default: 400
+    -
+        id: primidian-line-height
+        type: variable-number-slider
+        title: Line Height
+        description: Vertical spacing between lines of text.
+        min: 1.2
+        max: 2.2
+        step: 0.05
+        default: 1.6
+    -
+        id: primidian-content-width
+        type: variable-text
+        title: Content Width
+        description: Maximum width of the readable line. Accepts any CSS length, e.g. 720px or 45em.
+        default: 720px
+
+    -
+        id: primidian-interface
+        type: heading
+        level: 1
+        collapsed: true
+        title: Interface
+    -
+        id: primidian-radius-s
+        type: variable-number
+        format: px
+        title: Corner Radius — Small
+        description: Buttons, inputs, tags and checkboxes.
+        default: 5
+    -
+        id: primidian-radius-m
+        type: variable-number
+        format: px
+        title: Corner Radius — Medium
+        description: Code blocks, callouts, embeds and tables.
+        default: 8
+    -
+        id: primidian-radius-l
+        type: variable-number
+        format: px
+        title: Corner Radius — Large
+        description: Modals and popovers.
+        default: 12
+    -
+        id: primidian-icon-opacity
+        type: variable-number-slider
+        title: Icon Resting Opacity
+        description: How prominent interface icons are before you hover them.
+        min: 0.2
+        max: 1
+        step: 0.05
+        default: 0.6
+    -
+        id: primidian-statusbar
+        type: heading
+        level: 2
+        collapsed: true
+        title: Status Bar
+    -
+        id: primidian-statusbar-style
+        type: class-select
+        allowEmpty: false
+        title: Status Bar Style
+        description: Floating fades out until you hover it, freeing screen space. Docked is always visible.
+        default: primidian-statusbar-floating
+        options:
+            -
+                label: Floating (Obsidianite)
+                value: primidian-statusbar-floating
+            -
+                label: Docked
+                value: primidian-statusbar-docked
+    -
+        id: primidian-statusbar-opacity
+        type: variable-number-slider
+        title: Floating Opacity at Rest
+        description: Opacity of the floating status bar when not hovered.
+        min: 0
+        max: 1
+        step: 0.05
+        default: 0.45
+
+    -
+        id: primidian-headings
+        type: heading
+        level: 1
+        collapsed: true
+        title: Headings
+    -
+        id: primidian-heading-style
+        type: class-select
+        allowEmpty: false
+        title: Heading Style
+        description: The overall decorative treatment applied to headings.
+        default: primidian-heading-obsidianite
+        options:
+            -
+                label: Obsidianite — gradient underline
+                value: primidian-heading-obsidianite
+            -
+                label: Minimal — no decoration
+                value: primidian-heading-minimal
+            -
+                label: Gradient — gradient text
+                value: primidian-heading-gradient
+            -
+                label: Bordered — full-width rule
+                value: primidian-heading-bordered
+            -
+                label: Accent Bar — vertical bar
+                value: primidian-heading-accentbar
+    -
+        id: primidian-h-margin-top
+        type: variable-text
+        title: Heading Space Above
+        description: Space above each heading. Accepts any CSS length, e.g. 1.9em.
+        default: 1.9em
+    -
+        id: primidian-h-margin-bottom
+        type: variable-text
+        title: Heading Space Below
+        description: Space below each heading.
+        default: 0.7em
+    -
+        id: primidian-h-underline-width
+        type: variable-number
+        format: px
+        title: Underline Thickness
+        description: Thickness of the heading underline, where the chosen style uses one.
+        default: 1
+    -
+        id: primidian-h-underline-padding
+        type: variable-text
+        title: Underline Offset
+        description: Gap between the heading text and its underline, e.g. 0.35em.
+        default: 0.35em
+    -
+        id: primidian-h-bar-width
+        type: variable-number
+        format: px
+        title: Accent Bar Thickness
+        description: Width of the vertical bar in the Accent Bar heading style.
+        default: 3
+    -
+        id: primidian-h-underline-color
+        type: variable-themed-color
+        format: hsl
+        title: Underline Colour
+        description: Colour the heading underline fades from.
+        default-light: 'hsl(334, 72%, 42%)'
+        default-dark: 'hsl(333, 88%, 65%)'
+    -
+        id: primidian-h-marker-color
+        type: variable-themed-color
+        format: hsl
+        title: Accent Bar / Marker Colour
+        description: Colour of the vertical bar in the Accent Bar style, and of heading hashes in Live Preview.
+        default-light: 'hsl(192, 88%, 29%)'
+        default-dark: 'hsl(190, 87%, 45%)'
+    -
+        id: primidian-h1
+        type: heading
+        level: 2
+        collapsed: true
+        title: Heading 1
+    -
+        id: primidian-h1-color
+        type: variable-themed-color
+        format: hsl
+        title: Colour
+        default-light: 'hsl(192, 88%, 29%)'
+        default-dark: 'hsl(190, 87%, 45%)'
+    -
+        id: primidian-h1-size
+        type: variable-text
+        title: Font Size
+        description: Relative to the base font size, e.g. 2em.
+        default: 2em
+    -
+        id: primidian-h1-weight
+        type: variable-number
+        title: Font Weight
+        default: 600
+    -
+        id: primidian-h1-spacing
+        type: variable-text
+        title: Letter Spacing
+        description: Accepts a CSS length or the keyword normal.
+        default: normal
+    -
+        id: primidian-h1-transform
+        type: variable-select
+        title: Text Transform
+        default: none
+        options:
+            - none
+            - uppercase
+            - lowercase
+            - capitalize
+    -
+        id: primidian-h2
+        type: heading
+        level: 2
+        collapsed: true
+        title: Heading 2
+    -
+        id: primidian-h2-color
+        type: variable-themed-color
+        format: hsl
+        title: Colour
+        default-light: 'hsl(255, 16%, 18%)'
+        default-dark: 'hsl(0, 0%, 75%)'
+    -
+        id: primidian-h2-size
+        type: variable-text
+        title: Font Size
+        default: 1.55em
+    -
+        id: primidian-h2-weight
+        type: variable-number
+        title: Font Weight
+        default: 600
+    -
+        id: primidian-h2-spacing
+        type: variable-text
+        title: Letter Spacing
+        default: normal
+    -
+        id: primidian-h2-transform
+        type: variable-select
+        title: Text Transform
+        default: none
+        options:
+            - none
+            - uppercase
+            - lowercase
+            - capitalize
+    -
+        id: primidian-h3
+        type: heading
+        level: 2
+        collapsed: true
+        title: Heading 3
+    -
+        id: primidian-h3-color
+        type: variable-themed-color
+        format: hsl
+        title: Colour
+        default-light: 'hsl(255, 16%, 18%)'
+        default-dark: 'hsl(0, 0%, 75%)'
+    -
+        id: primidian-h3-size
+        type: variable-text
+        title: Font Size
+        default: 1.3em
+    -
+        id: primidian-h3-weight
+        type: variable-number
+        title: Font Weight
+        default: 600
+    -
+        id: primidian-h4
+        type: heading
+        level: 2
+        collapsed: true
+        title: Heading 4
+    -
+        id: primidian-h4-color
+        type: variable-themed-color
+        format: hsl
+        title: Colour
+        default-light: 'hsl(255, 16%, 18%)'
+        default-dark: 'hsl(0, 0%, 75%)'
+    -
+        id: primidian-h4-size
+        type: variable-text
+        title: Font Size
+        default: 1.12em
+    -
+        id: primidian-h4-weight
+        type: variable-number
+        title: Font Weight
+        default: 600
+    -
+        id: primidian-h5
+        type: heading
+        level: 2
+        collapsed: true
+        title: Heading 5
+    -
+        id: primidian-h5-color
+        type: variable-themed-color
+        format: hsl
+        title: Colour
+        default-light: 'hsl(251, 9%, 36%)'
+        default-dark: 'hsl(250, 8%, 56%)'
+    -
+        id: primidian-h5-size
+        type: variable-text
+        title: Font Size
+        default: 1em
+    -
+        id: primidian-h5-weight
+        type: variable-number
+        title: Font Weight
+        default: 600
+    -
+        id: primidian-h6
+        type: heading
+        level: 2
+        collapsed: true
+        title: Heading 6
+    -
+        id: primidian-h6-color
+        type: variable-themed-color
+        format: hsl
+        title: Colour
+        default-light: 'hsl(251, 9%, 36%)'
+        default-dark: 'hsl(250, 8%, 56%)'
+    -
+        id: primidian-h6-size
+        type: variable-text
+        title: Font Size
+        default: 0.92em
+    -
+        id: primidian-h6-weight
+        type: variable-number
+        title: Font Weight
+        default: 600
+
+    -
+        id: primidian-dividers
+        type: heading
+        level: 1
+        collapsed: true
+        title: Dividers
+    -
+        id: primidian-divider-style
+        type: class-select
+        allowEmpty: false
+        title: Divider Style
+        description: How horizontal rules are drawn. Decorative is the Obsidianite look.
+        default: primidian-divider-decorative
+        options:
+            -
+                label: Decorative — inset gradient rule with centred glyph
+                value: primidian-divider-decorative
+            -
+                label: Gradient — full-width soft-edged band, no glyph
+                value: primidian-divider-gradient
+            -
+                label: Standard — solid rule with end caps
+                value: primidian-divider-standard
+            -
+                label: Minimal — short centred hairline
+                value: primidian-divider-minimal
+            -
+                label: Animated — travelling highlight sweeps along the rule
+                value: primidian-divider-animated
+    -
+        id: primidian-divider-info
+        type: info-text
+        markdown: true
+        description: "Each style differs in **shape**, not just colour — width, thickness, end caps, glyph and motion — so they stay distinguishable even if you set every colour the same. *Decorative* is the Obsidianite look."
+    -
+        id: primidian-divider-pattern
+        type: class-select
+        allowEmpty: false
+        title: Line Pattern
+        description: Applies a dashed or dotted pattern to whichever style you selected above.
+        default: primidian-divider-solid
+        options:
+            -
+                label: Solid
+                value: primidian-divider-solid
+            -
+                label: Dashed
+                value: primidian-divider-dashed
+            -
+                label: Dotted
+                value: primidian-divider-dotted
+    -
+        id: primidian-divider-dimensions
+        type: heading
+        level: 2
+        collapsed: true
+        title: Dimensions
+    -
+        id: primidian-divider-thickness
+        type: variable-number
+        format: px
+        title: Thickness
+        description: Height of the rule. Each style also sets its own default, which this overrides.
+        default: 1
+    -
+        id: primidian-divider-width
+        type: variable-text
+        title: Line Width
+        description: How much of the text column the rule spans. A CSS length or percentage, e.g. 100% or 38%.
+        default: 100%
+    -
+        id: primidian-divider-space-above
+        type: variable-text
+        title: Space Above
+        description: Vertical space above the rule. Accepts any CSS length, e.g. 3em.
+        default: 3em
+    -
+        id: primidian-divider-space-below
+        type: variable-text
+        title: Space Below
+        description: Vertical space below the rule.
+        default: 3em
+    -
+        id: primidian-divider-margin
+        type: variable-text
+        title: Vertical Spacing (both sides)
+        description: Fallback used when Space Above and Space Below are left at their defaults. Set the two above for independent control.
+        default: 3em
+    -
+        id: primidian-divider-cap-size
+        type: variable-number
+        format: px
+        title: End Cap Size
+        description: Diameter of the dots at each end of the Standard style.
+        default: 5
+    -
+        id: primidian-divider-glyph-group
+        type: heading
+        level: 2
+        collapsed: true
+        title: Decorative Glyph
+    -
+        id: primidian-divider-glyph
+        type: variable-text
+        quotes: true
+        title: Glyph Character
+        description: Shown at the centre of the rule in the Decorative style.
+        default: §
+    -
+        id: primidian-divider-glyph-rotate
+        type: variable-text
+        title: Glyph Rotation
+        description: A CSS angle, e.g. 60deg or 0deg.
+        default: 60deg
+    -
+        id: primidian-divider-glyph-size
+        type: variable-text
+        title: Glyph Size
+        description: Relative to surrounding text, e.g. 1em.
+        default: 1em
+    -
+        id: primidian-divider-glyph-gap
+        type: variable-text
+        title: Glyph Clearance
+        description: Horizontal gap punched in the rule on either side of the glyph.
+        default: 0.75em
+    -
+        id: primidian-divider-glyph-weight
+        type: variable-number
+        title: Glyph Weight
+        default: 400
+    -
+        id: primidian-divider-anim-group
+        type: heading
+        level: 2
+        collapsed: true
+        title: Animated Style
+    -
+        id: primidian-divider-shimmer-duration
+        type: variable-text
+        title: Sweep Duration
+        description: How long the travelling highlight takes to cross the rule, e.g. 3.4s. Longer is calmer.
+        default: 3.4s
+    -
+        id: primidian-divider-shimmer-width
+        type: variable-text
+        title: Highlight Width
+        description: Width of the travelling highlight, as a percentage of the rule.
+        default: 22%
+    -
+        id: primidian-divider-colours
+        type: heading
+        level: 2
+        collapsed: true
+        title: Colours
+    -
+        id: primidian-divider-color
+        type: variable-themed-color
+        format: hsl
+        title: Line Colour
+        default-light: 'hsl(192, 88%, 29%)'
+        default-dark: 'hsl(190, 87%, 45%)'
+    -
+        id: primidian-divider-glyph-color
+        type: variable-themed-color
+        format: hsl
+        title: Glyph Colour
+        default-light: 'hsl(334, 72%, 42%)'
+        default-dark: 'hsl(333, 88%, 65%)'
+
+    -
+        id: primidian-emphasis
+        type: heading
+        level: 1
+        collapsed: true
+        title: Bold, Italic & Highlight
+    -
+        id: primidian-bold-color
+        type: variable-themed-color
+        format: hsl
+        title: Bold Colour
+        description: Used when gradients are disabled, and for bold text containing links or code.
+        default-light: 'hsl(219, 76%, 48%)'
+        default-dark: 'hsl(221, 89%, 72%)'
+    -
+        id: primidian-bold-weight
+        type: variable-number
+        title: Bold Weight
+        default: 700
+    -
+        id: primidian-italic-color
+        type: variable-themed-color
+        format: hsl
+        title: Italic Colour
+        default-light: 'hsl(261, 62%, 54%)'
+        default-dark: 'hsl(261, 87%, 78%)'
+    -
+        id: primidian-highlight-bg
+        type: variable-themed-color
+        format: hsl
+        opacity: true
+        title: Highlight Background
+        default-light: 'hsla(42, 96%, 57%, 0.4)'
+        default-dark: 'hsla(333, 88%, 65%, 0.25)'
+    -
+        id: primidian-highlight-text
+        type: variable-themed-color
+        format: hsl
+        title: Highlight Text Colour
+        default-light: 'hsl(255, 19%, 11%)'
+        default-dark: 'hsl(0, 0%, 100%)'
+    -
+        id: primidian-highlight-padding-x
+        type: variable-text
+        title: Highlight Horizontal Padding
+        description: Space either side of highlighted text, e.g. 0.2em.
+        default: 0.2em
+    -
+        id: primidian-highlight-padding-y
+        type: variable-text
+        title: Highlight Vertical Padding
+        description: Space above and below highlighted text. Larger values make a taller chip.
+        default: 0.05em
+    -
+        id: primidian-highlight-radius
+        type: variable-number
+        format: px
+        title: Highlight Corner Radius
+        default: 3
+    -
+        id: primidian-strike-color
+        type: variable-themed-color
+        format: hsl
+        title: Strikethrough Colour
+        default-light: 'hsl(250, 8%, 56%)'
+        default-dark: 'hsl(250, 8%, 45%)'
+
+    -
+        id: primidian-links
+        type: heading
+        level: 1
+        collapsed: true
+        title: Links
+    -
+        id: primidian-link-info
+        type: info-text
+        markdown: true
+        description: "Primidian's links use a *sweep* underline that grows to fill the line when hovered, rather than a conventional text underline."
+    -
+        id: primidian-link-style
+        type: class-select
+        allowEmpty: false
+        title: Link Style
+        default: primidian-link-sweep
+        options:
+            -
+                label: Sweep (Obsidianite)
+                value: primidian-link-sweep
+    -
+        id: primidian-link-color
+        type: variable-themed-color
+        format: hsl
+        title: Link Text Colour
+        default-light: 'hsl(255, 16%, 18%)'
+        default-dark: 'hsl(0, 0%, 75%)'
+    -
+        id: primidian-link-hover-color
+        type: variable-themed-color
+        format: hsl
+        title: Link Text Colour on Hover
+        default-light: 'hsl(0, 0%, 100%)'
+        default-dark: 'hsl(258, 26%, 3%)'
+    -
+        id: primidian-link-internal-accent
+        type: variable-themed-color
+        format: hsl
+        opacity: true
+        title: Internal Link Underline
+        default-light: 'hsla(192, 88%, 29%, 0.55)'
+        default-dark: 'hsla(190, 87%, 45%, 0.55)'
+    -
+        id: primidian-link-external-accent
+        type: variable-themed-color
+        format: hsl
+        opacity: true
+        title: External Link Underline
+        default-light: 'hsla(334, 72%, 42%, 0.55)'
+        default-dark: 'hsla(333, 88%, 65%, 0.55)'
+    -
+        id: primidian-link-unresolved-color
+        type: variable-themed-color
+        format: hsl
+        title: Unresolved Link Colour
+        default-light: 'hsl(250, 8%, 56%)'
+        default-dark: 'hsl(250, 8%, 45%)'
+    -
+        id: primidian-link-sweep-rest
+        type: variable-number
+        format: px
+        title: Underline Thickness at Rest
+        default: 5
+    -
+        id: primidian-link-sweep-hover
+        type: variable-number
+        format: px
+        title: Sweep Height on Hover
+        description: How far the underline grows when hovered. Set equal to the resting thickness to disable the sweep.
+        default: 60
+
+    -
+        id: primidian-inline-code
+        type: heading
+        level: 1
+        collapsed: true
+        title: Inline Code
+    -
+        id: primidian-inline-code-color
+        type: variable-themed-color
+        format: hsl
+        title: Text Colour
+        default-light: 'hsl(192, 88%, 29%)'
+        default-dark: 'hsl(190, 87%, 45%)'
+    -
+        id: primidian-inline-code-bg
+        type: variable-themed-color
+        format: hsl
+        opacity: true
+        title: Background
+        default-light: 'hsla(192, 88%, 29%, 0.09)'
+        default-dark: 'hsla(190, 87%, 45%, 0.09)'
+    -
+        id: primidian-inline-code-radius
+        type: variable-number
+        format: px
+        title: Corner Radius
+        default: 3
+    -
+        id: primidian-inline-code-size
+        type: variable-text
+        title: Font Size
+        description: Relative to surrounding text, e.g. 0.88em.
+        default: 0.88em
+
+    -
+        id: primidian-code-blocks
+        type: heading
+        level: 1
+        collapsed: true
+        title: Code Blocks
+    -
+        id: primidian-codeblock-style
+        type: class-select
+        allowEmpty: false
+        title: Code Block Style
+        default: primidian-codeblock-standard
+        options:
+            -
+                label: Standard
+                value: primidian-codeblock-standard
+    -
+        id: primidian-code-bg
+        type: variable-themed-color
+        format: hsl
+        title: Background
+        description: Applies to both Reading Mode and Live Preview, so they always match.
+        default-light: 'hsl(250, 24%, 97%)'
+        default-dark: 'hsl(255, 19%, 11%)'
+    -
+        id: primidian-code-color
+        type: variable-themed-color
+        format: hsl
+        title: Default Text Colour
+        default-light: 'hsl(255, 16%, 18%)'
+        default-dark: 'hsl(0, 0%, 75%)'
+    -
+        id: primidian-code-radius
+        type: variable-number
+        format: px
+        title: Corner Radius
+        default: 8
+    -
+        id: primidian-code-size
+        type: variable-text
+        title: Font Size
+        default: 0.86em
+    -
+        id: primidian-code-line-height
+        type: variable-number-slider
+        title: Line Height
+        min: 1.2
+        max: 2
+        step: 0.05
+        default: 1.55
+    -
+        id: primidian-no-code-flair
+        type: class-toggle
+        title: Hide Language Label
+        description: Hides Obsidian's built-in language indicator on fenced code blocks.
+        default: false
+    -
+        id: primidian-linenum
+        type: heading
+        level: 2
+        collapsed: true
+        title: Line Numbers
+    -
+        id: primidian-linenum-info
+        type: info-text
+        markdown: true
+        description: "⚠️ **Live Preview only.** In Reading Mode, Obsidian renders a code block as a single text node with no per-line elements, so CSS cannot number the lines — this is a structural limit of the DOM, not an oversight. See the README for details. Numbers are never selected when you copy code."
+    -
+        id: primidian-linenum-on
+        type: class-toggle
+        title: Show Line Numbers
+        description: Adds a line-number gutter to fenced code blocks in Live Preview.
+        default: false
+    -
+        id: primidian-linenum-color
+        type: variable-themed-color
+        format: hsl
+        title: Line Number Colour
+        description: Defaults to the main accent colour.
+        default-light: 'hsl(192, 88%, 29%)'
+        default-dark: 'hsl(190, 87%, 45%)'
+    -
+        id: primidian-linenum-opacity
+        type: variable-number-slider
+        title: Line Number Opacity
+        min: 0.1
+        max: 1
+        step: 0.05
+        default: 0.45
+    -
+        id: primidian-linenum-width
+        type: variable-text
+        title: Gutter Width
+        description: Width reserved for the numbers, e.g. 2.5em. Increase for files with 1000+ lines.
+        default: 2.5em
+    -
+        id: primidian-linenum-gap
+        type: variable-text
+        title: Gutter Gap
+        description: Space between the numbers and the code.
+        default: 1em
+    -
+        id: primidian-linenum-size
+        type: variable-text
+        title: Line Number Font Size
+        description: Relative to the code font size.
+        default: 0.9em
+    -
+        id: primidian-linenum-divider-width
+        type: variable-number
+        format: px
+        title: Gutter Separator Width
+        description: A vertical rule between the numbers and the code. 0 hides it.
+        default: 0
+    -
+        id: primidian-syntax
+        type: heading
+        level: 2
+        collapsed: true
+        title: Syntax Colours
+    -
+        id: primidian-syntax-info
+        type: info-text
+        markdown: true
+        description: "One palette drives **both** highlighters — CodeMirror in Live Preview and Prism in Reading Mode — so your code looks identical in either view. Obsidianite used two unrelated palettes here."
+    -
+        id: primidian-syntax-keyword
+        type: variable-themed-color
+        format: hsl
+        title: Keywords
+        default-light: 'hsl(334, 72%, 42%)'
+        default-dark: 'hsl(333, 88%, 65%)'
+    -
+        id: primidian-syntax-string
+        type: variable-themed-color
+        format: hsl
+        title: Strings
+        default-light: 'hsl(152, 66%, 39%)'
+        default-dark: 'hsl(151, 68%, 50%)'
+    -
+        id: primidian-syntax-number
+        type: variable-themed-color
+        format: hsl
+        title: Numbers
+        default-light: 'hsl(261, 62%, 54%)'
+        default-dark: 'hsl(261, 87%, 78%)'
+    -
+        id: primidian-syntax-comment
+        type: variable-themed-color
+        format: hsl
+        title: Comments
+        default-light: 'hsl(250, 8%, 56%)'
+        default-dark: 'hsl(250, 8%, 45%)'
+    -
+        id: primidian-syntax-function
+        type: variable-themed-color
+        format: hsl
+        title: Functions
+        default-light: 'hsl(192, 88%, 29%)'
+        default-dark: 'hsl(190, 87%, 45%)'
+    -
+        id: primidian-syntax-property
+        type: variable-themed-color
+        format: hsl
+        title: Properties
+        default-light: 'hsl(219, 76%, 48%)'
+        default-dark: 'hsl(221, 89%, 72%)'
+    -
+        id: primidian-syntax-type
+        type: variable-themed-color
+        format: hsl
+        title: Types & Selectors
+        default-light: 'hsl(38, 90%, 47%)'
+        default-dark: 'hsl(42, 96%, 57%)'
+    -
+        id: primidian-syntax-punctuation
+        type: variable-themed-color
+        format: hsl
+        title: Punctuation
+        default-light: 'hsl(251, 9%, 36%)'
+        default-dark: 'hsl(250, 8%, 56%)'
+
+    -
+        id: primidian-callouts
+        type: heading
+        level: 1
+        collapsed: true
+        title: Callouts
+    -
+        id: primidian-callout-style
+        type: class-select
+        allowEmpty: false
+        title: Callout Style
+        default: primidian-callout-standard
+        options:
+            -
+                label: Standard
+                value: primidian-callout-standard
+    -
+        id: primidian-callout-radius
+        type: variable-number
+        format: px
+        title: Corner Radius
+        default: 8
+    -
+        id: primidian-callout-accent-width
+        type: variable-number
+        format: px
+        title: Accent Edge Width
+        description: The coloured bar down the left side of a callout.
+        default: 3
+    -
+        id: primidian-callout-bg-opacity
+        type: variable-text
+        title: Background Tint Strength
+        description: How strongly the callout colour tints its background. A CSS percentage, e.g. 8%.
+        default: 8%
+    -
+        id: primidian-callout-title-weight
+        type: variable-number
+        title: Title Font Weight
+        default: 600
+
+    -
+        id: primidian-blockquotes
+        type: heading
+        level: 1
+        collapsed: true
+        title: Blockquotes
+    -
+        id: primidian-blockquote-style
+        type: class-select
+        allowEmpty: false
+        title: Blockquote Style
+        default: primidian-blockquote-obsidianite
+        options:
+            -
+                label: Obsidianite — gradient bars
+                value: primidian-blockquote-obsidianite
+    -
+        id: primidian-quote-color
+        type: variable-themed-color
+        format: hsl
+        title: Text Colour
+        default-light: 'hsl(251, 9%, 36%)'
+        default-dark: 'hsl(250, 8%, 56%)'
+    -
+        id: primidian-quote-border-color
+        type: variable-themed-color
+        format: hsl
+        title: Left Border Colour
+        default-light: 'hsl(192, 88%, 29%)'
+        default-dark: 'hsl(190, 87%, 45%)'
+    -
+        id: primidian-quote-bg
+        type: variable-themed-color
+        format: hsl
+        opacity: true
+        title: Background
+        default-light: 'hsla(192, 88%, 29%, 0.04)'
+        default-dark: 'hsla(190, 87%, 45%, 0.04)'
+    -
+        id: primidian-quote-border-width
+        type: variable-number
+        format: px
+        title: Left Border Width
+        default: 3
+    -
+        id: primidian-quote-style
+        type: variable-select
+        title: Font Style
+        default: normal
+        options:
+            - normal
+            - italic
+
+    -
+        id: primidian-checkboxes
+        type: heading
+        level: 1
+        collapsed: true
+        title: Checkboxes & Tasks
+    -
+        id: primidian-checkbox-info
+        type: info-text
+        markdown: true
+        description: "Primidian styles the **native checkbox element** rather than drawing a replacement on its parent. That is what makes checkboxes render correctly inside Task List Kanban, Dataview tables, hover previews and Canvas cards — see the README for the full explanation."
+    -
+        id: primidian-checkbox-shape
+        type: class-select
+        allowEmpty: false
+        title: Checkbox Shape
+        default: primidian-checkbox-rounded
+        options:
+            -
+                label: Rounded
+                value: primidian-checkbox-rounded
+    -
+        id: primidian-checkbox-size
+        type: variable-text
+        title: Size
+        description: Relative to the surrounding text, e.g. 1.05em.
+        default: 1.05em
+    -
+        id: primidian-checkbox-border-width
+        type: variable-number
+        format: px
+        title: Border Width
+        default: 2
+    -
+        id: primidian-checkbox-radius
+        type: variable-number
+        format: px
+        title: Corner Radius
+        default: 3
+    -
+        id: primidian-checkbox-border-color
+        type: variable-themed-color
+        format: hsl
+        title: Unchecked Border Colour
+        default-light: 'hsl(250, 8%, 56%)'
+        default-dark: 'hsl(250, 8%, 45%)'
+    -
+        id: primidian-checkbox-checked-bg
+        type: variable-themed-color
+        format: hsl
+        title: Checked Background
+        default-light: 'hsl(192, 88%, 29%)'
+        default-dark: 'hsl(190, 87%, 45%)'
+    -
+        id: primidian-checkbox-marker-color
+        type: variable-themed-color
+        format: hsl
+        title: Tick Colour
+        default-light: 'hsl(0, 0%, 100%)'
+        default-dark: 'hsl(258, 26%, 3%)'
+    -
+        id: primidian-checkbox-marker-size
+        type: variable-text
+        title: Tick Size
+        description: Size of the tick relative to the box. A CSS percentage, e.g. 68%.
+        default: 68%
+    -
+        id: primidian-task-done-color
+        type: variable-themed-color
+        format: hsl
+        title: Completed Task Text Colour
+        default-light: 'hsl(250, 8%, 56%)'
+        default-dark: 'hsl(250, 8%, 45%)'
+    -
+        id: primidian-no-task-strike
+        type: class-toggle
+        title: Do Not Strike Through Completed Tasks
+        description: By default completed tasks are struck through. Enable this to keep them plain.
+        default: false
+    -
+        id: primidian-task-states
+        type: heading
+        level: 2
+        collapsed: true
+        title: Custom Task States
+    -
+        id: primidian-task-states-info
+        type: info-text
+        markdown: true
+        description: "Obsidian supports custom task markers such as `- [/]` (in progress), `- [-]` (cancelled), `- [>]` (forwarded), `- [?]` (question) and `- [!]` (important). Obsidianite did not style these at all; Primidian gives each its own colour and glyph."
+    -
+        id: primidian-task-progress-color
+        type: variable-themed-color
+        format: hsl
+        title: In Progress — [/]
+        default-light: 'hsl(38, 90%, 47%)'
+        default-dark: 'hsl(42, 96%, 57%)'
+    -
+        id: primidian-task-cancelled-color
+        type: variable-themed-color
+        format: hsl
+        title: Cancelled — [-]
+        default-light: 'hsl(250, 8%, 56%)'
+        default-dark: 'hsl(250, 8%, 45%)'
+    -
+        id: primidian-task-forwarded-color
+        type: variable-themed-color
+        format: hsl
+        title: Forwarded / Scheduled — [>] and [<]
+        default-light: 'hsl(219, 76%, 48%)'
+        default-dark: 'hsl(221, 89%, 72%)'
+    -
+        id: primidian-task-question-color
+        type: variable-themed-color
+        format: hsl
+        title: Question — [?]
+        default-light: 'hsl(261, 62%, 54%)'
+        default-dark: 'hsl(261, 87%, 78%)'
+    -
+        id: primidian-task-important-color
+        type: variable-themed-color
+        format: hsl
+        title: Important — [!]
+        default-light: 'hsl(358, 72%, 51%)'
+        default-dark: 'hsl(358, 85%, 64%)'
+    -
+        id: primidian-task-star-color
+        type: variable-themed-color
+        format: hsl
+        title: Star — [*]
+        default-light: 'hsl(38, 90%, 47%)'
+        default-dark: 'hsl(42, 96%, 57%)'
+
+    -
+        id: primidian-tags
+        type: heading
+        level: 1
+        collapsed: true
+        title: Tags
+    -
+        id: primidian-tag-variant
+        type: class-select
+        allowEmpty: false
+        title: Tag Style
+        default: primidian-tag-pill
+        options:
+            -
+                label: Pill
+                value: primidian-tag-pill
+    -
+        id: primidian-tag-color
+        type: variable-themed-color
+        format: hsl
+        title: Text Colour
+        default-light: 'hsl(192, 88%, 29%)'
+        default-dark: 'hsl(190, 87%, 45%)'
+    -
+        id: primidian-tag-bg
+        type: variable-themed-color
+        format: hsl
+        opacity: true
+        title: Background
+        default-light: 'hsla(192, 88%, 29%, 0.14)'
+        default-dark: 'hsla(190, 87%, 45%, 0.14)'
+    -
+        id: primidian-tag-size
+        type: variable-text
+        title: Font Size
+        default: 0.84em
+    -
+        id: primidian-tag-style
+        type: variable-select
+        title: Font Style
+        default: italic
+        options:
+            - italic
+            - normal
+    -
+        id: primidian-tag-radius
+        type: variable-number
+        format: px
+        title: Corner Radius
+        description: A large value gives a pill shape; 4 gives a rounded rectangle.
+        default: 999
+
+    -
+        id: primidian-tables
+        type: heading
+        level: 1
+        collapsed: true
+        title: Tables
+    -
+        id: primidian-table-style
+        type: class-select
+        allowEmpty: false
+        title: Table Style
+        default: primidian-table-standard
+        options:
+            -
+                label: Standard
+                value: primidian-table-standard
+    -
+        id: primidian-table-header-bg
+        type: variable-themed-color
+        format: hsl
+        title: Header Background
+        default-light: 'hsl(250, 24%, 97%)'
+        default-dark: 'hsl(255, 19%, 11%)'
+    -
+        id: primidian-table-header-color
+        type: variable-themed-color
+        format: hsl
+        title: Header Text Colour
+        default-light: 'hsl(192, 88%, 29%)'
+        default-dark: 'hsl(190, 87%, 45%)'
+    -
+        id: primidian-table-border-color
+        type: variable-themed-color
+        format: hsl
+        opacity: true
+        title: Border Colour
+        default-light: 'hsla(192, 88%, 29%, 0.18)'
+        default-dark: 'hsla(190, 87%, 45%, 0.12)'
+    -
+        id: primidian-table-stripe-opacity
+        type: variable-text
+        title: Alternating Row Tint
+        description: Strength of the zebra striping. A CSS percentage; 0% disables it.
+        default: 0%
+    -
+        id: primidian-table-cell-padding
+        type: variable-text
+        title: Cell Padding
+        default: 0.45em 0.8em
+
+    -
+        id: primidian-lists-embeds
+        type: heading
+        level: 1
+        collapsed: true
+        title: Lists, Embeds & Properties
+    -
+        id: primidian-list-marker-color
+        type: variable-themed-color
+        format: hsl
+        title: List Bullet Colour
+        default-light: 'hsl(192, 88%, 29%)'
+        default-dark: 'hsl(190, 87%, 45%)'
+    -
+        id: primidian-list-indent-color
+        type: variable-themed-color
+        format: hsl
+        title: Indent Guide Colour
+        default-light: 'hsl(192, 88%, 29%)'
+        default-dark: 'hsl(190, 87%, 45%)'
+    -
+        id: primidian-list-indent-opacity
+        type: variable-number-slider
+        title: Indent Guide Opacity
+        min: 0
+        max: 1
+        step: 0.05
+        default: 0.35
+    -
+        id: primidian-embed-bg
+        type: variable-themed-color
+        format: hsl
+        title: Embed Background
+        default-light: 'hsl(250, 24%, 97%)'
+        default-dark: 'hsl(255, 19%, 11%)'
+    -
+        id: primidian-embed-title-color
+        type: variable-themed-color
+        format: hsl
+        title: Embed Title Colour
+        default-light: 'hsl(192, 88%, 29%)'
+        default-dark: 'hsl(190, 87%, 45%)'
+    -
+        id: primidian-embed-radius
+        type: variable-number
+        format: px
+        title: Embed Corner Radius
+        default: 8
+    -
+        id: primidian-image-radius
+        type: variable-number
+        format: px
+        title: Image Corner Radius
+        default: 8
+    -
+        id: primidian-props-bg
+        type: variable-themed-color
+        format: hsl
+        title: Properties Background
+        default-light: 'hsl(250, 24%, 97%)'
+        default-dark: 'hsl(255, 19%, 11%)'
+    -
+        id: primidian-props-key-color
+        type: variable-themed-color
+        format: hsl
+        title: Property Name Colour
+        default-light: 'hsl(251, 9%, 36%)'
+        default-dark: 'hsl(250, 8%, 56%)'
+
+    -
+        id: primidian-gradients
+        type: heading
+        level: 1
+        collapsed: true
+        title: Gradient System
+    -
+        id: primidian-gradients-info
+        type: info-text
+        markdown: true
+        description: "Gradients cascade: set the **global** colours once and every gradient follows, or override an individual component below. Turning gradients off makes every component fall back to a solid colour — and is also a guaranteed fix if gradient text ever causes a contrast problem for you."
+    -
+        id: primidian-gradients-off
+        type: class-toggle
+        title: Disable All Gradients
+        description: Master switch. Turn on for solid colours everywhere — gradient bold text, heading gradients and gradient dividers all fall back to their solid colour. Also a guaranteed fix if gradient text ever causes a contrast problem for you.
+        default: false
+    -
+        id: primidian-grad-1
+        type: variable-themed-color
+        format: hsl
+        title: Global Gradient — Colour 1
+        default-light: 'hsl(192, 88%, 29%)'
+        default-dark: 'hsl(190, 87%, 45%)'
+    -
+        id: primidian-grad-2
+        type: variable-themed-color
+        format: hsl
+        title: Global Gradient — Colour 2
+        default-light: 'hsl(334, 72%, 42%)'
+        default-dark: 'hsl(333, 88%, 65%)'
+    -
+        id: primidian-grad-angle
+        type: variable-text
+        title: Global Gradient Angle
+        description: A CSS angle, e.g. 62deg.
+        default: 62deg
+    -
+        id: primidian-grad-bold
+        type: heading
+        level: 2
+        collapsed: true
+        title: Bold Text Gradient
+    -
+        id: primidian-bold-grad-1
+        type: variable-themed-color
+        format: hsl
+        title: Colour 1
+        default-light: 'hsl(212, 97%, 78%)'
+        default-dark: 'hsl(212, 97%, 78%)'
+    -
+        id: primidian-bold-grad-2
+        type: variable-themed-color
+        format: hsl
+        title: Colour 2
+        default-light: 'hsl(272, 90%, 86%)'
+        default-dark: 'hsl(272, 90%, 86%)'
+    -
+        id: primidian-bold-grad-angle
+        type: variable-text
+        title: Angle
+        default: 62deg
+    -
+        id: primidian-grad-heading
+        type: heading
+        level: 2
+        collapsed: true
+        title: Heading Gradient
+    -
+        id: primidian-h-grad-1
+        type: variable-themed-color
+        format: hsl
+        title: Colour 1
+        default-light: 'hsl(192, 88%, 29%)'
+        default-dark: 'hsl(190, 87%, 45%)'
+    -
+        id: primidian-h-grad-2
+        type: variable-themed-color
+        format: hsl
+        title: Colour 2
+        default-light: 'hsl(334, 72%, 42%)'
+        default-dark: 'hsl(333, 88%, 65%)'
+    -
+        id: primidian-h-grad-angle
+        type: variable-text
+        title: Angle
+        default: 62deg
+    -
+        id: primidian-grad-divider
+        type: heading
+        level: 2
+        collapsed: true
+        title: Divider Gradient
+    -
+        id: primidian-divider-grad-1
+        type: variable-themed-color
+        format: hsl
+        title: Colour 1
+        default-light: 'hsl(192, 88%, 29%)'
+        default-dark: 'hsl(190, 87%, 45%)'
+    -
+        id: primidian-divider-grad-2
+        type: variable-themed-color
+        format: hsl
+        title: Colour 2
+        default-light: 'hsl(334, 72%, 42%)'
+        default-dark: 'hsl(333, 88%, 65%)'
+
+    -
+        id: primidian-glow
+        type: heading
+        level: 1
+        collapsed: true
+        title: Glow System
+    -
+        id: primidian-glow-info
+        type: info-text
+        markdown: true
+        description: "An optional accent glow. Each element derives its glow from **its own configured colour** — recolour a divider and its glow follows automatically. Applied selectively to headings, links, dividers, checkboxes, tags, highlights, the active tab, focused inputs and line numbers; never to body text."
+    -
+        id: primidian-glow-off
+        type: class-toggle
+        title: Disable Glow
+        description: Glow is off by default. Turn this off to enable it.
+        default: true
+    -
+        id: primidian-glow-intensity
+        type: variable-number-slider
+        title: Glow Intensity
+        description: Scales the blur radius and opacity of every glow at once. 0 is invisible, 1 is the Primidian default, 2 is pronounced.
+        min: 0
+        max: 2
+        step: 0.05
+        default: 1
+    -
+        id: primidian-glow-blur-base
+        type: variable-text
+        title: Base Blur Radius
+        description: Glow radius at intensity 1. A CSS length, e.g. 8px.
+        default: 8px
+    -
+        id: primidian-glow-alpha-base
+        type: variable-number-slider
+        title: Base Opacity
+        description: Glow opacity at intensity 1.
+        min: 0
+        max: 1
+        step: 0.05
+        default: 0.45
+    -
+        id: primidian-glow-spread
+        type: variable-text
+        title: Glow Spread
+        description: Extra spread beyond the blur. Usually best left at 0px.
+        default: 0px
+
+    -
+        id: primidian-animations
+        type: heading
+        level: 1
+        collapsed: true
+        title: Animations
+    -
+        id: primidian-animations-info
+        type: info-text
+        markdown: true
+        description: "Primidian respects your operating system's **reduce motion** setting by default. The *Animation Speed* dropdown is the quickest way to retime the whole theme at once."
+    -
+        id: primidian-animations-off
+        type: class-toggle
+        title: Disable All Animations
+        description: Removes every transition and animation in the theme.
+        default: false
+    -
+        id: primidian-motion-scale
+        type: variable-number-slider
+        title: Animation Speed Multiplier
+        description: Scales every duration at once. Below 1 is faster, above 1 is slower.
+        min: 0.25
+        max: 2
+        step: 0.05
+        default: 1
+    -
+        id: primidian-motion-force
+        type: class-toggle
+        title: Ignore System Reduce-Motion
+        description: By default Primidian honours your OS reduce-motion preference. Enable this to keep animations regardless.
+        default: false
+    -
+        id: primidian-anim-no-popups
+        type: class-toggle
+        title: Disable Popup Entry Animation
+        description: Modals, menus and the command palette appear instantly.
+        default: false
+    -
+        id: primidian-anim-no-checkbox
+        type: class-toggle
+        title: Disable Checkbox Animation
+        description: The tick appears instantly instead of springing in.
+        default: false
+    -
+        id: primidian-anim-no-hover-lift
+        type: class-toggle
+        title: Disable Button Press Effect
+        default: false
+    -
+        id: primidian-anim-no-tabs
+        type: class-toggle
+        title: Disable Tab Motion
+        description: Removes the tab lift, press and indicator animations while keeping colour feedback.
+        default: false
+    -
+        id: primidian-tabs-group
+        type: heading
+        level: 2
+        collapsed: true
+        title: Tab Motion
+    -
+        id: primidian-tabs-info
+        type: info-text
+        markdown: true
+        description: "Inactive tabs lift on hover and sink when pressed; the active tab reads as a raised card with an accent indicator that wipes out from the centre. All transform-based, so nothing triggers layout."
+    -
+        id: primidian-tab-lift
+        type: variable-number
+        format: px
+        title: Hover Lift Distance
+        description: How far an inactive tab rises when hovered.
+        default: 2
+    -
+        id: primidian-tab-press
+        type: variable-number
+        format: px
+        title: Press Depth
+        description: How far a tab sinks when clicked.
+        default: 1
+    -
+        id: primidian-tab-indicator-height
+        type: variable-number
+        format: px
+        title: Active Indicator Thickness
+        default: 2
+    -
+        id: primidian-tab-indicator-inset
+        type: variable-text
+        title: Active Indicator Inset
+        description: How far the indicator is inset from each edge of the tab, e.g. 22%.
+        default: 22%
+    -
+        id: primidian-tab-inactive-opacity
+        type: variable-number-slider
+        title: Inactive Tab Opacity
+        min: 0.2
+        max: 1
+        step: 0.02
+        default: 0.62
+    -
+        id: primidian-motion-durations
+        type: heading
+        level: 2
+        collapsed: true
+        title: Individual Durations
+    -
+        id: primidian-motion-superfast
+        type: variable-text
+        title: Superfast
+        description: Hover tints and focus rings.
+        default: 80ms
+    -
+        id: primidian-motion-fast
+        type: variable-text
+        title: Fast
+        description: Buttons, icons, checkboxes, tags.
+        default: 160ms
+    -
+        id: primidian-motion-moderate
+        type: variable-text
+        title: Moderate
+        description: Panels, popovers, link sweeps.
+        default: 260ms
+    -
+        id: primidian-motion-slow
+        type: variable-text
+        title: Slow
+        description: Large surfaces and sidebars.
+        default: 400ms
+    -
+        id: primidian-ease-standard
+        type: variable-text
+        title: Easing — Standard
+        default: cubic-bezier(0.4, 0, 0.2, 1)
+    -
+        id: primidian-ease-overshoot
+        type: variable-text
+        title: Easing — Overshoot
+        description: Used where an element springs into view, such as the checkbox tick.
+        default: cubic-bezier(0.34, 1.56, 0.64, 1)
+
+    -
+        id: primidian-compat
+        type: heading
+        level: 1
+        collapsed: true
+        title: Plugin Compatibility
+    -
+        id: primidian-compat-info
+        type: info-text
+        markdown: true
+        description: "**Task List Kanban** — Primidian fixes the checkbox rendering bug present in Obsidianite. The fix lives in Primidian's core checkbox component, not in an override, so it also benefits Dataview, Canvas cards and hover previews. The toggle below only affects cosmetic size matching."
+    -
+        id: primidian-compat-tlk-off
+        type: class-toggle
+        title: Task List Kanban — Use Standard Checkbox Proportions
+        description: By default Primidian scales the checkbox border and tick to match the plugin's own marker size. Enable this to use Primidian's standard document proportions instead.
+        default: false
+
+    -
+        id: primidian-advanced
+        type: heading
+        level: 1
+        collapsed: true
+        title: Advanced
+    -
+        id: primidian-advanced-info
+        type: info-text
+        markdown: true
+        description: "Use **Export** at the top of this panel to back up your configuration before experimenting. To reset everything, use the circular-arrow button on the *Primidian* heading itself."
+    -
+        id: primidian-no-blur
+        type: class-toggle
+        title: Disable Background Blur
+        description: Removes the blur behind modals. Can improve performance on large vaults or older hardware.
+        default: false
+    -
+        id: primidian-scrollbar-width
+        type: variable-number
+        format: px
+        title: Scrollbar Width
+        default: 10
+    -
+        id: primidian-border-width
+        type: variable-number
+        format: px
+        title: Base Border Width
+        default: 1
+
+*/

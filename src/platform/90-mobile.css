@@ -1,0 +1,88 @@
+/* ── PLATFORM · MOBILE & TABLET ────────────────────────────────────────────
+ * NEW IN PRIMIDIAN. Obsidianite had no mobile rules (defect F-19).
+ * ──────────────────────────────────────────────────────────────────────── */
+
+body.is-mobile {
+	--primidian-font-size: 16px;
+	--primidian-content-width: 100%;
+}
+
+/* ── Touch targets ────────────────────────────────────────────────────────
+ * A 1.05em checkbox is comfortable with a mouse but small for a fingertip.
+ * Because Primidian's checkbox is the input itself, enlarging it is a single
+ * token change — the marker scales automatically (it is at inset: 0) and
+ * nothing needs repositioning. Under Obsidianite's parent-painted approach
+ * this would have required recalculating every negative offset. */
+
+body.is-mobile {
+	--primidian-checkbox-size: 1.25em;
+	--primidian-checkbox-gap: 0.7em;
+}
+
+body.is-phone .clickable-icon {
+	padding: var(--primidian-space-2);
+}
+
+/* ── Chrome ───────────────────────────────────────────────────────────── */
+
+body.is-mobile .workspace-drawer {
+	background-color: var(--primidian-bg-primary-alt);
+}
+
+body.is-mobile .workspace-drawer-inner {
+	background-color: var(--primidian-bg-primary-alt);
+}
+
+body.is-mobile .mobile-navbar,
+body.is-mobile .mobile-toolbar {
+	background-color: var(--primidian-bg-primary-alt);
+	border-top: var(--primidian-border-width) solid var(--primidian-border);
+}
+
+body.is-mobile .mobile-toolbar-option:hover,
+body.is-mobile .mobile-navbar-action:hover {
+	color: var(--primidian-accent);
+}
+
+/* The floating status bar is a desktop affordance; it overlaps content and
+ * has no hover state on touch. */
+body.is-mobile.primidian-statusbar-floating .status-bar {
+	position: static;
+	opacity: 1;
+	border-radius: 0;
+	border-left: none;
+}
+
+/* ── Reading comfort ──────────────────────────────────────────────────── */
+
+body.is-phone {
+	--primidian-h1-size: 1.75em;
+	--primidian-h2-size: 1.4em;
+	--primidian-h3-size: 1.2em;
+	--primidian-h-margin-top: 1.4em;
+	--primidian-divider-margin: 2em;
+	--primidian-quote-padding: var(--primidian-space-2) var(--primidian-space-3);
+	--primidian-code-padding: var(--primidian-space-3);
+}
+
+body.is-phone .markdown-rendered pre {
+	border-radius: var(--primidian-radius-s);
+}
+
+/* Tables need horizontal scroll rather than compression */
+body.is-mobile .markdown-rendered table {
+	display: block;
+	overflow-x: auto;
+	white-space: nowrap;
+}
+
+/* Modals go full-bleed */
+body.is-phone .modal {
+	border-radius: var(--primidian-radius-l) var(--primidian-radius-l) 0 0;
+}
+
+/* ── Tablet ───────────────────────────────────────────────────────────── */
+
+body.is-tablet {
+	--primidian-content-width: 680px;
+}

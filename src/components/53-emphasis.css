@@ -1,0 +1,152 @@
+/* ── COMPONENT · EMPHASIS ──────────────────────────────────────────────────
+ *
+ * ╔══════════════════════════════════════════════════════════════════════╗
+ * ║  BUG #2 — LAYER 3 OF 5  ·  GUARD THE GRADIENT AT ITS SOURCE          ║
+ * ╚══════════════════════════════════════════════════════════════════════╝
+ *
+ * ROOT CAUSE RECAP (full analysis in docs/05)
+ *
+ *   Obsidianite.css:616-624 applied to BARE `strong`:
+ *       -webkit-background-clip: text;
+ *       -webkit-text-fill-color: transparent;
+ *
+ *   `-webkit-text-fill-color` INHERITS, and it overrides `color` for glyph
+ *   fill. Any <code>, <kbd>, <mark>, <a> or tag nested inside a <strong>
+ *   therefore inherited `transparent` and painted NO GLYPHS — while its own
+ *   background still rendered, producing an empty coloured pill.
+ *
+ *   Obsidianite's inline-code rule set `color: … !important`, which cannot
+ *   help: !important on `color` does not defeat an inherited
+ *   -webkit-text-fill-color.
+ *
+ *   Evidence the original author hit this: Obsidianite.css:639-642 added
+ *   `-webkit-text-fill-color: initial` for `strong kbd` — the exact escape
+ *   hatch required — but never added the equivalent for `code`.
+ *
+ * PRIMIDIAN'S APPROACH
+ *
+ *   Keep the gradient bold (it is an Obsidianite signature, keeper K-5) but
+ *   make it structurally incapable of causing the bug:
+ *
+ *     Layer 3 (here)  :has() guard — a <strong> containing ANY nested inline
+ *                     element does not receive the gradient at all, and
+ *                     falls back to a solid colour.
+ *     Layer 2 (here)  explicit fill reset on every inline child, for engines
+ *                     or edge cases where the guard does not apply.
+ *     Layer 1 (54)    inline code sets BOTH color and -webkit-text-fill-color.
+ *     Layer 4 (80)    the gradient master switch removes the property entirely.
+ *     Layer 5 (54)    no !important, so users can recolour freely.
+ *
+ *   Layers 1-3 are each independently sufficient. Defence in depth is
+ *   warranted because this property's inheritance is easy to reintroduce.
+ *
+ * PERF NOTE (I-10): :has() is used here only on `strong`/`.cm-strong`, which
+ *   are low-frequency and stable. It is never used on .cm-line.
+ * ──────────────────────────────────────────────────────────────────────── */
+
+/* ── BOLD · solid baseline ────────────────────────────────────────────────
+ * Declared FIRST and unconditionally, so that whenever the gradient is
+ * absent — guarded, toggled off, or unsupported — bold text is already
+ * correctly coloured. Nothing can end up invisible. */
+
+.markdown-rendered strong,
+.cm-s-obsidian .cm-strong {
+	color: var(--primidian-bold-color);
+	font-weight: var(--primidian-bold-weight);
+}
+
+/* ── BOLD · gradient, guarded (LAYER 3) ──────────────────────────────────
+ * The :has() guard is the root-cause fix. A <strong> that contains a nested
+ * inline element simply never gets the clipping properties. */
+
+body:not(.primidian-gradients-off)
+	:is(.markdown-rendered strong, .cm-s-obsidian .cm-strong):not(
+		:has(code, kbd, mark, a, .tag, .math, img, svg)
+	) {
+	background-image: var(--primidian-bold-gradient);
+	-webkit-background-clip: text;
+	background-clip: text;
+	-webkit-text-fill-color: transparent;
+}
+
+/* ── LAYER 2 · explicit fill reset on every inline child ─────────────────
+ * Generalises Obsidianite's <kbd>-only escape hatch to the full set of
+ * inline elements that can legally nest inside emphasis. */
+
+:is(.markdown-rendered strong, .cm-s-obsidian .cm-strong)
+	:is(code, kbd, mark, a, .tag, .math, .cm-inline-code, .cm-hashtag) {
+	-webkit-text-fill-color: initial;
+	-webkit-background-clip: initial;
+	background-clip: initial;
+	background-image: none;
+}
+
+/* Bold text selection must remain legible under a transparent fill */
+.markdown-rendered strong::selection,
+.cm-s-obsidian .cm-strong::selection {
+	-webkit-text-fill-color: var(--primidian-text-normal);
+	background-color: var(--primidian-selection-bg);
+}
+
+/* ── ITALIC ───────────────────────────────────────────────────────────── */
+
+.markdown-rendered em,
+.cm-s-obsidian .cm-em {
+	color: var(--primidian-italic-color);
+	font-style: var(--primidian-italic-style);
+}
+
+/* ── BOLD ITALIC ──────────────────────────────────────────────────────────
+ * Explicitly solid. Gradient-clipping nested emphasis is where the original
+ * bug was most visible, so Primidian does not attempt it. */
+
+.markdown-rendered strong em,
+.markdown-rendered em strong,
+.cm-s-obsidian .cm-strong.cm-em {
+	color: var(--primidian-italic-color);
+	-webkit-text-fill-color: initial;
+	background-image: none;
+	font-weight: var(--primidian-bold-weight);
+	font-style: var(--primidian-italic-style);
+}
+
+/* ── HIGHLIGHT ────────────────────────────────────────────────────────────
+ * Must reset the inherited fill too — ==highlight== inside **bold** was
+ * another casualty of the original rule. */
+
+.markdown-rendered mark,
+.cm-s-obsidian .cm-highlight {
+	color: var(--primidian-highlight-text);
+	-webkit-text-fill-color: var(--primidian-highlight-text);
+	background-color: var(--primidian-highlight-bg);
+	background-image: none;
+	-webkit-background-clip: initial;
+	background-clip: initial;
+	border-radius: var(--primidian-highlight-radius);
+	padding: var(--primidian-highlight-padding);
+}
+
+/* ── STRIKETHROUGH ────────────────────────────────────────────────────── */
+
+.markdown-rendered del,
+.markdown-rendered s,
+.cm-s-obsidian .cm-strikethrough {
+	color: var(--primidian-strike-color);
+	-webkit-text-fill-color: var(--primidian-strike-color);
+	text-decoration-color: var(--primidian-strike-color);
+}
+
+/* ── Live Preview formatting-mark sizing ──────────────────────────────────
+ * Obsidianite shrank the `*` markers with display:inline-flex, which caused
+ * baseline drift. A plain opacity reduction reads the same and does not
+ * disturb the line box. */
+
+.cm-s-obsidian .cm-formatting-em,
+.cm-s-obsidian .cm-formatting-strong,
+.cm-s-obsidian .cm-formatting-highlight,
+.cm-s-obsidian .cm-formatting-strikethrough {
+	-webkit-text-fill-color: initial;
+	background-image: none;
+	color: var(--primidian-text-faint);
+	opacity: 0.5;
+}

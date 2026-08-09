@@ -1,0 +1,201 @@
+/* ── UI · BUTTONS, INPUTS, TOGGLES, SETTINGS PANEL ─────────────────────── */
+
+/* ── Buttons ──────────────────────────────────────────────────────────────
+ * Clean-room interactive motion: a short colour + shadow response on hover
+ * and a 1px press on active. Explicit property lists (PR-1). */
+
+button:not(.clickable-icon),
+.mod-cta,
+input[type='button'],
+input[type='submit'] {
+	border-radius: var(--primidian-button-radius);
+	font-family: var(--primidian-font-interface);
+	font-weight: var(--primidian-font-weight-medium);
+	transition: background-color var(--primidian-motion-fast) var(--primidian-ease-standard),
+		color var(--primidian-motion-fast) var(--primidian-ease-standard),
+		box-shadow var(--primidian-motion-fast) var(--primidian-ease-standard),
+		transform var(--primidian-motion-superfast) var(--primidian-ease-standard);
+}
+
+button:not(.clickable-icon):hover {
+	background-color: var(--primidian-bg-elevated);
+	box-shadow: var(--primidian-shadow-s);
+}
+
+button:not(.clickable-icon):active {
+	transform: translateY(1px);
+	box-shadow: none;
+}
+
+button.mod-cta {
+	background-color: var(--primidian-accent);
+	color: var(--primidian-text-on-accent);
+}
+
+button.mod-cta:hover {
+	background-color: var(--primidian-accent-hover);
+}
+
+button.mod-warning {
+	background-color: var(--primidian-color-red);
+	color: var(--primidian-text-on-accent);
+}
+
+/* ── Clickable icons ──────────────────────────────────────────────────── */
+
+.clickable-icon {
+	border-radius: var(--primidian-radius-s);
+	color: var(--primidian-text-muted);
+	transition: color var(--primidian-motion-fast) var(--primidian-ease-standard),
+		background-color var(--primidian-motion-fast) var(--primidian-ease-standard);
+}
+
+.clickable-icon:hover {
+	color: var(--primidian-accent);
+	background-color: var(--primidian-surface-hover);
+}
+
+.clickable-icon.is-active {
+	color: var(--primidian-accent);
+}
+
+/* ── Inputs ───────────────────────────────────────────────────────────── */
+
+input[type='text'],
+input[type='search'],
+input[type='email'],
+input[type='password'],
+input[type='number'],
+input[type='date'],
+textarea,
+select,
+.dropdown {
+	background-color: var(--primidian-bg-secondary);
+	color: var(--primidian-text-normal);
+	border: var(--primidian-border-width) solid var(--primidian-border);
+	border-radius: var(--primidian-input-radius);
+	font-family: var(--primidian-font-interface);
+	transition: border-color var(--primidian-motion-fast) var(--primidian-ease-standard),
+		box-shadow var(--primidian-motion-fast) var(--primidian-ease-standard),
+		background-color var(--primidian-motion-fast) var(--primidian-ease-standard);
+}
+
+input[type='text']:hover,
+input[type='search']:hover,
+textarea:hover,
+select:hover,
+.dropdown:hover {
+	border-color: var(--primidian-border-hover);
+}
+
+input[type='text']:focus,
+input[type='search']:focus,
+input[type='email']:focus,
+input[type='password']:focus,
+input[type='number']:focus,
+textarea:focus,
+select:focus,
+.dropdown:focus {
+	border-color: var(--primidian-border-focus);
+	box-shadow: 0 0 0 3px color-mix(in srgb, var(--primidian-accent) 18%, transparent);
+	outline: none;
+}
+
+::placeholder {
+	color: var(--primidian-text-faint);
+}
+
+/* ── Toggle switches ──────────────────────────────────────────────────────
+ * NOTE: .checkbox-container is Obsidian's SETTINGS TOGGLE, a <div>, not a
+ * task checkbox. It is deliberately styled here rather than in
+ * 60-checkboxes.css so the two never interfere — a distinction Obsidianite
+ * blurred. */
+
+.checkbox-container {
+	background-color: var(--primidian-bg-sunken);
+	border: var(--primidian-border-width) solid var(--primidian-border);
+	transition: background-color var(--primidian-motion-fast) var(--primidian-ease-standard),
+		border-color var(--primidian-motion-fast) var(--primidian-ease-standard);
+}
+
+.checkbox-container:hover {
+	border-color: var(--primidian-border-hover);
+}
+
+.checkbox-container.is-enabled {
+	background-color: var(--primidian-accent);
+	border-color: var(--primidian-accent);
+}
+
+.checkbox-container::after {
+	background-color: var(--primidian-text-normal);
+	transition: transform var(--primidian-motion-fast) var(--primidian-ease-overshoot),
+		background-color var(--primidian-motion-fast) var(--primidian-ease-standard);
+}
+
+.checkbox-container.is-enabled::after {
+	background-color: var(--primidian-text-on-accent);
+}
+
+/* ── Sliders ──────────────────────────────────────────────────────────── */
+
+input[type='range'] {
+	background-color: transparent;
+}
+
+input[type='range']::-webkit-slider-runnable-track {
+	background-color: var(--primidian-bg-sunken);
+	border-radius: var(--primidian-radius-pill);
+}
+
+input[type='range']::-webkit-slider-thumb {
+	background-color: var(--primidian-accent);
+	border: none;
+	transition: transform var(--primidian-motion-fast) var(--primidian-ease-overshoot),
+		box-shadow var(--primidian-motion-fast) var(--primidian-ease-standard);
+}
+
+input[type='range']::-webkit-slider-thumb:hover {
+	transform: scale(1.15);
+	box-shadow: 0 0 0 4px color-mix(in srgb, var(--primidian-accent) 20%, transparent);
+}
+
+/* ── Settings panel ───────────────────────────────────────────────────── */
+
+.vertical-tab-header,
+.vertical-tab-content-container {
+	background-color: var(--primidian-bg-primary-alt);
+}
+
+.vertical-tab-nav-item {
+	border-radius: var(--primidian-radius-s);
+	transition: background-color var(--primidian-motion-fast) var(--primidian-ease-standard),
+		color var(--primidian-motion-fast) var(--primidian-ease-standard);
+}
+
+.vertical-tab-nav-item:hover {
+	background-color: var(--primidian-surface-hover);
+	color: var(--primidian-accent);
+}
+
+.vertical-tab-nav-item.is-active {
+	background-color: var(--primidian-surface-selected);
+	color: var(--primidian-accent);
+}
+
+.setting-item {
+	border-top: var(--primidian-border-width) solid var(--primidian-border);
+}
+
+.setting-item-name {
+	color: var(--primidian-text-normal);
+}
+
+.setting-item-description {
+	color: var(--primidian-text-muted);
+}
+
+.setting-item-heading .setting-item-name {
+	color: var(--primidian-accent);
+	font-weight: var(--primidian-font-weight-semibold);
+}

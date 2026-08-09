@@ -1,0 +1,113 @@
+/* ── EDITOR · LIVE PREVIEW / SOURCE (CM6 only) ─────────────────────────── */
+
+.markdown-source-view.mod-cm6 .cm-scroller {
+	font-family: var(--primidian-font-text);
+}
+
+/* ── Cursor & active line ─────────────────────────────────────────────── */
+
+.markdown-source-view.mod-cm6 .cm-cursor,
+.cm-cursor-primary {
+	border-left-color: var(--primidian-accent);
+	border-left-width: 2px;
+}
+
+.markdown-source-view.mod-cm6 .cm-active.cm-line {
+	background-color: color-mix(in srgb, var(--primidian-accent) 3%, transparent);
+}
+
+/* ── Formatting marks ─────────────────────────────────────────────────── */
+
+.cm-s-obsidian .cm-formatting {
+	color: var(--primidian-text-faint);
+	opacity: 0.5;
+}
+
+.cm-s-obsidian .cm-formatting-header {
+	color: var(--primidian-h-marker-color);
+	opacity: 0.45;
+}
+
+.cm-s-obsidian .cm-formatting-list {
+	color: var(--primidian-list-marker-color);
+}
+
+.cm-s-obsidian .cm-formatting-quote {
+	color: var(--primidian-quote-border-color);
+}
+
+.cm-s-obsidian .cm-formatting-link,
+.cm-s-obsidian .cm-formatting-link-string {
+	color: var(--primidian-text-faint);
+	opacity: 0.4;
+}
+
+.cm-s-obsidian .cm-url {
+	color: var(--primidian-text-faint);
+	opacity: 0.55;
+	font-weight: var(--primidian-font-weight);
+}
+
+.cm-s-obsidian .cm-formatting-image {
+	color: var(--primidian-accent);
+	opacity: 0.7;
+}
+
+.cm-s-obsidian .cm-formatting-hashtag {
+	color: var(--primidian-text-faint);
+}
+
+/* ── Indent guides ────────────────────────────────────────────────────────
+ * FIX F-14: Obsidianite declared `transition: opacity 500ms linear ease-in-out`
+ * — two timing functions, so the whole declaration was invalid and dropped.
+ * Indent guides never animated. Corrected to a single valid easing. */
+
+.markdown-source-view.mod-cm6 .cm-indent::before {
+	border-left-width: var(--primidian-list-indent-width);
+	border-color: var(--primidian-list-indent-color);
+	opacity: var(--primidian-list-indent-opacity);
+	transition: opacity var(--primidian-motion-moderate) var(--primidian-ease-standard);
+}
+
+.markdown-source-view.mod-cm6 .cm-active-indent::before {
+	opacity: var(--primidian-list-indent-opacity-active);
+}
+
+/* ── Fold & gutter ────────────────────────────────────────────────────── */
+
+.markdown-source-view.mod-cm6 .cm-foldPlaceholder {
+	background-color: var(--primidian-surface-active);
+	color: var(--primidian-accent);
+	border: none;
+	border-radius: var(--primidian-radius-xs);
+}
+
+.markdown-source-view.mod-cm6 .cm-gutters {
+	background-color: transparent;
+	color: var(--primidian-text-faint);
+	border: none;
+}
+
+.markdown-source-view.mod-cm6 .cm-lineNumbers .cm-gutterElement {
+	color: var(--primidian-text-faint);
+}
+
+/* ── Search / find in note ────────────────────────────────────────────── */
+
+.cm-s-obsidian .obsidian-search-match-highlight,
+.markdown-source-view.mod-cm6 .cm-searchMatch {
+	background-color: var(--primidian-search-bg);
+	color: var(--primidian-highlight-text);
+	border-radius: var(--primidian-radius-xs);
+}
+
+/* ── Embedded blocks ──────────────────────────────────────────────────── */
+
+.markdown-source-view.mod-cm6 .cm-embed-block {
+	border-radius: var(--primidian-radius-m);
+	padding: 0;
+}
+
+.markdown-source-view.mod-cm6 .cm-embed-block:hover {
+	box-shadow: none;
+}

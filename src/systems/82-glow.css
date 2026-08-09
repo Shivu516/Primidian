@@ -1,0 +1,184 @@
+/* ── SYSTEM · GLOW ─────────────────────────────────────────────────────────
+ *
+ * Phase 4. An optional, centrally-controlled glow that any accent-driven
+ * element can opt into — deriving its colour from that element's OWN
+ * configured colour rather than always from the global accent.
+ *
+ * ── HOW IT AVOIDS DUPLICATING CSS PER COMPONENT ─────────────────────────
+ *
+ * Two resolved tokens do all the work:
+ *
+ *     --primidian-glow-alpha   opacity,  = base × intensity
+ *     --primidian-glow-blur    radius,   = base × intensity
+ *
+ * A component then needs exactly ONE declaration:
+ *
+ *     box-shadow: 0 0 var(--primidian-glow-blur) var(--primidian-glow-spread)
+ *                 color-mix(in srgb, VAR var(--primidian-glow-alpha), transparent);
+ *
+ * where VAR is that component's own colour token. Because the component
+ * passes its own colour in, a user who recolours (say) the divider gets a
+ * divider glow in the new colour automatically — requirement 5 — with no
+ * per-component glow settings and no extra CSS.
+ *
+ * ── THE OFF-SWITCH ──────────────────────────────────────────────────────
+ *
+ * `body.primidian-glow-off` (the default) sets --primidian-glow-alpha to 0% and
+ * --primidian-glow-blur to 0. Every glow therefore resolves to a fully
+ * transparent, zero-radius shadow — i.e. nothing is painted, and no
+ * component needs its own "glow off" rule. Turning glow off is a single
+ * token change, not N rule removals.
+ *
+ * ── WHY box-shadow AND text-shadow, NOT filter: drop-shadow ─────────────
+ *
+ * `filter` creates a containing block for fixed/absolute descendants and
+ * forces a new stacking context, which would break positioned pseudo-
+ * elements used elsewhere in the theme (divider glyph, heading bar).
+ * box-shadow and text-shadow are cheaper and side-effect free.
+ * ──────────────────────────────────────────────────────────────────────── */
+
+body {
+	/* Resolved from the intensity multiplier in tokens/14. Clamped so an
+	 * extreme intensity cannot produce an unusable full-screen bloom. */
+	--primidian-glow-alpha: clamp(
+		0%,
+		calc(var(--primidian-glow-alpha-base) * var(--primidian-glow-intensity) * 100%),
+		95%
+	);
+	--primidian-glow-blur: clamp(
+		0px,
+		calc(var(--primidian-glow-blur-base) * var(--primidian-glow-intensity)),
+		48px
+	);
+}
+
+/* ══ MASTER OFF-SWITCH ══════════════════════════════════════════════════
+ * Default state. Glow is opt-in, so an existing configuration is unchanged
+ * by this feature until the user enables it. */
+
+body.primidian-glow-off {
+	--primidian-glow-alpha: 0%;
+	--primidian-glow-blur: 0px;
+	--primidian-glow-spread: 0px;
+}
+
+/* ══ APPLICATIONS ═══════════════════════════════════════════════════════
+ * Deliberately selective (requirement 4). Glow is applied only where it
+ * reads as intentional emphasis, never to body text or large surfaces.
+ *
+ * Each rule passes the component's OWN colour token into color-mix, which
+ * is what makes custom colours flow through automatically. */
+
+/* ── Headings — text glow on the accent-coloured H1 only ──────────────── */
+body:not(.primidian-glow-off) .markdown-rendered h1 {
+	text-shadow: 0 0 var(--primidian-glow-blur)
+		color-mix(in srgb, var(--primidian-h1-color) var(--primidian-glow-alpha), transparent);
+}
+
+/* ── Links — glow on hover, when the sweep is already drawing attention ── */
+body:not(.primidian-glow-off) .markdown-rendered a.internal-link:hover,
+body:not(.primidian-glow-off) .markdown-rendered a.external-link:hover {
+	text-shadow: 0 0 var(--primidian-glow-blur)
+		color-mix(in srgb, var(--primidian-accent) var(--primidian-glow-alpha), transparent);
+}
+
+/* ── Dividers — glow follows the divider's own configured colour ───────── */
+body:not(.primidian-glow-off) .markdown-rendered hr {
+	box-shadow: 0 0 var(--primidian-glow-blur) var(--primidian-glow-spread)
+		color-mix(in srgb, var(--primidian-divider-color) var(--primidian-glow-alpha), transparent);
+}
+
+body:not(.primidian-glow-off) .markdown-rendered hr::after {
+	text-shadow: 0 0 var(--primidian-glow-blur)
+		color-mix(
+			in srgb,
+			var(--primidian-divider-glyph-color) var(--primidian-glow-alpha),
+			transparent
+		);
+}
+
+/* ── Checkboxes — checked state only; unchecked stays quiet ───────────── */
+body:not(.primidian-glow-off) input[type='checkbox']:checked {
+	box-shadow: 0 0 var(--primidian-glow-blur) var(--primidian-glow-spread)
+		color-mix(
+			in srgb,
+			var(--primidian-checkbox-checked-bg) var(--primidian-glow-alpha),
+			transparent
+		);
+}
+
+/* Custom task states glow in their own colour, not the generic accent. */
+body:not(.primidian-glow-off) input[type='checkbox']:checked[data-task='/'],
+body:not(.primidian-glow-off) li[data-task='/'] > input[type='checkbox']:checked,
+body:not(.primidian-glow-off) li[data-task='/'] > p > input[type='checkbox']:checked {
+	box-shadow: 0 0 var(--primidian-glow-blur) var(--primidian-glow-spread)
+		color-mix(in srgb, var(--primidian-task-progress-color) var(--primidian-glow-alpha), transparent);
+}
+
+body:not(.primidian-glow-off) input[type='checkbox']:checked[data-task='!'],
+body:not(.primidian-glow-off) li[data-task='!'] > input[type='checkbox']:checked,
+body:not(.primidian-glow-off) li[data-task='!'] > p > input[type='checkbox']:checked {
+	box-shadow: 0 0 var(--primidian-glow-blur) var(--primidian-glow-spread)
+		color-mix(in srgb, var(--primidian-task-important-color) var(--primidian-glow-alpha), transparent);
+}
+
+/* ── Tags — glow on hover ─────────────────────────────────────────────── */
+body:not(.primidian-glow-off) .markdown-rendered a.tag:hover,
+body:not(.primidian-glow-off) .cm-s-obsidian .cm-hashtag:hover {
+	box-shadow: 0 0 var(--primidian-glow-blur) var(--primidian-glow-spread)
+		color-mix(in srgb, var(--primidian-tag-color) var(--primidian-glow-alpha), transparent);
+}
+
+/* ── Active tab indicator ─────────────────────────────────────────────── */
+body:not(.primidian-glow-off) .workspace-tabs .workspace-tab-header.is-active::after {
+	box-shadow: 0 0 var(--primidian-glow-blur) var(--primidian-glow-spread)
+		color-mix(in srgb, var(--primidian-accent) var(--primidian-glow-alpha), transparent);
+}
+
+/* ── Interactive controls — focus emphasis ────────────────────────────── */
+body:not(.primidian-glow-off) input[type='text']:focus,
+body:not(.primidian-glow-off) input[type='search']:focus,
+body:not(.primidian-glow-off) textarea:focus,
+body:not(.primidian-glow-off) .dropdown:focus {
+	box-shadow: 0 0 0 3px color-mix(in srgb, var(--primidian-accent) 18%, transparent),
+		0 0 var(--primidian-glow-blur) var(--primidian-glow-spread)
+			color-mix(in srgb, var(--primidian-border-focus) var(--primidian-glow-alpha), transparent);
+}
+
+body:not(.primidian-glow-off) button.mod-cta:hover {
+	box-shadow: var(--primidian-shadow-s),
+		0 0 var(--primidian-glow-blur) var(--primidian-glow-spread)
+			color-mix(in srgb, var(--primidian-accent) var(--primidian-glow-alpha), transparent);
+}
+
+/* ── Code block line numbers ──────────────────────────────────────────── */
+body:not(.primidian-glow-off).primidian-linenum-on
+	.markdown-source-view.mod-cm6
+	.HyperMD-codeblock:not(.HyperMD-codeblock-begin):not(.HyperMD-codeblock-end)::before {
+	text-shadow: 0 0 var(--primidian-glow-blur)
+		color-mix(in srgb, var(--primidian-linenum-color) var(--primidian-glow-alpha), transparent);
+}
+
+/* ── Highlights ───────────────────────────────────────────────────────── */
+body:not(.primidian-glow-off) .markdown-rendered mark {
+	box-shadow: 0 0 var(--primidian-glow-blur) var(--primidian-glow-spread)
+		color-mix(in srgb, var(--primidian-highlight-bg) var(--primidian-glow-alpha), transparent);
+}
+
+/* ── Blockquote accent edge ───────────────────────────────────────────── */
+body:not(.primidian-glow-off) .markdown-rendered blockquote:not(.callout) {
+	box-shadow: inset var(--primidian-quote-border-width) 0 var(--primidian-glow-blur)
+		calc(-1 * var(--primidian-quote-border-width))
+		color-mix(in srgb, var(--primidian-quote-border-color) var(--primidian-glow-alpha), transparent);
+}
+
+/* ══ ACCESSIBILITY ══════════════════════════════════════════════════════
+ * Glow is decorative and reduces effective contrast at high intensities.
+ * In forced-colors mode it is suppressed entirely. */
+
+@media (forced-colors: active) {
+	body {
+		--primidian-glow-alpha: 0%;
+		--primidian-glow-blur: 0px;
+	}
+}

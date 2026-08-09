@@ -1,0 +1,118 @@
+/* ── UI · MODALS, POPOVERS, SUGGESTERS, NOTICES ────────────────────────── */
+
+.modal,
+.prompt,
+.suggestion-container,
+.menu {
+	background-color: var(--primidian-bg-elevated);
+	border: var(--primidian-border-width) solid var(--primidian-border-strong);
+	border-radius: var(--primidian-modal-radius);
+	box-shadow: var(--primidian-shadow-l);
+}
+
+/* Clean-room entry motion. Independently authored keyframes live in
+ * src/systems/81-motion.css. Gated behind the animation master toggle and
+ * prefers-reduced-motion. */
+body:not(.primidian-animations-off) :is(.modal, .prompt, .suggestion-container, .menu) {
+	animation: primidian-enter-up var(--primidian-motion-moderate) var(--primidian-ease-overshoot) both;
+}
+
+body.primidian-anim-no-popups :is(.modal, .prompt, .suggestion-container, .menu) {
+	animation: none;
+}
+
+.modal-bg,
+.prompt-bg {
+	background-color: hsl(255 26% 3% / 0.55);
+}
+
+body.primidian-no-blur .modal-bg,
+body.primidian-no-blur .prompt-bg {
+	backdrop-filter: none;
+}
+
+.modal-title {
+	color: var(--primidian-accent);
+	font-weight: var(--primidian-font-weight-semibold);
+}
+
+.modal-close-button {
+	transition: color var(--primidian-motion-fast) var(--primidian-ease-standard);
+}
+
+.modal-close-button:hover {
+	color: var(--primidian-accent);
+}
+
+/* ── Suggestions ──────────────────────────────────────────────────────── */
+
+.suggestion-item {
+	border-radius: var(--primidian-radius-s);
+	transition: background-color var(--primidian-motion-superfast) var(--primidian-ease-standard),
+		color var(--primidian-motion-superfast) var(--primidian-ease-standard);
+}
+
+.suggestion-item.is-selected {
+	background-color: var(--primidian-surface-selected);
+	color: var(--primidian-accent);
+}
+
+.suggestion-flair,
+.suggestion-note {
+	color: var(--primidian-text-faint);
+}
+
+/* ── Menus ────────────────────────────────────────────────────────────── */
+
+.menu-item {
+	border-radius: var(--primidian-radius-s);
+	transition: background-color var(--primidian-motion-superfast) var(--primidian-ease-standard),
+		color var(--primidian-motion-superfast) var(--primidian-ease-standard);
+}
+
+.menu-item:hover:not(.is-disabled):not(.is-label) {
+	background-color: var(--primidian-surface-hover);
+	color: var(--primidian-accent);
+}
+
+.menu-separator {
+	border-color: var(--primidian-border);
+}
+
+/* ── Hover popover ────────────────────────────────────────────────────────
+ * Note: hover popovers render markdown into .markdown-rendered WITHOUT
+ * .markdown-preview-view. Primidian's component rules target .markdown-rendered
+ * precisely so that inline code, headings and the rest are styled here.
+ * This is one half of the Bug #2 secondary fix. See docs/05 §4. */
+
+.hover-popover {
+	background-color: var(--primidian-bg-elevated);
+	border: var(--primidian-border-width) solid var(--primidian-border-strong);
+	border-radius: var(--primidian-radius-m);
+	box-shadow: var(--primidian-shadow-l);
+}
+
+/* ── Notices ──────────────────────────────────────────────────────────── */
+
+.notice {
+	background-color: var(--primidian-bg-elevated);
+	color: var(--primidian-text-normal);
+	border: var(--primidian-border-width) solid var(--primidian-border-strong);
+	border-left: 3px solid var(--primidian-accent);
+	border-radius: var(--primidian-radius-m);
+	box-shadow: var(--primidian-shadow-m);
+}
+
+/* ── Tooltips ─────────────────────────────────────────────────────────── */
+
+.tooltip {
+	background-color: var(--primidian-bg-elevated);
+	color: var(--primidian-text-normal);
+	border: var(--primidian-border-width) solid var(--primidian-border-strong);
+	border-radius: var(--primidian-radius-s);
+	box-shadow: var(--primidian-shadow-m);
+}
+
+.tooltip .tooltip-arrow {
+	border-bottom-color: var(--primidian-bg-elevated);
+}
