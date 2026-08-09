@@ -125,7 +125,7 @@
 	position: absolute;
 	bottom: 0;
 	left: 0;
-	height: 2px;
+	height: 1px;
 	width: 25%;
 	background-image: linear-gradient(
 		90deg,
@@ -137,6 +137,11 @@
 
 .markdown-source-view.mod-cm6 .HyperMD-quote:not(:has(+ .HyperMD-quote))::before {
 	display: none;
+}
+
+/* Single-line quotes: restore top bar (override last-line suppression) */
+.markdown-source-view.mod-cm6 .HyperMD-quote:not(.HyperMD-quote + .HyperMD-quote):not(:has(+ .HyperMD-quote))::before {
+	display: var(--primidian-quote-bar-display);
 }
 
 /* Middle lines: no gradient bars */
