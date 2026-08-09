@@ -1537,17 +1537,24 @@ settings:
         id: primidian-glow-info
         type: info-text
         markdown: true
-        description: "An optional accent glow. Each element derives its glow from **its own configured colour** — recolour a divider and its glow follows automatically. Applied selectively to headings, links, dividers, checkboxes, tags, highlights, the active tab, focused inputs and line numbers; never to body text."
+        description: "An optional accent glow. Each element derives its glow from **its own configured colour** — recolour a divider and its glow follows automatically. Text glow uses text-shadow (no background, no outline); UI glow uses box-shadow. All numeric values are in pixels (px)."
     -
         id: primidian-glow-off
         type: class-toggle
         title: Disable Glow
         description: Glow is off by default. Turn this off to enable it.
         default: true
+
+    -
+        id: primidian-glow-global
+        type: heading
+        level: 2
+        collapsed: true
+        title: Global Glow
     -
         id: primidian-glow-intensity
         type: variable-number-slider
-        title: Glow Intensity
+        title: Intensity
         description: Scales the blur radius and opacity of every glow at once. 0 is invisible, 1 is the Primidian default, 2 is pronounced.
         min: 0
         max: 2
@@ -1555,25 +1562,166 @@ settings:
         default: 1
     -
         id: primidian-glow-blur-base
-        type: variable-text
-        title: Base Blur Radius
-        description: Glow radius at intensity 1. A CSS length, e.g. 8px.
-        default: 8px
+        type: variable-number
+        format: px
+        title: Blur Radius
+        description: Glow radius at intensity 1.
+        default: 8
     -
         id: primidian-glow-alpha-base
         type: variable-number-slider
-        title: Base Opacity
+        title: Opacity
         description: Glow opacity at intensity 1.
         min: 0
         max: 1
         step: 0.05
         default: 0.45
     -
+        id: primidian-glow-opacity
+        type: variable-number-slider
+        title: Global Opacity
+        description: Global opacity multiplier for all glow effects. 1 is full opacity, 0 disables all glow.
+        min: 0
+        max: 1
+        step: 0.05
+        default: 1
+    -
         id: primidian-glow-spread
-        type: variable-text
-        title: Glow Spread
-        description: Extra spread beyond the blur. Usually best left at 0px.
-        default: 0px
+        type: variable-number
+        format: px
+        title: Spread
+        description: Extra spread beyond the blur radius.
+        default: 0
+    -
+        id: primidian-glow-radius
+        type: variable-number
+        format: px
+        title: Corner Radius
+        description: Corner radius of the glow effect.
+        default: 0
+
+    -
+        id: primidian-glow-targets
+        type: heading
+        level: 2
+        collapsed: true
+        title: Glow Targets
+    -
+        id: primidian-glow-text
+        type: class-toggle
+        title: Text Glow
+        description: Apply text glow to body text. Uses text-shadow for clean glow without backgrounds or outlines.
+        default: false
+    -
+        id: primidian-glow-headings
+        type: class-toggle
+        title: Heading Glow
+        description: Apply text glow to headings. Glow follows each heading's own colour.
+        default: true
+    -
+        id: primidian-glow-links
+        type: class-toggle
+        title: Link Glow
+        description: Apply text glow to links on hover. Glow follows the link colour.
+        default: true
+    -
+        id: primidian-glow-tags
+        type: class-toggle
+        title: Tag Glow
+        description: Apply text glow to tags on hover. Glow follows the tag colour.
+        default: true
+    -
+        id: primidian-glow-highlights
+        type: class-toggle
+        title: Highlight Glow
+        description: Apply text glow to highlighted text. Glow follows the highlight colour.
+        default: true
+    -
+        id: primidian-glow-dividers
+        type: class-toggle
+        title: Divider Glow
+        description: Apply glow to dividers. Glow follows the divider's own colour/gradient.
+        default: true
+    -
+        id: primidian-glow-tables
+        type: class-toggle
+        title: Table Glow
+        description: Apply glow to table borders. Glow follows the table border colour.
+        default: false
+    -
+        id: primidian-glow-buttons
+        type: class-toggle
+        title: Button Glow
+        description: Apply glow to buttons on hover. Glow follows the accent colour.
+        default: true
+    -
+        id: primidian-glow-checkboxes
+        type: class-toggle
+        title: Checkbox Glow
+        description: Apply glow to checked checkboxes. Glow follows the checkbox colour.
+        default: true
+    -
+        id: primidian-glow-toggles
+        type: class-toggle
+        title: Toggle Glow
+        description: Apply glow to enabled toggles. Glow follows the accent colour.
+        default: true
+    -
+        id: primidian-glow-sliders
+        type: class-toggle
+        title: Slider Glow
+        description: Apply glow to slider thumbs. Glow follows the accent colour.
+        default: true
+    -
+        id: primidian-glow-inputs
+        type: class-toggle
+        title: Input Glow
+        description: Apply glow to focused input fields. Glow follows the accent colour.
+        default: true
+    -
+        id: primidian-glow-tabs
+        type: class-toggle
+        title: Tab Glow
+        description: Apply glow to active tab indicator. Glow follows the accent colour.
+        default: true
+    -
+        id: primidian-glow-sidebar
+        type: class-toggle
+        title: Sidebar Glow
+        description: Apply glow to active sidebar items. Glow follows the accent colour.
+        default: true
+    -
+        id: primidian-glow-borders
+        type: class-toggle
+        title: Border Glow
+        description: Apply glow to blockquote borders. Glow follows the border colour.
+        default: false
+    -
+        id: primidian-glow-code
+        type: class-toggle
+        title: Code Line Number Glow
+        description: Apply glow to code block line numbers (Live Preview only).
+        default: false
+
+    -
+        id: primidian-glow-behavior
+        type: heading
+        level: 2
+        collapsed: true
+        title: Glow Behavior
+    -
+        id: primidian-glow-pulse
+        type: class-toggle
+        title: Pulse Animation
+        description: Enable pulse animation on glow effects. Respects prefers-reduced-motion.
+        default: false
+    -
+        id: primidian-glow-pulse-duration
+        type: variable-number
+        format: s
+        title: Pulse Duration
+        description: Duration of one pulse cycle in seconds.
+        default: 3
 
     -
         id: primidian-animations

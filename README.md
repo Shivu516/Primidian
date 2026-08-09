@@ -148,7 +148,7 @@ Open **Settings → Style Settings → Primidian**.
 | Tables | Header, borders, striping |
 | Lists, Embeds & Properties | Markers, guides, containers |
 | Gradient System | Global colours plus per-component overrides |
-| **Glow System** | Master switch, intensity, base blur and opacity, spread |
+| **Glow System** | Global controls + per-element toggles (headings, links, tags, dividers, tables, buttons, checkboxes, toggles, sliders, inputs, tabs, sidebar, borders, code) + pulse animation |
 | Animations | Master switch, speed, durations, easings, **tab motion** |
 | Plugin Compatibility | Task List Kanban options |
 | Advanced | Blur, scrollbar, border width |
@@ -267,14 +267,17 @@ See [Credits](#credits--attribution--licences) and `docs/15` for the full clean-
 
 ## Glow
 
-An optional accent glow, off by default.
+An optional accent glow, off by default. Each element derives its glow from its **own
+configured colour** rather than always from the global accent.
+
+### How it works
 
 ```
 Glow intensity ──┬──> --primidian-glow-alpha   (opacity)
                  └──> --primidian-glow-blur    (radius)
 ```
 
-A component then needs a single declaration, passing **its own** colour token:
+A component needs a single declaration, passing **its own** colour token:
 
 ```css
 box-shadow: 0 0 var(--primidian-glow-blur) var(--primidian-glow-spread)
@@ -285,13 +288,85 @@ Because each element supplies its own colour, **recolouring an element recolours
 automatically** — a custom divider colour, or a custom `[!]` task colour, is picked up with
 no extra settings and no duplicated CSS.
 
-Applied selectively to: H1 · link hover · dividers and their glyph · checked checkboxes
-(per task-state colour) · tag hover · the active tab indicator · focused inputs · CTA hover ·
-line numbers · highlights · the blockquote accent edge. Never to body text or large surfaces.
+### Text glow vs UI glow
 
-Turning glow off sets the alpha to `0%` and the blur to `0px`, so every glow resolves to a
-fully transparent zero-radius shadow — nothing is painted, and no component needs its own
-"glow off" rule. Glow is also suppressed entirely in Windows High Contrast mode.
+- **Text glow** uses `text-shadow` — clean glow without backgrounds, outlines, or blurry glyphs.
+- **UI glow** uses `box-shadow` — appropriate for borders, controls, and surfaces.
+
+### Per-element toggles
+
+Each glow target can be enabled or disabled independently:
+
+| Target | Default | Notes |
+|---|---|---|
+| Text | Off | Subtle glow on body text |
+| Headings | On | Glow follows each heading's colour |
+| Links | On | Glow on hover, follows link colour |
+| Tags | On | Glow on hover, follows tag colour |
+| Highlights | On | Glow follows highlight colour |
+| Dividers | On | Glow follows divider colour/gradient |
+| Tables | Off | Subtle border glow |
+| Buttons | On | Glow on hover, follows accent colour |
+| Checkboxes | On | Glow on checked state |
+| Toggles | On | Glow on enabled state |
+| Sliders | On | Glow on thumb |
+| Inputs | On | Glow on focus |
+| Tabs | On | Glow on active indicator |
+| Sidebar | On | Glow on active items |
+| Borders | Off | Glow on blockquote borders |
+| Code | Off | Glow on line numbers |
+
+### Global controls
+
+- **Enable/Disable** — master switch (off by default)
+- **Intensity** — scales blur and opacity (0–2, default 1)
+- **Blur Radius** — base radius at intensity 1 (in pixels)
+- **Opacity** — base opacity at intensity 1 (0–1, default 0.45)
+- **Global Opacity** — multiplier for all glow effects (0–1, default 1)
+- **Spread** — extra spread beyond blur (in pixels)
+- **Corner Radius** — glow corner radius (in pixels)
+- **Pulse Animation** — optional pulsing effect (off by default)
+- **Pulse Duration** — pulse cycle duration (in seconds)
+
+### Numeric settings
+
+All numeric glow settings use predefined CSS units. Enter only the number:
+
+| Setting | Unit | Example |
+|---|---|---|
+| Blur Radius | px | `8` (becomes `8px`) |
+| Spread | px | `0` (becomes `0px`) |
+| Corner Radius | px | `0` (becomes `0px`) |
+| Pulse Duration | s | `3` (becomes `3s`) |
+
+### Live Preview / Editing Mode support
+
+The same glow effects are available in Live Preview / Editing Mode. Each glow
+target uses the appropriate CodeMirror selectors so that glow appears on the
+same elements in both modes:
+
+| Reading Mode | Live Preview |
+|---|---|
+| `h1`–`h6` | `.cm-header-1`–`.cm-header-6` |
+| `strong` | `.cm-strong` |
+| `em` | `.cm-em` |
+| `a.internal-link` | `.cm-hmd-internal-link` |
+| `a.external-link` | `.cm-link` |
+| `a.tag` | `.cm-hashtag` |
+| `mark` | `.cm-highlight` |
+| `code` | `.cm-inline-code` |
+| `hr` | `.cm-line hr` |
+| `table` | `.cm-table-widget table` |
+| `blockquote` | `.HyperMD-quote` |
+
+All glow settings are shared between modes — enabling a glow target in Style
+Settings activates it in both Reading Mode and Live Preview simultaneously.
+
+### Accessibility
+
+- Glow is suppressed entirely in Windows High Contrast mode (`forced-colors: active`).
+- Pulse animation respects `prefers-reduced-motion`.
+- Glow reduces effective contrast at high intensities — use with care.
 
 ---
 
