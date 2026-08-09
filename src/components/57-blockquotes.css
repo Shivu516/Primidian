@@ -13,8 +13,7 @@
  * alt-text syntax so assistive technology skips it, and it is OFF by default.
  * ──────────────────────────────────────────────────────────────────────── */
 
-.markdown-rendered blockquote:not(.callout),
-.markdown-source-view.mod-cm6 .HyperMD-quote {
+.markdown-rendered blockquote:not(.callout) {
 	position: relative;
 	color: var(--primidian-quote-color);
 	background-color: var(--primidian-quote-bg);
@@ -24,10 +23,42 @@
 	border-radius: 0 var(--primidian-quote-radius) var(--primidian-quote-radius) 0;
 	margin-inline-start: 0;
 	padding: var(--primidian-quote-padding);
+	margin-block: var(--primidian-quote-margin);
 }
 
-.markdown-rendered blockquote:not(.callout) {
-	margin-block: var(--primidian-quote-margin);
+/* ── Live Preview: multi-line blockquote rendering ───────────────────────
+ * In CodeMirror, each line of a blockquote is a separate `.HyperMD-quote`
+ * element. Applying background/border directly to each line creates separate
+ * visual containers. Instead, we use CSS to create a single visual container
+ * that spans all lines. */
+
+.markdown-source-view.mod-cm6 .HyperMD-quote {
+	color: var(--primidian-quote-color);
+	font-style: var(--primidian-quote-style);
+	position: relative;
+}
+
+/* First line: top border, top radius, top padding */
+.markdown-source-view.mod-cm6 .HyperMD-quote:first-of-type,
+.markdown-source-view.mod-cm6 .HyperMD-quote:not(.HyperMD-quote + .HyperMD-quote) {
+	background-color: var(--primidian-quote-bg);
+	border-left: var(--primidian-quote-border-width) solid var(--primidian-quote-border-color);
+	border-top: var(--primidian-quote-border-width) solid var(--primidian-quote-border-color);
+	border-top-right-radius: var(--primidian-quote-radius);
+	padding-top: var(--primidian-quote-padding);
+}
+
+/* Middle lines: continuous background, no top/bottom border, no radius */
+.markdown-source-view.mod-cm6 .HyperMD-quote + .HyperMD-quote {
+	background-color: var(--primidian-quote-bg);
+	border-left: var(--primidian-quote-border-width) solid var(--primidian-quote-border-color);
+}
+
+/* Last line: bottom border, bottom radius, bottom padding */
+.markdown-source-view.mod-cm6 .HyperMD-quote:not(:has(+ .HyperMD-quote)) {
+	border-bottom: var(--primidian-quote-border-width) solid var(--primidian-quote-border-color);
+	border-bottom-right-radius: var(--primidian-quote-radius);
+	padding-bottom: var(--primidian-quote-padding);
 }
 
 /* ── Decorative gradient bars (Obsidianite keeper K-6) ───────────────────

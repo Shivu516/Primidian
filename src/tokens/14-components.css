@@ -223,15 +223,47 @@ body {
 	--primidian-tab-indicator-inset: 22%;
 	--primidian-tab-inactive-opacity: 0.62;
 
-	/* ══ GLOW SYSTEM (Phase 4) ══════════════════════════════════════════
-	 * A single intensity multiplier drives every glow in the theme.
-	 * --primidian-glow-alpha is the resolved opacity; --primidian-glow-blur the
-	 * resolved radius. src/systems/82-glow.css defines the reusable
-	 * --primidian-glow() shorthand tokens and the master off-switch. */
+	/* ══ GLOW SYSTEM (Reworked) ══════════════════════════════════════════
+	 * Element-aware glow with per-component toggles.
+	 *
+	 * Global controls:
+	 *   --primidian-glow-intensity    scales blur and opacity
+	 *   --primidian-glow-blur-base    base blur radius (px)
+	 *   --primidian-glow-alpha-base   base opacity (0-1)
+	 *   --primidian-glow-spread       extra spread (px)
+	 *   --primidian-glow-opacity      global opacity multiplier (0-1)
+	 *   --primidian-glow-radius       glow corner radius (px)
+	 *   --primidian-glow-pulse        pulse animation enable (0/1)
+	 *   --primidian-glow-pulse-duration pulse duration (s)
+	 *
+	 * Per-element toggles (1 = glow on, 0 = glow off):
+	 *   Each toggle gates the glow for its element. When the global glow
+	 *   is off (body.primidian-glow-off), all glows are suppressed.
+	 */
 	--primidian-glow-intensity: 1;
 	--primidian-glow-blur-base: 8px;
 	--primidian-glow-alpha-base: 0.45;
 	--primidian-glow-spread: 0px;
+	--primidian-glow-opacity: 1;
+	--primidian-glow-radius: 0px;
+	--primidian-glow-pulse: 0;
+	--primidian-glow-pulse-duration: 3s;
+	--primidian-glow-text: 0;
+	--primidian-glow-headings: 1;
+	--primidian-glow-links: 1;
+	--primidian-glow-tags: 1;
+	--primidian-glow-highlights: 1;
+	--primidian-glow-dividers: 1;
+	--primidian-glow-tables: 0;
+	--primidian-glow-buttons: 1;
+	--primidian-glow-checkboxes: 1;
+	--primidian-glow-toggles: 1;
+	--primidian-glow-sliders: 1;
+	--primidian-glow-inputs: 1;
+	--primidian-glow-tabs: 1;
+	--primidian-glow-sidebar: 1;
+	--primidian-glow-borders: 0;
+	--primidian-glow-code: 0;
 	/* ══ GRADIENT SYSTEM ════════════════════════════════════════════════
 	 * Level 1 (global) → Level 2 (per-component, defaulting to global)
 	 * → Level 3 (resolved). Pure fallback chaining, no duplicated rules.
