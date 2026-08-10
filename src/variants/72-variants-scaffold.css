@@ -97,3 +97,108 @@ body.primidian-statusbar-floating {
 body.primidian-statusbar-docked {
 	--primidian-statusbar-opacity: 1;
 }
+
+/* ── Glow Engine ─────────────────────────────────────────────────────── */
+
+body.primidian-glow-engine-automatic {
+	--primidian-glow-engine: automatic;
+}
+
+body.primidian-glow-engine-text-shadow {
+	--primidian-glow-engine: text-shadow;
+}
+
+body.primidian-glow-engine-drop-shadow {
+	--primidian-glow-engine: drop-shadow;
+}
+
+/* ── UI Glow Targets ─────────────────────────────────────────────────── */
+
+body.primidian-glow-ui-document-title-on {
+	--primidian-glow-ui-document-title: 1;
+}
+
+body.primidian-glow-ui-search-on {
+	--primidian-glow-ui-search: 1;
+}
+
+body.primidian-glow-ui-sidebar-on {
+	--primidian-glow-ui-sidebar: 1;
+}
+
+body.primidian-glow-ui-sidebar-icons-on {
+	--primidian-glow-ui-sidebar-icons: 1;
+}
+
+body.primidian-glow-ui-tabs-on {
+	--primidian-glow-ui-tabs: 1;
+}
+
+body.primidian-glow-ui-buttons-on {
+	--primidian-glow-ui-buttons: 1;
+}
+
+body.primidian-glow-ui-toggles-on {
+	--primidian-glow-ui-toggles: 1;
+}
+
+body.primidian-glow-ui-sliders-on {
+	--primidian-glow-ui-sliders: 1;
+}
+
+body.primidian-glow-ui-scrollbars-on {
+	--primidian-glow-ui-scrollbars: 1;
+}
+
+body.primidian-glow-ui-controls-on {
+	--primidian-glow-ui-controls: 1;
+}
+
+body.primidian-glow-ui-mind-map-on {
+	--primidian-glow-ui-mind-map: 1;
+}
+
+/* UI Glow off states (for toggles) */
+body.primidian-glow-ui-document-title-off {
+	--primidian-glow-ui-document-title: 0;
+}
+
+body.primidian-glow-ui-search-off {
+	--primidian-glow-ui-search: 0;
+}
+
+body.primidian-glow-ui-sidebar-off {
+	--primidian-glow-ui-sidebar: 0;
+}
+
+body.primidian-glow-ui-sidebar-icons-off {
+	--primidian-glow-ui-sidebar-icons: 0;
+}
+
+body.primidian-glow-ui-tabs-off {
+	--primidian-glow-ui-tabs: 0;
+}
+
+body.primidian-glow-ui-buttons-off {
+	--primidian-glow-ui-buttons: 0;
+}
+
+body.primidian-glow-ui-toggles-off {
+	--primidian-glow-ui-toggles: 0;
+}
+
+body.primidian-glow-ui-sliders-off {
+	--primidian-glow-ui-sliders: 0;
+}
+
+body.primidian-glow-ui-scrollbars-off {
+	--primidian-glow-ui-scrollbars: 0;
+}
+
+body.primidian-glow-ui-controls-off {
+	--primidian-glow-ui-controls: 0;
+}
+
+body.primidian-glow-ui-mind-map-off {
+	--primidian-glow-ui-mind-map: 0;
+}

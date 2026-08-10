@@ -270,6 +270,16 @@ See [Credits](#credits--attribution--licences) and `docs/15` for the full clean-
 An optional accent glow, off by default. Each element derives its glow from its **own
 configured colour** rather than always from the global accent.
 
+### Glow Engines
+
+Primidian offers three glow rendering engines:
+
+| Engine | Technique | Best For |
+|---|---|---|
+| **Automatic / Dynamic** | Per-target method selection | Intelligently picks the best technique for each target |
+| **Text Shadow** | `text-shadow` | All text elements — headings, body text, links, code |
+| **Drop Shadow** | `filter: drop-shadow()` | Icons, SVGs, UI controls — follows rendered shapes |
+
 ### How it works
 
 ```
@@ -277,21 +287,29 @@ Glow intensity ──┬──> --primidian-glow-alpha   (opacity)
                  └──> --primidian-glow-blur    (radius)
 ```
 
-A component needs a single declaration, passing **its own** colour token:
+Each target passes **its own** colour token into the glow:
 
 ```css
-box-shadow: 0 0 var(--primidian-glow-blur) var(--primidian-glow-spread)
-            color-mix(in srgb, var(--primidian-divider-color) var(--primidian-glow-alpha), transparent);
+/* Text targets use text-shadow */
+text-shadow: 0 0 var(--primidian-glow-blur) color-mix(in srgb, var(--token) var(--primidian-glow-alpha), transparent);
+
+/* UI targets use box-shadow or filter: drop-shadow() */
+box-shadow: 0 0 var(--primidian-glow-blur) var(--primidian-glow-spread) color-mix(...);
+filter: drop-shadow(0 0 var(--primidian-glow-blur) color-mix(...));
 ```
 
 Because each element supplies its own colour, **recolouring an element recolours its glow
 automatically** — a custom divider colour, or a custom `[!]` task colour, is picked up with
 no extra settings and no duplicated CSS.
 
-### Text glow vs UI glow
+### Automatic mode target mapping
 
-- **Text glow** uses `text-shadow` — clean glow without backgrounds, outlines, or blurry glyphs.
-- **UI glow** uses `box-shadow` — appropriate for borders, controls, and surfaces.
+| Target | Method | Rationale |
+|---|---|---|
+| Headings, text, links, tags, highlights, code | text-shadow | Follows glyph shapes |
+| Checkboxes, buttons, toggles, sliders, inputs, tabs, sidebar | filter: drop-shadow | Follows rendered alpha shape |
+| Dividers | box-shadow + text-shadow on glyph | Avoids pseudo-element conflicts |
+| Tables, blockquotes | box-shadow | Rectangular — box-shadow is correct |
 
 ### Per-element toggles
 

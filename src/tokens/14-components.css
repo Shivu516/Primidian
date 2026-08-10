@@ -253,6 +253,44 @@ body {
 	--primidian-glow-radius: 0px;
 	--primidian-glow-pulse: 0;
 	--primidian-glow-pulse-duration: 3s;
+	--primidian-glow-engine: automatic;
+	--primidian-glow-text-layers: 1;
+	--primidian-glow-drop-layers: 1;
+	/* ══ UI GLOW ══════════════════════════════════════════════════════
+	 * Three-state glow for interactive UI elements:
+	 *   Inactive → faint ambient presence
+	 *   Hover   → clearly visible response
+	 *   Selected → strongest emphasis
+	 *
+	 * Multipliers scale the base --primidian-glow-blur/--primidian-glow-alpha
+	 * values so UI glow stays subtle when idle and responsive when interacted
+	 * with. Each state is independently user-configurable. */
+	--primidian-glow-ui-inactive-mult: 0.15;
+	--primidian-glow-ui-hover-mult: 0.5;
+	--primidian-glow-ui-selected-mult: 1;
+	--primidian-glow-ui-inactive: 0.15;
+	--primidian-glow-ui-hover: 0.5;
+	--primidian-glow-ui-selected: 1;
+	--primidian-glow-ui-transition: var(--primidian-motion-fast);
+	/* Resolved UI glow values */
+	--primidian-glow-ui-inactive-blur: calc(var(--primidian-glow-blur) * var(--primidian-glow-ui-inactive-mult));
+	--primidian-glow-ui-hover-blur: calc(var(--primidian-glow-blur) * var(--primidian-glow-ui-hover-mult));
+	--primidian-glow-ui-selected-blur: calc(var(--primidian-glow-blur) * var(--primidian-glow-ui-selected-mult));
+	--primidian-glow-ui-inactive-alpha: calc(var(--primidian-glow-alpha) * var(--primidian-glow-ui-inactive-mult));
+	--primidian-glow-ui-hover-alpha: calc(var(--primidian-glow-alpha) * var(--primidian-glow-ui-hover-mult));
+	--primidian-glow-ui-selected-alpha: calc(var(--primidian-glow-alpha) * var(--primidian-glow-ui-selected-mult));
+	/* ══ UI GLOW TOGGLES ═══════════════════════════════════════════════ */
+	--primidian-glow-ui-document-title: 1;
+	--primidian-glow-ui-search: 1;
+	--primidian-glow-ui-sidebar: 1;
+	--primidian-glow-ui-sidebar-icons: 1;
+	--primidian-glow-ui-tabs: 1;
+	--primidian-glow-ui-buttons: 1;
+	--primidian-glow-ui-toggles: 0;
+	--primidian-glow-ui-sliders: 0;
+	--primidian-glow-ui-scrollbars: 0;
+	--primidian-glow-ui-controls: 1;
+	--primidian-glow-ui-mind-map: 0;
 	--primidian-glow-text: 0;
 	--primidian-glow-headings: 1;
 	--primidian-glow-links: 1;
