@@ -457,6 +457,220 @@ body:not(.primidian-glow-off).primidian-glow-engine-drop-shadow.primidian-glow-c
 }
 
 /* ══════════════════════════════════════════════════════════════════════════
+ * UI GLOW
+ * ══════════════════════════════════════════════════════════════════════════
+ *
+ * Three-state glow for interactive UI elements:
+ *   Inactive  → faint ambient presence
+ *   Hover    → clearly visible response
+ *   Selected  → strongest emphasis
+ *
+ * Each state uses a multiplier of the base --primidian-glow-blur/--primidian-glow-alpha
+ * values. Transitions use Primidian's motion system for smooth state changes.
+ *
+ * Engine selection follows the global Glow Engine setting:
+ *   Text elements (document title, sidebar names) → text-shadow
+ *   Icons (sidebar icons) → filter: drop-shadow()
+ *   Rectangular UI (tabs, buttons) → box-shadow or drop-shadow per target
+ */
+
+/* ── Document Title ──────────────────────────────────────────────────── */
+/* Inactive: faint glow on the title text */
+body:not(.primidian-glow-off).primidian-glow-ui-document-title-on .view-header-title {
+	color: var(--primidian-accent);
+	text-shadow: 0 0 var(--primidian-glow-ui-inactive-blur)
+		color-mix(in srgb, var(--primidian-accent) var(--primidian-glow-ui-inactive-alpha), transparent);
+	transition: text-shadow var(--primidian-glow-ui-transition) var(--primidian-ease-standard);
+}
+/* Active: stronger glow when the leaf is focused */
+body:not(.primidian-glow-off).primidian-glow-ui-document-title-on .workspace-leaf.mod-active .view-header-title {
+	text-shadow: 0 0 var(--primidian-glow-ui-selected-blur)
+		color-mix(in srgb, var(--primidian-accent) var(--primidian-glow-ui-selected-alpha), transparent);
+}
+
+/* ── Search ─────────────────────────────────────────────────────────── */
+/* Search input glow on focus */
+body:not(.primidian-glow-off).primidian-glow-ui-search-on .search-input-container input:focus {
+	filter: drop-shadow(0 0 var(--primidian-glow-ui-selected-blur)
+		color-mix(in srgb, var(--primidian-accent) var(--primidian-glow-ui-selected-alpha), transparent));
+	transition: filter var(--primidian-glow-ui-transition) var(--primidian-ease-standard);
+}
+/* Search input hover */
+body:not(.primidian-glow-off).primidian-glow-ui-search-on .search-input-container input:hover:not(:focus) {
+	filter: drop-shadow(0 0 var(--primidian-glow-ui-hover-blur)
+		color-mix(in srgb, var(--primidian-accent) var(--primidian-glow-ui-hover-alpha), transparent));
+}
+/* Search suggestion items */
+body:not(.primidian-glow-off).primidian-glow-ui-search-on .suggestion-item:hover {
+	filter: drop-shadow(0 0 var(--primidian-glow-ui-hover-blur)
+		color-mix(in srgb, var(--primidian-accent) var(--primidian-glow-ui-hover-alpha), transparent));
+}
+body:not(.primidian-glow-off).primidian-glow-ui-search-on .suggestion-item.is-active {
+	filter: drop-shadow(0 0 var(--primidian-glow-ui-selected-blur)
+		color-mix(in srgb, var(--primidian-accent) var(--primidian-glow-ui-selected-alpha), transparent));
+}
+
+/* ── Sidebar Items ──────────────────────────────────────────────────── */
+/* Inactive: subtle glow on sidebar file/folder names */
+body:not(.primidian-glow-off).primidian-glow-ui-sidebar-on .nav-file-title,
+body:not(.primidian-glow-off).primidian-glow-ui-sidebar-on .nav-folder-title {
+	text-shadow: 0 0 var(--primidian-glow-ui-inactive-blur)
+		color-mix(in srgb, var(--primidian-text-muted) var(--primidian-glow-ui-inactive-alpha), transparent);
+	transition: text-shadow var(--primidian-glow-ui-transition) var(--primidian-ease-standard);
+}
+/* Hover: moderate glow */
+body:not(.primidian-glow-off).primidian-glow-ui-sidebar-on .nav-file-title:hover,
+body:not(.primidian-glow-off).primidian-glow-ui-sidebar-on .nav-folder-title:hover {
+	text-shadow: 0 0 var(--primidian-glow-ui-hover-blur)
+		color-mix(in srgb, var(--primidian-accent) var(--primidian-glow-ui-hover-alpha), transparent);
+}
+/* Selected/Active: strongest glow */
+body:not(.primidian-glow-off).primidian-glow-ui-sidebar-on .nav-file-title.is-active,
+body:not(.primidian-glow-off).primidian-glow-ui-sidebar-on .nav-folder-title.is-active,
+body:not(.primidian-glow-off).primidian-glow-ui-sidebar-on .tree-item-self.is-active {
+	text-shadow: 0 0 var(--primidian-glow-ui-selected-blur)
+		color-mix(in srgb, var(--primidian-accent) var(--primidian-glow-ui-selected-alpha), transparent);
+}
+
+/* ── Sidebar Icons ──────────────────────────────────────────────────── */
+/* Use drop-shadow to follow icon shape, avoid rectangular halo */
+body:not(.primidian-glow-off).primidian-glow-ui-sidebar-icons-on .tree-item-icon {
+	filter: drop-shadow(0 0 var(--primidian-glow-ui-inactive-blur)
+		color-mix(in srgb, var(--primidian-icon-color) var(--primidian-glow-ui-inactive-alpha), transparent));
+	transition: filter var(--primidian-glow-ui-transition) var(--primidian-ease-standard);
+}
+body:not(.primidian-glow-off).primidian-glow-ui-sidebar-icons-on .nav-file-title:hover .tree-item-icon,
+body:not(.primidian-glow-off).primidian-glow-ui-sidebar-icons-on .nav-folder-title:hover .tree-item-icon {
+	filter: drop-shadow(0 0 var(--primidian-glow-ui-hover-blur)
+		color-mix(in srgb, var(--primidian-accent) var(--primidian-glow-ui-hover-alpha), transparent));
+}
+body:not(.primidian-glow-off).primidian-glow-ui-sidebar-icons-on .nav-file-title.is-active .tree-item-icon,
+body:not(.primidian-glow-off).primidian-glow-ui-sidebar-icons-on .nav-folder-title.is-active .tree-item-icon,
+body:not(.primidian-glow-off).primidian-glow-ui-sidebar-icons-on .tree-item-self.is-active .tree-item-icon {
+	filter: drop-shadow(0 0 var(--primidian-glow-ui-selected-blur)
+		color-mix(in srgb, var(--primidian-accent) var(--primidian-glow-ui-selected-alpha), transparent));
+}
+
+/* ── Tabs ───────────────────────────────────────────────────────────── */
+/* Inactive tab: subtle glow */
+body:not(.primidian-glow-off).primidian-glow-ui-tabs-on .workspace-tab-header {
+	filter: drop-shadow(0 0 var(--primidian-glow-ui-inactive-blur)
+		color-mix(in srgb, var(--primidian-tab-text-color) var(--primidian-glow-ui-inactive-alpha), transparent));
+	transition: filter var(--primidian-glow-ui-transition) var(--primidian-ease-standard);
+}
+/* Hover tab: moderate glow */
+body:not(.primidian-glow-off).primidian-glow-ui-tabs-on .workspace-tab-header:hover:not(.is-active) {
+	filter: drop-shadow(0 0 var(--primidian-glow-ui-hover-blur)
+		color-mix(in srgb, var(--primidian-accent) var(--primidian-glow-ui-hover-alpha), transparent));
+}
+/* Active tab: strongest glow */
+body:not(.primidian-glow-off).primidian-glow-ui-tabs-on .workspace-tab-header.is-active {
+	filter: drop-shadow(0 0 var(--primidian-glow-ui-selected-blur)
+		color-mix(in srgb, var(--primidian-accent) var(--primidian-glow-ui-selected-alpha), transparent));
+}
+
+/* ── Buttons ────────────────────────────────────────────────────────── */
+/* Hover state */
+body:not(.primidian-glow-off).primidian-glow-ui-buttons-on button:hover:not(.clickable-icon),
+body:not(.primidian-glow-off).primidian-glow-ui-buttons-on .clickable-icon:hover {
+	filter: drop-shadow(0 0 var(--primidian-glow-ui-hover-blur)
+		color-mix(in srgb, var(--primidian-accent) var(--primidian-glow-ui-hover-alpha), transparent));
+	transition: filter var(--primidian-glow-ui-transition) var(--primidian-ease-standard);
+}
+/* Active/pressed state */
+body:not(.primidian-glow-off).primidian-glow-ui-buttons-on button:active:not(.clickable-icon),
+body:not(.primidian-glow-off).primidian-glow-ui-buttons-on .clickable-icon:active,
+body:not(.primidian-glow-off).primidian-glow-ui-buttons-on button.mod-cta:hover {
+	filter: drop-shadow(0 0 var(--primidian-glow-ui-selected-blur)
+		color-mix(in srgb, var(--primidian-accent) var(--primidian-glow-ui-selected-alpha), transparent));
+}
+
+/* ── Toggles ────────────────────────────────────────────────────────── */
+/* Enabled toggle glow */
+body:not(.primidian-glow-off).primidian-glow-ui-toggles-on .checkbox-container.is-enabled {
+	filter: drop-shadow(0 0 var(--primidian-glow-ui-selected-blur)
+		color-mix(in srgb, var(--primidian-accent) var(--primidian-glow-ui-selected-alpha), transparent));
+	transition: filter var(--primidian-glow-ui-transition) var(--primidian-ease-standard);
+}
+/* Hover on toggle */
+body:not(.primidian-glow-off).primidian-glow-ui-toggles-on .checkbox-container:hover {
+	filter: drop-shadow(0 0 var(--primidian-glow-ui-hover-blur)
+		color-mix(in srgb, var(--primidian-accent) var(--primidian-glow-ui-hover-alpha), transparent));
+}
+
+/* ── Sliders ────────────────────────────────────────────────────────── */
+/* Thumb glow */
+body:not(.primidian-glow-off).primidian-glow-ui-sliders-on input[type='range']::-webkit-slider-thumb {
+	filter: drop-shadow(0 0 var(--primidian-glow-ui-hover-blur)
+		color-mix(in srgb, var(--primidian-accent) var(--primidian-glow-ui-hover-alpha), transparent));
+	transition: filter var(--primidian-glow-ui-transition) var(--primidian-ease-standard);
+}
+body:not(.primidian-glow-off).primidian-glow-ui-sliders-on input[type='range']::-moz-range-thumb {
+	filter: drop-shadow(0 0 var(--primidian-glow-ui-hover-blur)
+		color-mix(in srgb, var(--primidian-accent) var(--primidian-glow-ui-hover-alpha), transparent));
+}
+/* Active/dragging state */
+body:not(.primidian-glow-off).primidian-glow-ui-sliders-on input[type='range']:active::-webkit-slider-thumb {
+	filter: drop-shadow(0 0 var(--primidian-glow-ui-selected-blur)
+		color-mix(in srgb, var(--primidian-accent) var(--primidian-glow-ui-selected-alpha), transparent));
+}
+body:not(.primidian-glow-off).primidian-glow-ui-sliders-on input[type='range']:active::-moz-range-thumb {
+	filter: drop-shadow(0 0 var(--primidian-glow-ui-selected-blur)
+		color-mix(in srgb, var(--primidian-accent) var(--primidian-glow-ui-selected-alpha), transparent));
+}
+
+/* ── Scrollbars ─────────────────────────────────────────────────────── */
+/* Thumb glow on hover/drag */
+body:not(.primidian-glow-off).primidian-glow-ui-scrollbars-on ::-webkit-scrollbar-thumb:hover {
+	box-shadow: 0 0 var(--primidian-glow-ui-hover-blur)
+		color-mix(in srgb, var(--primidian-scrollbar-thumb) var(--primidian-glow-ui-hover-alpha), transparent);
+}
+body:not(.primidian-glow-off).primidian-glow-ui-scrollbars-on ::-webkit-scrollbar-thumb:active {
+	box-shadow: 0 0 var(--primidian-glow-ui-selected-blur)
+		color-mix(in srgb, var(--primidian-scrollbar-thumb) var(--primidian-glow-ui-selected-alpha), transparent);
+}
+
+/* ── UI Controls (inputs, dropdowns, modals) ───────────────────────── */
+/* Focus state for inputs */
+body:not(.primidian-glow-off).primidian-glow-ui-controls-on input[type='text']:focus,
+body:not(.primidian-glow-off).primidian-glow-ui-controls-on input[type='search']:focus,
+body:not(.primidian-glow-off).primidian-glow-ui-controls-on input[type='email']:focus,
+body:not(.primidian-glow-off).primidian-glow-ui-controls-on input[type='password']:focus,
+body:not(.primidian-glow-off).primidian-glow-ui-controls-on input[type='number']:focus,
+body:not(.primidian-glow-off).primidian-glow-ui-controls-on textarea:focus,
+body:not(.primidian-glow-off).primidian-glow-ui-controls-on select:focus,
+body:not(.primidian-glow-off).primidian-glow-ui-controls-on .dropdown:focus {
+	filter: drop-shadow(0 0 var(--primidian-glow-ui-selected-blur)
+		color-mix(in srgb, var(--primidian-border-focus) var(--primidian-glow-ui-selected-alpha), transparent));
+	transition: filter var(--primidian-glow-ui-transition) var(--primidian-ease-standard);
+}
+/* Hover state for inputs */
+body:not(.primidian-glow-off).primidian-glow-ui-controls-on input[type='text']:hover:not(:focus),
+body:not(.primidian-glow-off).primidian-glow-ui-controls-on input[type='search']:hover:not(:focus),
+body:not(.primidian-glow-off).primidian-glow-ui-controls-on textarea:hover:not(:focus),
+body:not(.primidian-glow-off).primidian-glow-ui-controls-on .dropdown:hover:not(:focus) {
+	filter: drop-shadow(0 0 var(--primidian-glow-ui-hover-blur)
+		color-mix(in srgb, var(--primidian-accent) var(--primidian-glow-ui-hover-alpha), transparent));
+}
+
+/* ── Mind Map ───────────────────────────────────────────────────────── */
+/* Nodes glow (requires Mind Map plugin) */
+body:not(.primidian-glow-off).primidian-glow-ui-mind-map-on .mind-map-node {
+	filter: drop-shadow(0 0 var(--primidian-glow-ui-inactive-blur)
+		color-mix(in srgb, var(--primidian-accent) var(--primidian-glow-ui-inactive-alpha), transparent));
+	transition: filter var(--primidian-glow-ui-transition) var(--primidian-ease-standard);
+}
+body:not(.primidian-glow-off).primidian-glow-ui-mind-map-on .mind-map-node:hover {
+	filter: drop-shadow(0 0 var(--primidian-glow-ui-hover-blur)
+		color-mix(in srgb, var(--primidian-accent) var(--primidian-glow-ui-hover-alpha), transparent));
+}
+body:not(.primidian-glow-off).primidian-glow-ui-mind-map-on .mind-map-node.selected,
+body:not(.primidian-glow-off).primidian-glow-ui-mind-map-on .mind-map-node.active {
+	filter: drop-shadow(0 0 var(--primidian-glow-ui-selected-blur)
+		color-mix(in srgb, var(--primidian-accent) var(--primidian-glow-ui-selected-alpha), transparent));
+}
+
+/* ══════════════════════════════════════════════════════════════════════════
  * PULSE ANIMATION
  * ══════════════════════════════════════════════════════════════════════════ */
 

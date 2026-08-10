@@ -1762,6 +1762,105 @@ settings:
         default: false
 
     -
+        id: primidian-glow-ui
+        type: heading
+        level: 2
+        collapsed: true
+        title: UI Glow
+    -
+        id: primidian-glow-ui-info
+        type: info-text
+        markdown: true
+        description: "Glow for Obsidian's interface elements. Each target supports three states: **Inactive** (faint ambient glow), **Hover** (moderate response), **Selected/Active** (strongest emphasis). Values are multipliers of the Global Glow intensity."
+    -
+        id: primidian-glow-ui-inactive
+        type: variable-number
+        format: percentage
+        title: Inactive UI Glow
+        description: Glow strength for idle UI elements. Lower is subtler. Value is a percentage of Global Glow.
+        default: 15
+    -
+        id: primidian-glow-ui-hover
+        type: variable-number
+        format: percentage
+        title: Hover UI Glow
+        description: Glow strength when hovering over UI elements. Value is a percentage of Global Glow.
+        default: 50
+    -
+        id: primidian-glow-ui-selected
+        type: variable-number
+        format: percentage
+        title: Selected / Active UI Glow
+        description: Glow strength for selected/active UI elements. Value is a percentage of Global Glow.
+        default: 100
+    -
+        id: primidian-glow-ui-document-title
+        type: class-toggle
+        title: Document Title
+        description: Apply glow to the current document title at the top of the workspace.
+        default: true
+    -
+        id: primidian-glow-ui-search
+        type: class-toggle
+        title: Search
+        description: Apply glow to search input and focused search controls.
+        default: true
+    -
+        id: primidian-glow-ui-sidebar
+        type: class-toggle
+        title: Sidebar Items
+        description: Apply glow to sidebar file/folder names on hover and selection.
+        default: true
+    -
+        id: primidian-glow-ui-sidebar-icons
+        type: class-toggle
+        title: Sidebar Icons
+        description: Apply glow to sidebar file/folder icons. Uses drop-shadow to follow icon shape.
+        default: true
+    -
+        id: primidian-glow-ui-tabs
+        type: class-toggle
+        title: Tabs
+        description: Apply glow to workspace tabs. Integrates with existing tab animations.
+        default: true
+    -
+        id: primidian-glow-ui-buttons
+        type: class-toggle
+        title: Buttons
+        description: Apply glow to buttons on hover and active states.
+        default: true
+    -
+        id: primidian-glow-ui-toggles
+        type: class-toggle
+        title: Toggles
+        description: Apply glow to toggle switches.
+        default: false
+    -
+        id: primidian-glow-ui-sliders
+        type: class-toggle
+        title: Sliders
+        description: Apply glow to slider thumbs.
+        default: false
+    -
+        id: primidian-glow-ui-scrollbars
+        type: class-toggle
+        title: Scrollbars
+        description: Apply glow to scrollbar thumbs on hover and drag.
+        default: false
+    -
+        id: primidian-glow-ui-controls
+        type: class-toggle
+        title: UI Controls
+        description: Apply glow to input fields, dropdowns, and modal controls.
+        default: true
+    -
+        id: primidian-glow-ui-mind-map
+        type: class-toggle
+        title: Mind Map
+        description: Apply glow to Mind Map nodes and connections (requires Mind Map plugin).
+        default: false
+
+    -
         id: primidian-glow-behavior
         type: heading
         level: 2
