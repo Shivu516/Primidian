@@ -23,7 +23,7 @@ body.primidian-anim-no-popups :is(.modal, .prompt, .suggestion-container, .menu)
 
 .modal-bg,
 .prompt-bg {
-	background-color: hsl(255 26% 3% / 0.55);
+	background-color: #07060a8c;
 }
 
 body.primidian-no-blur .modal-bg,

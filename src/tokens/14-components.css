@@ -265,12 +265,12 @@ body {
 	 * Multipliers scale the base --primidian-glow-blur/--primidian-glow-alpha
 	 * values so UI glow stays subtle when idle and responsive when interacted
 	 * with. Each state is independently user-configurable. */
-	--primidian-glow-ui-inactive-mult: 0.15;
-	--primidian-glow-ui-hover-mult: 0.5;
-	--primidian-glow-ui-selected-mult: 1;
 	--primidian-glow-ui-inactive: 0.15;
 	--primidian-glow-ui-hover: 0.5;
 	--primidian-glow-ui-selected: 1;
+	--primidian-glow-ui-inactive-mult: var(--primidian-glow-ui-inactive, 0.15);
+	--primidian-glow-ui-hover-mult: var(--primidian-glow-ui-hover, 0.5);
+	--primidian-glow-ui-selected-mult: var(--primidian-glow-ui-selected, 1);
 	--primidian-glow-ui-transition: var(--primidian-motion-fast);
 	/* Resolved UI glow values */
 	--primidian-glow-ui-inactive-blur: calc(var(--primidian-glow-blur) * var(--primidian-glow-ui-inactive-mult));

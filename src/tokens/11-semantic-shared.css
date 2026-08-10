@@ -65,7 +65,7 @@ body {
 	--primidian-cursor: pointer;
 
 	/* ── Elevation ───────────────────────────────────────────────────── */
-	--primidian-shadow-s: 0 1px 2px hsl(255 26% 3% / 0.16);
-	--primidian-shadow-m: 0 4px 12px hsl(255 26% 3% / 0.2);
-	--primidian-shadow-l: 0 12px 32px hsl(255 26% 3% / 0.28);
+	--primidian-shadow-s: 0 1px 2px #07060a29;
+	--primidian-shadow-m: 0 4px 12px #07060a33;
+	--primidian-shadow-l: 0 12px 32px #07060a47;
 }

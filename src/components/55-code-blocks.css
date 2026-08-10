@@ -1,7 +1,7 @@
 /* ── COMPONENT · CODE BLOCKS ───────────────────────────────────────────────
  *
  * FIX F-9: Obsidianite had two divergent implementations — Live Preview used
- *   #191621 while Reading Mode used the vendored Dracula's rgb(40,41,54).
+ *   #191621 while Reading Mode used the vendored Dracula's #282936.
  *   The same code block looked different in each mode. Primidian drives both
  *   from a single --primidian-code-bg token.
  *
