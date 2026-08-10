@@ -1578,13 +1578,30 @@ settings:
         id: primidian-glow-info
         type: info-text
         markdown: true
-        description: "An optional accent glow. Each element derives its glow from **its own configured colour** — recolour a divider and its glow follows automatically. Text glow uses text-shadow (no background, no outline); UI glow uses box-shadow. All numeric values are in pixels (px)."
+        description: "An optional accent glow. Each element derives its glow from **its own configured colour** — recolour a divider and its glow follows automatically. Three glow engines are available: **Automatic** picks the best method per target, **Text Shadow** is optimized for text, **Drop Shadow** follows rendered shapes. All numeric values are in pixels (px)."
     -
         id: primidian-glow-off
         type: class-toggle
         title: Disable Glow
         description: Glow is off by default. Turn this off to enable it.
         default: true
+    -
+        id: primidian-glow-engine
+        type: class-select
+        allowEmpty: false
+        title: Glow Engine
+        description: How glow is rendered. Automatic picks the best method per target. Text Shadow is optimized for text. Drop Shadow follows rendered shapes.
+        default: primidian-glow-engine-automatic
+        options:
+            -
+                label: Automatic / Dynamic
+                value: primidian-glow-engine-automatic
+            -
+                label: Text Shadow
+                value: primidian-glow-engine-text-shadow
+            -
+                label: Drop Shadow
+                value: primidian-glow-engine-drop-shadow
 
     -
         id: primidian-glow-global

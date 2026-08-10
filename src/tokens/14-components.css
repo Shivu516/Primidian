@@ -253,6 +253,9 @@ body {
 	--primidian-glow-radius: 0px;
 	--primidian-glow-pulse: 0;
 	--primidian-glow-pulse-duration: 3s;
+	--primidian-glow-engine: automatic;
+	--primidian-glow-text-layers: 1;
+	--primidian-glow-drop-layers: 1;
 	--primidian-glow-text: 0;
 	--primidian-glow-headings: 1;
 	--primidian-glow-links: 1;

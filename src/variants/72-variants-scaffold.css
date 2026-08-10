@@ -97,3 +97,17 @@ body.primidian-statusbar-floating {
 body.primidian-statusbar-docked {
 	--primidian-statusbar-opacity: 1;
 }
+
+/* ── Glow Engine ─────────────────────────────────────────────────────── */
+
+body.primidian-glow-engine-automatic {
+	--primidian-glow-engine: automatic;
+}
+
+body.primidian-glow-engine-text-shadow {
+	--primidian-glow-engine: text-shadow;
+}
+
+body.primidian-glow-engine-drop-shadow {
+	--primidian-glow-engine: drop-shadow;
+}
