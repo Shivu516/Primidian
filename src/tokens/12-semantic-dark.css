@@ -68,7 +68,7 @@
 	--primidian-color-magenta: var(--primidian-c-magenta-500);
 
 	/* ── Shadows ─────────────────────────────────────────────────────── */
-	--primidian-shadow-s: 0 1px 2px hsl(255 26% 2% / 0.4);
-	--primidian-shadow-m: 0 4px 14px hsl(255 26% 2% / 0.5);
-	--primidian-shadow-l: 0 14px 36px hsl(255 26% 2% / 0.6);
+	--primidian-shadow-s: 0 1px 2px #04040666;
+	--primidian-shadow-m: 0 4px 14px #04040680;
+	--primidian-shadow-l: 0 14px 36px #04040699;
 }

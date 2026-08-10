@@ -22,83 +22,83 @@
 	/* ── Neutral · cool violet-tinted greys ──────────────────────────────
 	 * Hue 255 preserves Obsidianite's violet-black character. A neutral
 	 * grey here would read as "generic dark theme" and lose the identity. */
-	--primidian-c-neutral-0: hsl(250, 20%, 99%);
-	--primidian-c-neutral-25: hsl(250, 24%, 97%);
-	--primidian-c-neutral-50: hsl(250, 22%, 95%);
-	--primidian-c-neutral-100: hsl(250, 18%, 90%);
-	--primidian-c-neutral-200: hsl(250, 14%, 80%);
-	--primidian-c-neutral-300: hsl(250, 10%, 68%);
-	--primidian-c-neutral-400: hsl(250, 8%, 56%);
-	--primidian-c-neutral-500: hsl(250, 8%, 45%);
-	--primidian-c-neutral-600: hsl(251, 9%, 36%);
-	--primidian-c-neutral-700: hsl(252, 12%, 27%);
-	--primidian-c-neutral-800: hsl(255, 16%, 18%);
-	--primidian-c-neutral-850: hsl(255, 18%, 14%);
-	--primidian-c-neutral-900: hsl(255, 19%, 11%); /* #191621 (Obsidianite bg-secondary) */
-	--primidian-c-neutral-950: hsl(255, 26%, 7%); /*  #100e17 (Obsidianite bg-primary)   */
-	--primidian-c-neutral-975: hsl(258, 24%, 6%); /*  #0d0b12 (Obsidianite bg-alt)       */
-	--primidian-c-neutral-1000: hsl(258, 26%, 3%);
+	--primidian-c-neutral-0: #fcfcfd;
+	--primidian-c-neutral-25: #f6f6f9;
+	--primidian-c-neutral-50: #f0eff5;
+	--primidian-c-neutral-100: #e2e1ea;
+	--primidian-c-neutral-200: #c7c5d3;
+	--primidian-c-neutral-300: #a8a5b6;
+	--primidian-c-neutral-400: #898698;
+	--primidian-c-neutral-500: #6d6a7c;
+	--primidian-c-neutral-600: #575464;
+	--primidian-c-neutral-700: #403d4d;
+	--primidian-c-neutral-800: #2a2735;
+	--primidian-c-neutral-850: #201d2a;
+	--primidian-c-neutral-900: #191721; /* #191621 (Obsidianite bg-secondary) */
+	--primidian-c-neutral-950: #100d16; /*  #100e17 (Obsidianite bg-primary)   */
+	--primidian-c-neutral-975: #0e0c13; /*  #0d0b12 (Obsidianite bg-alt)       */
+	--primidian-c-neutral-1000: #07060a;
 
 	/* Body text neutral — Obsidianite's #bebebe is warm-neutral, not violet */
-	--primidian-c-ink-300: hsl(0, 0%, 75%); /* #bebebe (Obsidianite text-normal) */
+	--primidian-c-ink-300: #bfbfbf; /* #bebebe (Obsidianite text-normal) */
 
 	/* ── Cyan · the primary accent ───────────────────────────────────── */
-	--primidian-c-cyan-100: hsl(190, 90%, 88%);
-	--primidian-c-cyan-200: hsl(190, 90%, 80%);
-	--primidian-c-cyan-300: hsl(190, 92%, 70%); /* #6bcafb-ish (Obsidianite text-a) */
-	--primidian-c-cyan-400: hsl(190, 96%, 61%); /* #3dd7fb (Obsidianite accent-rgb) */
-	--primidian-c-cyan-500: hsl(190, 87%, 45%); /* #0fb6d6 (Obsidianite text-accent) */
-	--primidian-c-cyan-600: hsl(191, 88%, 37%);
-	--primidian-c-cyan-700: hsl(192, 88%, 29%);
-	--primidian-c-cyan-800: hsl(193, 86%, 22%);
+	--primidian-c-cyan-100: #c5f3fc;
+	--primidian-c-cyan-200: #9eebfa;
+	--primidian-c-cyan-300: #6ce1f9; /* #6bcafb-ish (Obsidianite text-a) */
+	--primidian-c-cyan-400: #3cdbfb; /* #3dd7fb (Obsidianite accent-rgb) */
+	--primidian-c-cyan-500: #0fb5d7; /* #0fb6d6 (Obsidianite text-accent) */
+	--primidian-c-cyan-600: #0b93b1;
+	--primidian-c-cyan-700: #09718b;
+	--primidian-c-cyan-800: #085368;
 
 	/* ── Magenta · the secondary accent ──────────────────────────────── */
-	--primidian-c-magenta-200: hsl(333, 90%, 86%);
-	--primidian-c-magenta-300: hsl(333, 89%, 78%);
-	--primidian-c-magenta-400: hsl(333, 88%, 71%);
-	--primidian-c-magenta-500: hsl(333, 88%, 65%); /* #f4569d (Obsidianite sub-accent) */
-	--primidian-c-magenta-600: hsl(333, 74%, 53%);
-	--primidian-c-magenta-700: hsl(334, 72%, 42%);
-	--primidian-c-magenta-800: hsl(334, 70%, 33%);
+	--primidian-c-magenta-200: #fbbbd8;
+	--primidian-c-magenta-300: #f995c2;
+	--primidian-c-magenta-400: #f674af;
+	--primidian-c-magenta-500: #f4579e; /* #f4569d (Obsidianite sub-accent) */
+	--primidian-c-magenta-600: #e02e7e;
+	--primidian-c-magenta-700: #b81e61;
+	--primidian-c-magenta-800: #8f194c;
 
 	/* ── Blue · bold-gradient + structural highlights ────────────────── */
-	--primidian-c-blue-300: hsl(212, 97%, 78%); /* #87c2fd (Obsidianite bold grad 1) */
-	--primidian-c-blue-400: hsl(221, 89%, 72%); /* #7aa2f7 (Obsidianite strong)      */
-	--primidian-c-blue-500: hsl(217, 88%, 60%);
-	--primidian-c-blue-600: hsl(219, 76%, 48%);
-	--primidian-c-blue-700: hsl(221, 74%, 38%);
+	--primidian-c-blue-300: #90c3fd; /* #87c2fd (Obsidianite bold grad 1) */
+	--primidian-c-blue-400: #78a0f7; /* #7aa2f7 (Obsidianite strong)      */
+	--primidian-c-blue-500: #3f84f3;
+	--primidian-c-blue-600: #1d5ed7;
+	--primidian-c-blue-700: #1947a9;
 
 	/* ── Purple · italic + bold-gradient terminus ────────────────────── */
-	--primidian-c-purple-200: hsl(272, 90%, 86%); /* #dcb9fc (Obsidianite bold grad 2) */
-	--primidian-c-purple-400: hsl(261, 87%, 78%); /* #bb9af7 (Obsidianite em)          */
-	--primidian-c-purple-500: hsl(261, 72%, 66%);
-	--primidian-c-purple-600: hsl(261, 62%, 54%);
-	--primidian-c-purple-700: hsl(262, 60%, 43%);
+	--primidian-c-purple-200: #ddbbfb; /* #dcb9fc (Obsidianite bold grad 2) */
+	--primidian-c-purple-400: #b896f8; /* #bb9af7 (Obsidianite em)          */
+	--primidian-c-purple-500: #966ae7;
+	--primidian-c-purple-600: #7441d2;
+	--primidian-c-purple-700: #5c2caf;
 
 	/* ── Green · success, completed tasks ────────────────────────────── */
-	--primidian-c-green-300: hsl(151, 70%, 72%);
-	--primidian-c-green-500: hsl(151, 68%, 50%);
-	--primidian-c-green-600: hsl(152, 66%, 39%);
-	--primidian-c-green-700: hsl(153, 66%, 30%);
+	--primidian-c-green-300: #86eab9;
+	--primidian-c-green-500: #29d682;
+	--primidian-c-green-600: #22a568;
+	--primidian-c-green-700: #1a7f52;
 
 	/* ── Amber · warning, in-progress ────────────────────────────────── */
-	--primidian-c-amber-300: hsl(42, 96%, 74%);
-	--primidian-c-amber-500: hsl(42, 96%, 57%);
-	--primidian-c-amber-600: hsl(38, 90%, 47%);
-	--primidian-c-amber-700: hsl(34, 88%, 38%);
+	--primidian-c-amber-300: #fcd67d;
+	--primidian-c-amber-500: #fbbb28;
+	--primidian-c-amber-600: #e4950c;
+	--primidian-c-amber-700: #b66c0c;
 
 	/* ── Red · error, important ──────────────────────────────────────── */
-	--primidian-c-red-300: hsl(358, 92%, 78%);
-	--primidian-c-red-500: hsl(358, 85%, 64%);
-	--primidian-c-red-600: hsl(358, 72%, 51%);
-	--primidian-c-red-700: hsl(358, 70%, 41%);
+	--primidian-c-red-300: #fb9397;
+	--primidian-c-red-500: #f1555a;
+	--primidian-c-red-600: #dc282e;
+	--primidian-c-red-700: #b21f24;
 
 	/* ── Orange · quotes, tips ───────────────────────────────────────── */
-	--primidian-c-orange-300: hsl(24, 94%, 74%);
-	--primidian-c-orange-500: hsl(24, 90%, 58%);
-	--primidian-c-orange-600: hsl(22, 84%, 48%);
+	--primidian-c-orange-300: #fbb07e;
+	--primidian-c-orange-500: #f48134;
+	--primidian-c-orange-600: #e15f14;
 
 	/* ── Absolutes ───────────────────────────────────────────────────── */
-	--primidian-c-white: hsl(0, 0%, 100%);
-	--primidian-c-black: hsl(0, 0%, 0%);
+	--primidian-c-white: #ffffff;
+	--primidian-c-black: #000000;
 }

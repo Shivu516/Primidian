@@ -8,7 +8,7 @@
  *   1. No documented dependency required it.
  *   2. Its palette (Dracula purple/pink/green) clashes with Obsidianite's
  *      cyan/magenta identity — it was visibly a foreign body.
- *   3. It hard-coded rgb(40,41,54) as the code background, which is why
+ *   3. It hard-coded #282936 as the code background, which is why
  *      Reading Mode and Live Preview disagreed (defect F-9).
  *   4. It introduced a third-party copyright holder into the licence surface
  *      for no benefit.

@@ -112,8 +112,8 @@ settings:
         format: hsl
         title: Accent Colour
         description: The primary accent. Drives headings, links, tags, checkboxes and borders.
-        default-light: 'hsl(192, 88%, 29%)'
-        default-dark: 'hsl(190, 87%, 45%)'
+        default-light: '#09718b'
+        default-dark: '#0fb5d7'
         alt-format:
             -
                 id: primidian-accent-rgb
@@ -124,8 +124,8 @@ settings:
         format: hsl
         title: Secondary Accent Colour
         description: Used for external links, heading underlines and gradient terminals.
-        default-light: 'hsl(334, 72%, 42%)'
-        default-dark: 'hsl(333, 88%, 65%)'
+        default-light: '#b81e61'
+        default-dark: '#f4579e'
         alt-format:
             -
                 id: primidian-accent-alt-rgb
@@ -136,48 +136,48 @@ settings:
         format: hsl
         title: Background — Primary
         description: The main editor and note background.
-        default-light: 'hsl(250, 20%, 99%)'
-        default-dark: 'hsl(255, 26%, 7%)'
+        default-light: '#fcfcfd'
+        default-dark: '#100d16'
     -
         id: primidian-bg-secondary
         type: variable-themed-color
         format: hsl
         title: Background — Secondary
         description: Code blocks, table headers, input fields and sidebars.
-        default-light: 'hsl(250, 24%, 97%)'
-        default-dark: 'hsl(255, 19%, 11%)'
+        default-light: '#f6f6f9'
+        default-dark: '#191721'
     -
         id: primidian-bg-elevated
         type: variable-themed-color
         format: hsl
         title: Background — Elevated
         description: Modals, popovers, menus and tooltips.
-        default-light: 'hsl(0, 0%, 100%)'
-        default-dark: 'hsl(255, 18%, 14%)'
+        default-light: '#ffffff'
+        default-dark: '#201d2a'
     -
         id: primidian-text-normal
         type: variable-themed-color
         format: hsl
         title: Text — Normal
         description: Body text.
-        default-light: 'hsl(255, 16%, 18%)'
-        default-dark: 'hsl(0, 0%, 75%)'
+        default-light: '#2a2735'
+        default-dark: '#bfbfbf'
     -
         id: primidian-text-muted
         type: variable-themed-color
         format: hsl
         title: Text — Muted
         description: Secondary text, interface labels, blockquotes.
-        default-light: 'hsl(251, 9%, 36%)'
-        default-dark: 'hsl(250, 8%, 56%)'
+        default-light: '#575464'
+        default-dark: '#898698'
     -
         id: primidian-text-faint
         type: variable-themed-color
         format: hsl
         title: Text — Faint
         description: The least prominent text. Formatting marks, placeholders, completed tasks.
-        default-light: 'hsl(250, 8%, 56%)'
-        default-dark: 'hsl(250, 8%, 45%)'
+        default-light: '#898698'
+        default-dark: '#6d6a7c'
     -
         id: primidian-border
         type: variable-themed-color
@@ -185,8 +185,8 @@ settings:
         opacity: true
         title: Border Colour
         description: Dividing lines, input outlines and card edges.
-        default-light: 'hsla(192, 88%, 29%, 0.18)'
-        default-dark: 'hsla(190, 87%, 45%, 0.12)'
+        default-light: '#09718b2e'
+        default-dark: '#0fb5d71f'
 
     -
         id: primidian-typography
@@ -379,16 +379,16 @@ settings:
         format: hsl
         title: Underline Colour
         description: Colour the heading underline fades from.
-        default-light: 'hsl(334, 72%, 42%)'
-        default-dark: 'hsl(333, 88%, 65%)'
+        default-light: '#b81e61'
+        default-dark: '#f4579e'
     -
         id: primidian-h-marker-color
         type: variable-themed-color
         format: hsl
         title: Accent Bar / Marker Colour
         description: Colour of the vertical bar in the Accent Bar style, and of heading hashes in Live Preview.
-        default-light: 'hsl(192, 88%, 29%)'
-        default-dark: 'hsl(190, 87%, 45%)'
+        default-light: '#09718b'
+        default-dark: '#0fb5d7'
     -
         id: primidian-h1
         type: heading
@@ -400,8 +400,8 @@ settings:
         type: variable-themed-color
         format: hsl
         title: Colour
-        default-light: 'hsl(192, 88%, 29%)'
-        default-dark: 'hsl(190, 87%, 45%)'
+        default-light: '#09718b'
+        default-dark: '#0fb5d7'
     -
         id: primidian-h1-size
         type: variable-text
@@ -440,8 +440,8 @@ settings:
         type: variable-themed-color
         format: hsl
         title: Colour
-        default-light: 'hsl(255, 16%, 18%)'
-        default-dark: 'hsl(0, 0%, 75%)'
+        default-light: '#2a2735'
+        default-dark: '#bfbfbf'
     -
         id: primidian-h2-size
         type: variable-text
@@ -478,8 +478,8 @@ settings:
         type: variable-themed-color
         format: hsl
         title: Colour
-        default-light: 'hsl(255, 16%, 18%)'
-        default-dark: 'hsl(0, 0%, 75%)'
+        default-light: '#2a2735'
+        default-dark: '#bfbfbf'
     -
         id: primidian-h3-size
         type: variable-text
@@ -501,8 +501,8 @@ settings:
         type: variable-themed-color
         format: hsl
         title: Colour
-        default-light: 'hsl(255, 16%, 18%)'
-        default-dark: 'hsl(0, 0%, 75%)'
+        default-light: '#2a2735'
+        default-dark: '#bfbfbf'
     -
         id: primidian-h4-size
         type: variable-text
@@ -524,8 +524,8 @@ settings:
         type: variable-themed-color
         format: hsl
         title: Colour
-        default-light: 'hsl(251, 9%, 36%)'
-        default-dark: 'hsl(250, 8%, 56%)'
+        default-light: '#575464'
+        default-dark: '#898698'
     -
         id: primidian-h5-size
         type: variable-text
@@ -547,8 +547,8 @@ settings:
         type: variable-themed-color
         format: hsl
         title: Colour
-        default-light: 'hsl(251, 9%, 36%)'
-        default-dark: 'hsl(250, 8%, 56%)'
+        default-light: '#575464'
+        default-dark: '#898698'
     -
         id: primidian-h6-size
         type: variable-text
@@ -720,15 +720,15 @@ settings:
         type: variable-themed-color
         format: hsl
         title: Line Colour
-        default-light: 'hsl(192, 88%, 29%)'
-        default-dark: 'hsl(190, 87%, 45%)'
+        default-light: '#09718b'
+        default-dark: '#0fb5d7'
     -
         id: primidian-divider-glyph-color
         type: variable-themed-color
         format: hsl
         title: Glyph Colour
-        default-light: 'hsl(334, 72%, 42%)'
-        default-dark: 'hsl(333, 88%, 65%)'
+        default-light: '#b81e61'
+        default-dark: '#f4579e'
 
     -
         id: primidian-emphasis
@@ -742,8 +742,8 @@ settings:
         format: hsl
         title: Bold Colour
         description: Used when gradients are disabled, and for bold text containing links or code.
-        default-light: 'hsl(219, 76%, 48%)'
-        default-dark: 'hsl(221, 89%, 72%)'
+        default-light: '#1d5ed7'
+        default-dark: '#78a0f7'
     -
         id: primidian-bold-weight
         type: variable-number
@@ -754,23 +754,23 @@ settings:
         type: variable-themed-color
         format: hsl
         title: Italic Colour
-        default-light: 'hsl(261, 62%, 54%)'
-        default-dark: 'hsl(261, 87%, 78%)'
+        default-light: '#7441d2'
+        default-dark: '#b896f8'
     -
         id: primidian-highlight-bg
         type: variable-themed-color
         format: hsl
         opacity: true
         title: Highlight Background
-        default-light: 'hsla(42, 96%, 57%, 0.4)'
-        default-dark: 'hsla(333, 88%, 65%, 0.25)'
+        default-light: '#fbbb2866'
+        default-dark: '#f4579e40'
     -
         id: primidian-highlight-text
         type: variable-themed-color
         format: hsl
         title: Highlight Text Colour
-        default-light: 'hsl(255, 19%, 11%)'
-        default-dark: 'hsl(0, 0%, 100%)'
+        default-light: '#191721'
+        default-dark: '#ffffff'
     -
         id: primidian-highlight-padding-x
         type: variable-text
@@ -794,8 +794,8 @@ settings:
         type: variable-themed-color
         format: hsl
         title: Strikethrough Colour
-        default-light: 'hsl(250, 8%, 56%)'
-        default-dark: 'hsl(250, 8%, 45%)'
+        default-light: '#898698'
+        default-dark: '#6d6a7c'
 
     -
         id: primidian-links
@@ -823,38 +823,38 @@ settings:
         type: variable-themed-color
         format: hsl
         title: Link Text Colour
-        default-light: 'hsl(255, 16%, 18%)'
-        default-dark: 'hsl(0, 0%, 75%)'
+        default-light: '#2a2735'
+        default-dark: '#bfbfbf'
     -
         id: primidian-link-hover-color
         type: variable-themed-color
         format: hsl
         title: Link Text Colour on Hover
-        default-light: 'hsl(0, 0%, 100%)'
-        default-dark: 'hsl(258, 26%, 3%)'
+        default-light: '#ffffff'
+        default-dark: '#07060a'
     -
         id: primidian-link-internal-accent
         type: variable-themed-color
         format: hsl
         opacity: true
         title: Internal Link Underline
-        default-light: 'hsla(192, 88%, 29%, 0.55)'
-        default-dark: 'hsla(190, 87%, 45%, 0.55)'
+        default-light: '#09718b8c'
+        default-dark: '#0fb5d78c'
     -
         id: primidian-link-external-accent
         type: variable-themed-color
         format: hsl
         opacity: true
         title: External Link Underline
-        default-light: 'hsla(334, 72%, 42%, 0.55)'
-        default-dark: 'hsla(333, 88%, 65%, 0.55)'
+        default-light: '#b81e618c'
+        default-dark: '#f4579e8c'
     -
         id: primidian-link-unresolved-color
         type: variable-themed-color
         format: hsl
         title: Unresolved Link Colour
-        default-light: 'hsl(250, 8%, 56%)'
-        default-dark: 'hsl(250, 8%, 45%)'
+        default-light: '#898698'
+        default-dark: '#6d6a7c'
     -
         id: primidian-link-sweep-rest
         type: variable-number
@@ -880,16 +880,16 @@ settings:
         type: variable-themed-color
         format: hsl
         title: Text Colour
-        default-light: 'hsl(192, 88%, 29%)'
-        default-dark: 'hsl(190, 87%, 45%)'
+        default-light: '#09718b'
+        default-dark: '#0fb5d7'
     -
         id: primidian-inline-code-bg
         type: variable-themed-color
         format: hsl
         opacity: true
         title: Background
-        default-light: 'hsla(192, 88%, 29%, 0.09)'
-        default-dark: 'hsla(190, 87%, 45%, 0.09)'
+        default-light: '#09718b17'
+        default-dark: '#0fb5d717'
     -
         id: primidian-inline-code-radius
         type: variable-number
@@ -925,15 +925,15 @@ settings:
         format: hsl
         title: Background
         description: Applies to both Reading Mode and Live Preview, so they always match.
-        default-light: 'hsl(250, 24%, 97%)'
-        default-dark: 'hsl(255, 19%, 11%)'
+        default-light: '#f6f6f9'
+        default-dark: '#191721'
     -
         id: primidian-code-color
         type: variable-themed-color
         format: hsl
         title: Default Text Colour
-        default-light: 'hsl(255, 16%, 18%)'
-        default-dark: 'hsl(0, 0%, 75%)'
+        default-light: '#2a2735'
+        default-dark: '#bfbfbf'
     -
         id: primidian-code-radius
         type: variable-number
@@ -982,8 +982,8 @@ settings:
         format: hsl
         title: Line Number Colour
         description: Defaults to the main accent colour.
-        default-light: 'hsl(192, 88%, 29%)'
-        default-dark: 'hsl(190, 87%, 45%)'
+        default-light: '#09718b'
+        default-dark: '#0fb5d7'
     -
         id: primidian-linenum-opacity
         type: variable-number-slider
@@ -1033,57 +1033,57 @@ settings:
         type: variable-themed-color
         format: hsl
         title: Keywords
-        default-light: 'hsl(334, 72%, 42%)'
-        default-dark: 'hsl(333, 88%, 65%)'
+        default-light: '#b81e61'
+        default-dark: '#f4579e'
     -
         id: primidian-syntax-string
         type: variable-themed-color
         format: hsl
         title: Strings
-        default-light: 'hsl(152, 66%, 39%)'
-        default-dark: 'hsl(151, 68%, 50%)'
+        default-light: '#22a568'
+        default-dark: '#29d682'
     -
         id: primidian-syntax-number
         type: variable-themed-color
         format: hsl
         title: Numbers
-        default-light: 'hsl(261, 62%, 54%)'
-        default-dark: 'hsl(261, 87%, 78%)'
+        default-light: '#7441d2'
+        default-dark: '#b896f8'
     -
         id: primidian-syntax-comment
         type: variable-themed-color
         format: hsl
         title: Comments
-        default-light: 'hsl(250, 8%, 56%)'
-        default-dark: 'hsl(250, 8%, 45%)'
+        default-light: '#898698'
+        default-dark: '#6d6a7c'
     -
         id: primidian-syntax-function
         type: variable-themed-color
         format: hsl
         title: Functions
-        default-light: 'hsl(192, 88%, 29%)'
-        default-dark: 'hsl(190, 87%, 45%)'
+        default-light: '#09718b'
+        default-dark: '#0fb5d7'
     -
         id: primidian-syntax-property
         type: variable-themed-color
         format: hsl
         title: Properties
-        default-light: 'hsl(219, 76%, 48%)'
-        default-dark: 'hsl(221, 89%, 72%)'
+        default-light: '#1d5ed7'
+        default-dark: '#78a0f7'
     -
         id: primidian-syntax-type
         type: variable-themed-color
         format: hsl
         title: Types & Selectors
-        default-light: 'hsl(38, 90%, 47%)'
-        default-dark: 'hsl(42, 96%, 57%)'
+        default-light: '#e4950c'
+        default-dark: '#fbbb28'
     -
         id: primidian-syntax-punctuation
         type: variable-themed-color
         format: hsl
         title: Punctuation
-        default-light: 'hsl(251, 9%, 36%)'
-        default-dark: 'hsl(250, 8%, 56%)'
+        default-light: '#575464'
+        default-dark: '#898698'
 
     -
         id: primidian-callouts
@@ -1183,23 +1183,23 @@ settings:
         type: variable-themed-color
         format: hsl
         title: Text Colour
-        default-light: 'hsl(251, 9%, 36%)'
-        default-dark: 'hsl(250, 8%, 56%)'
+        default-light: '#575464'
+        default-dark: '#898698'
     -
         id: primidian-quote-border-color
         type: variable-themed-color
         format: hsl
         title: Accent Colour
-        default-light: 'hsl(192, 88%, 29%)'
-        default-dark: 'hsl(190, 87%, 45%)'
+        default-light: '#09718b'
+        default-dark: '#0fb5d7'
     -
         id: primidian-quote-bg
         type: variable-themed-color
         format: hsl
         opacity: true
         title: Background
-        default-light: 'hsla(192, 88%, 29%, 0.04)'
-        default-dark: 'hsla(190, 87%, 45%, 0.04)'
+        default-light: '#09718b0a'
+        default-dark: '#0fb5d70a'
     -
         id: primidian-quote-border-width
         type: variable-number
@@ -1260,22 +1260,22 @@ settings:
         type: variable-themed-color
         format: hsl
         title: Unchecked Border Colour
-        default-light: 'hsl(250, 8%, 56%)'
-        default-dark: 'hsl(250, 8%, 45%)'
+        default-light: '#898698'
+        default-dark: '#6d6a7c'
     -
         id: primidian-checkbox-checked-bg
         type: variable-themed-color
         format: hsl
         title: Checked Background
-        default-light: 'hsl(192, 88%, 29%)'
-        default-dark: 'hsl(190, 87%, 45%)'
+        default-light: '#09718b'
+        default-dark: '#0fb5d7'
     -
         id: primidian-checkbox-marker-color
         type: variable-themed-color
         format: hsl
         title: Tick Colour
-        default-light: 'hsl(0, 0%, 100%)'
-        default-dark: 'hsl(258, 26%, 3%)'
+        default-light: '#ffffff'
+        default-dark: '#07060a'
     -
         id: primidian-checkbox-marker-size
         type: variable-text
@@ -1287,8 +1287,8 @@ settings:
         type: variable-themed-color
         format: hsl
         title: Completed Task Text Colour
-        default-light: 'hsl(250, 8%, 56%)'
-        default-dark: 'hsl(250, 8%, 45%)'
+        default-light: '#898698'
+        default-dark: '#6d6a7c'
     -
         id: primidian-no-task-strike
         type: class-toggle
@@ -1311,43 +1311,43 @@ settings:
         type: variable-themed-color
         format: hsl
         title: In Progress — [/]
-        default-light: 'hsl(38, 90%, 47%)'
-        default-dark: 'hsl(42, 96%, 57%)'
+        default-light: '#e4950c'
+        default-dark: '#fbbb28'
     -
         id: primidian-task-cancelled-color
         type: variable-themed-color
         format: hsl
         title: Cancelled — [-]
-        default-light: 'hsl(250, 8%, 56%)'
-        default-dark: 'hsl(250, 8%, 45%)'
+        default-light: '#898698'
+        default-dark: '#6d6a7c'
     -
         id: primidian-task-forwarded-color
         type: variable-themed-color
         format: hsl
         title: Forwarded / Scheduled — [>] and [<]
-        default-light: 'hsl(219, 76%, 48%)'
-        default-dark: 'hsl(221, 89%, 72%)'
+        default-light: '#1d5ed7'
+        default-dark: '#78a0f7'
     -
         id: primidian-task-question-color
         type: variable-themed-color
         format: hsl
         title: Question — [?]
-        default-light: 'hsl(261, 62%, 54%)'
-        default-dark: 'hsl(261, 87%, 78%)'
+        default-light: '#7441d2'
+        default-dark: '#b896f8'
     -
         id: primidian-task-important-color
         type: variable-themed-color
         format: hsl
         title: Important — [!]
-        default-light: 'hsl(358, 72%, 51%)'
-        default-dark: 'hsl(358, 85%, 64%)'
+        default-light: '#dc282e'
+        default-dark: '#f1555a'
     -
         id: primidian-task-star-color
         type: variable-themed-color
         format: hsl
         title: Star — [*]
-        default-light: 'hsl(38, 90%, 47%)'
-        default-dark: 'hsl(42, 96%, 57%)'
+        default-light: '#e4950c'
+        default-dark: '#fbbb28'
 
     -
         id: primidian-tags
@@ -1370,16 +1370,16 @@ settings:
         type: variable-themed-color
         format: hsl
         title: Text Colour
-        default-light: 'hsl(192, 88%, 29%)'
-        default-dark: 'hsl(190, 87%, 45%)'
+        default-light: '#09718b'
+        default-dark: '#0fb5d7'
     -
         id: primidian-tag-bg
         type: variable-themed-color
         format: hsl
         opacity: true
         title: Background
-        default-light: 'hsla(192, 88%, 29%, 0.14)'
-        default-dark: 'hsla(190, 87%, 45%, 0.14)'
+        default-light: '#09718b24'
+        default-dark: '#0fb5d724'
     -
         id: primidian-tag-size
         type: variable-text
@@ -1422,23 +1422,23 @@ settings:
         type: variable-themed-color
         format: hsl
         title: Header Background
-        default-light: 'hsl(250, 24%, 97%)'
-        default-dark: 'hsl(255, 19%, 11%)'
+        default-light: '#f6f6f9'
+        default-dark: '#191721'
     -
         id: primidian-table-header-color
         type: variable-themed-color
         format: hsl
         title: Header Text Colour
-        default-light: 'hsl(192, 88%, 29%)'
-        default-dark: 'hsl(190, 87%, 45%)'
+        default-light: '#09718b'
+        default-dark: '#0fb5d7'
     -
         id: primidian-table-border-color
         type: variable-themed-color
         format: hsl
         opacity: true
         title: Border Colour
-        default-light: 'hsla(192, 88%, 29%, 0.18)'
-        default-dark: 'hsla(190, 87%, 45%, 0.12)'
+        default-light: '#09718b2e'
+        default-dark: '#0fb5d71f'
     -
         id: primidian-table-stripe-opacity
         type: variable-text
@@ -1462,15 +1462,15 @@ settings:
         type: variable-themed-color
         format: hsl
         title: List Bullet Colour
-        default-light: 'hsl(192, 88%, 29%)'
-        default-dark: 'hsl(190, 87%, 45%)'
+        default-light: '#09718b'
+        default-dark: '#0fb5d7'
     -
         id: primidian-list-indent-color
         type: variable-themed-color
         format: hsl
         title: Indent Guide Colour
-        default-light: 'hsl(192, 88%, 29%)'
-        default-dark: 'hsl(190, 87%, 45%)'
+        default-light: '#09718b'
+        default-dark: '#0fb5d7'
     -
         id: primidian-list-indent-opacity
         type: variable-number-slider
@@ -1484,15 +1484,15 @@ settings:
         type: variable-themed-color
         format: hsl
         title: Embed Background
-        default-light: 'hsl(250, 24%, 97%)'
-        default-dark: 'hsl(255, 19%, 11%)'
+        default-light: '#f6f6f9'
+        default-dark: '#191721'
     -
         id: primidian-embed-title-color
         type: variable-themed-color
         format: hsl
         title: Embed Title Colour
-        default-light: 'hsl(192, 88%, 29%)'
-        default-dark: 'hsl(190, 87%, 45%)'
+        default-light: '#09718b'
+        default-dark: '#0fb5d7'
     -
         id: primidian-embed-radius
         type: variable-number
@@ -1510,15 +1510,15 @@ settings:
         type: variable-themed-color
         format: hsl
         title: Properties Background
-        default-light: 'hsl(250, 24%, 97%)'
-        default-dark: 'hsl(255, 19%, 11%)'
+        default-light: '#f6f6f9'
+        default-dark: '#191721'
     -
         id: primidian-props-key-color
         type: variable-themed-color
         format: hsl
         title: Property Name Colour
-        default-light: 'hsl(251, 9%, 36%)'
-        default-dark: 'hsl(250, 8%, 56%)'
+        default-light: '#575464'
+        default-dark: '#898698'
 
     -
         id: primidian-gradients
@@ -1542,15 +1542,15 @@ settings:
         type: variable-themed-color
         format: hsl
         title: Global Gradient — Colour 1
-        default-light: 'hsl(192, 88%, 29%)'
-        default-dark: 'hsl(190, 87%, 45%)'
+        default-light: '#09718b'
+        default-dark: '#0fb5d7'
     -
         id: primidian-grad-2
         type: variable-themed-color
         format: hsl
         title: Global Gradient — Colour 2
-        default-light: 'hsl(334, 72%, 42%)'
-        default-dark: 'hsl(333, 88%, 65%)'
+        default-light: '#b81e61'
+        default-dark: '#f4579e'
     -
         id: primidian-grad-angle
         type: variable-text
@@ -1568,15 +1568,15 @@ settings:
         type: variable-themed-color
         format: hsl
         title: Colour 1
-        default-light: 'hsl(212, 97%, 78%)'
-        default-dark: 'hsl(212, 97%, 78%)'
+        default-light: '#90c3fd'
+        default-dark: '#90c3fd'
     -
         id: primidian-bold-grad-2
         type: variable-themed-color
         format: hsl
         title: Colour 2
-        default-light: 'hsl(272, 90%, 86%)'
-        default-dark: 'hsl(272, 90%, 86%)'
+        default-light: '#ddbbfb'
+        default-dark: '#ddbbfb'
     -
         id: primidian-bold-grad-angle
         type: variable-text
@@ -1593,15 +1593,15 @@ settings:
         type: variable-themed-color
         format: hsl
         title: Colour 1
-        default-light: 'hsl(192, 88%, 29%)'
-        default-dark: 'hsl(190, 87%, 45%)'
+        default-light: '#09718b'
+        default-dark: '#0fb5d7'
     -
         id: primidian-h-grad-2
         type: variable-themed-color
         format: hsl
         title: Colour 2
-        default-light: 'hsl(334, 72%, 42%)'
-        default-dark: 'hsl(333, 88%, 65%)'
+        default-light: '#b81e61'
+        default-dark: '#f4579e'
     -
         id: primidian-h-grad-angle
         type: variable-text
@@ -1618,15 +1618,15 @@ settings:
         type: variable-themed-color
         format: hsl
         title: Colour 1
-        default-light: 'hsl(192, 88%, 29%)'
-        default-dark: 'hsl(190, 87%, 45%)'
+        default-light: '#09718b'
+        default-dark: '#0fb5d7'
     -
         id: primidian-divider-grad-2
         type: variable-themed-color
         format: hsl
         title: Colour 2
-        default-light: 'hsl(334, 72%, 42%)'
-        default-dark: 'hsl(333, 88%, 65%)'
+        default-light: '#b81e61'
+        default-dark: '#f4579e'
 
     -
         id: primidian-glow
@@ -2161,85 +2161,85 @@ settings:
 	/* ── Neutral · cool violet-tinted greys ──────────────────────────────
 	 * Hue 255 preserves Obsidianite's violet-black character. A neutral
 	 * grey here would read as "generic dark theme" and lose the identity. */
-	--primidian-c-neutral-0: hsl(250, 20%, 99%);
-	--primidian-c-neutral-25: hsl(250, 24%, 97%);
-	--primidian-c-neutral-50: hsl(250, 22%, 95%);
-	--primidian-c-neutral-100: hsl(250, 18%, 90%);
-	--primidian-c-neutral-200: hsl(250, 14%, 80%);
-	--primidian-c-neutral-300: hsl(250, 10%, 68%);
-	--primidian-c-neutral-400: hsl(250, 8%, 56%);
-	--primidian-c-neutral-500: hsl(250, 8%, 45%);
-	--primidian-c-neutral-600: hsl(251, 9%, 36%);
-	--primidian-c-neutral-700: hsl(252, 12%, 27%);
-	--primidian-c-neutral-800: hsl(255, 16%, 18%);
-	--primidian-c-neutral-850: hsl(255, 18%, 14%);
-	--primidian-c-neutral-900: hsl(255, 19%, 11%); /* #191621 (Obsidianite bg-secondary) */
-	--primidian-c-neutral-950: hsl(255, 26%, 7%); /*  #100e17 (Obsidianite bg-primary)   */
-	--primidian-c-neutral-975: hsl(258, 24%, 6%); /*  #0d0b12 (Obsidianite bg-alt)       */
-	--primidian-c-neutral-1000: hsl(258, 26%, 3%);
+	--primidian-c-neutral-0: #fcfcfd;
+	--primidian-c-neutral-25: #f6f6f9;
+	--primidian-c-neutral-50: #f0eff5;
+	--primidian-c-neutral-100: #e2e1ea;
+	--primidian-c-neutral-200: #c7c5d3;
+	--primidian-c-neutral-300: #a8a5b6;
+	--primidian-c-neutral-400: #898698;
+	--primidian-c-neutral-500: #6d6a7c;
+	--primidian-c-neutral-600: #575464;
+	--primidian-c-neutral-700: #403d4d;
+	--primidian-c-neutral-800: #2a2735;
+	--primidian-c-neutral-850: #201d2a;
+	--primidian-c-neutral-900: #191721; /* #191621 (Obsidianite bg-secondary) */
+	--primidian-c-neutral-950: #100d16; /*  #100e17 (Obsidianite bg-primary)   */
+	--primidian-c-neutral-975: #0e0c13; /*  #0d0b12 (Obsidianite bg-alt)       */
+	--primidian-c-neutral-1000: #07060a;
 
 	/* Body text neutral — Obsidianite's #bebebe is warm-neutral, not violet */
-	--primidian-c-ink-300: hsl(0, 0%, 75%); /* #bebebe (Obsidianite text-normal) */
+	--primidian-c-ink-300: #bfbfbf; /* #bebebe (Obsidianite text-normal) */
 
 	/* ── Cyan · the primary accent ───────────────────────────────────── */
-	--primidian-c-cyan-100: hsl(190, 90%, 88%);
-	--primidian-c-cyan-200: hsl(190, 90%, 80%);
-	--primidian-c-cyan-300: hsl(190, 92%, 70%); /* #6bcafb-ish (Obsidianite text-a) */
-	--primidian-c-cyan-400: hsl(190, 96%, 61%); /* #3dd7fb (Obsidianite accent-rgb) */
-	--primidian-c-cyan-500: hsl(190, 87%, 45%); /* #0fb6d6 (Obsidianite text-accent) */
-	--primidian-c-cyan-600: hsl(191, 88%, 37%);
-	--primidian-c-cyan-700: hsl(192, 88%, 29%);
-	--primidian-c-cyan-800: hsl(193, 86%, 22%);
+	--primidian-c-cyan-100: #c5f3fc;
+	--primidian-c-cyan-200: #9eebfa;
+	--primidian-c-cyan-300: #6ce1f9; /* #6bcafb-ish (Obsidianite text-a) */
+	--primidian-c-cyan-400: #3cdbfb; /* #3dd7fb (Obsidianite accent-rgb) */
+	--primidian-c-cyan-500: #0fb5d7; /* #0fb6d6 (Obsidianite text-accent) */
+	--primidian-c-cyan-600: #0b93b1;
+	--primidian-c-cyan-700: #09718b;
+	--primidian-c-cyan-800: #085368;
 
 	/* ── Magenta · the secondary accent ──────────────────────────────── */
-	--primidian-c-magenta-200: hsl(333, 90%, 86%);
-	--primidian-c-magenta-300: hsl(333, 89%, 78%);
-	--primidian-c-magenta-400: hsl(333, 88%, 71%);
-	--primidian-c-magenta-500: hsl(333, 88%, 65%); /* #f4569d (Obsidianite sub-accent) */
-	--primidian-c-magenta-600: hsl(333, 74%, 53%);
-	--primidian-c-magenta-700: hsl(334, 72%, 42%);
-	--primidian-c-magenta-800: hsl(334, 70%, 33%);
+	--primidian-c-magenta-200: #fbbbd8;
+	--primidian-c-magenta-300: #f995c2;
+	--primidian-c-magenta-400: #f674af;
+	--primidian-c-magenta-500: #f4579e; /* #f4569d (Obsidianite sub-accent) */
+	--primidian-c-magenta-600: #e02e7e;
+	--primidian-c-magenta-700: #b81e61;
+	--primidian-c-magenta-800: #8f194c;
 
 	/* ── Blue · bold-gradient + structural highlights ────────────────── */
-	--primidian-c-blue-300: hsl(212, 97%, 78%); /* #87c2fd (Obsidianite bold grad 1) */
-	--primidian-c-blue-400: hsl(221, 89%, 72%); /* #7aa2f7 (Obsidianite strong)      */
-	--primidian-c-blue-500: hsl(217, 88%, 60%);
-	--primidian-c-blue-600: hsl(219, 76%, 48%);
-	--primidian-c-blue-700: hsl(221, 74%, 38%);
+	--primidian-c-blue-300: #90c3fd; /* #87c2fd (Obsidianite bold grad 1) */
+	--primidian-c-blue-400: #78a0f7; /* #7aa2f7 (Obsidianite strong)      */
+	--primidian-c-blue-500: #3f84f3;
+	--primidian-c-blue-600: #1d5ed7;
+	--primidian-c-blue-700: #1947a9;
 
 	/* ── Purple · italic + bold-gradient terminus ────────────────────── */
-	--primidian-c-purple-200: hsl(272, 90%, 86%); /* #dcb9fc (Obsidianite bold grad 2) */
-	--primidian-c-purple-400: hsl(261, 87%, 78%); /* #bb9af7 (Obsidianite em)          */
-	--primidian-c-purple-500: hsl(261, 72%, 66%);
-	--primidian-c-purple-600: hsl(261, 62%, 54%);
-	--primidian-c-purple-700: hsl(262, 60%, 43%);
+	--primidian-c-purple-200: #ddbbfb; /* #dcb9fc (Obsidianite bold grad 2) */
+	--primidian-c-purple-400: #b896f8; /* #bb9af7 (Obsidianite em)          */
+	--primidian-c-purple-500: #966ae7;
+	--primidian-c-purple-600: #7441d2;
+	--primidian-c-purple-700: #5c2caf;
 
 	/* ── Green · success, completed tasks ────────────────────────────── */
-	--primidian-c-green-300: hsl(151, 70%, 72%);
-	--primidian-c-green-500: hsl(151, 68%, 50%);
-	--primidian-c-green-600: hsl(152, 66%, 39%);
-	--primidian-c-green-700: hsl(153, 66%, 30%);
+	--primidian-c-green-300: #86eab9;
+	--primidian-c-green-500: #29d682;
+	--primidian-c-green-600: #22a568;
+	--primidian-c-green-700: #1a7f52;
 
 	/* ── Amber · warning, in-progress ────────────────────────────────── */
-	--primidian-c-amber-300: hsl(42, 96%, 74%);
-	--primidian-c-amber-500: hsl(42, 96%, 57%);
-	--primidian-c-amber-600: hsl(38, 90%, 47%);
-	--primidian-c-amber-700: hsl(34, 88%, 38%);
+	--primidian-c-amber-300: #fcd67d;
+	--primidian-c-amber-500: #fbbb28;
+	--primidian-c-amber-600: #e4950c;
+	--primidian-c-amber-700: #b66c0c;
 
 	/* ── Red · error, important ──────────────────────────────────────── */
-	--primidian-c-red-300: hsl(358, 92%, 78%);
-	--primidian-c-red-500: hsl(358, 85%, 64%);
-	--primidian-c-red-600: hsl(358, 72%, 51%);
-	--primidian-c-red-700: hsl(358, 70%, 41%);
+	--primidian-c-red-300: #fb9397;
+	--primidian-c-red-500: #f1555a;
+	--primidian-c-red-600: #dc282e;
+	--primidian-c-red-700: #b21f24;
 
 	/* ── Orange · quotes, tips ───────────────────────────────────────── */
-	--primidian-c-orange-300: hsl(24, 94%, 74%);
-	--primidian-c-orange-500: hsl(24, 90%, 58%);
-	--primidian-c-orange-600: hsl(22, 84%, 48%);
+	--primidian-c-orange-300: #fbb07e;
+	--primidian-c-orange-500: #f48134;
+	--primidian-c-orange-600: #e15f14;
 
 	/* ── Absolutes ───────────────────────────────────────────────────── */
-	--primidian-c-white: hsl(0, 0%, 100%);
-	--primidian-c-black: hsl(0, 0%, 0%);
+	--primidian-c-white: #ffffff;
+	--primidian-c-black: #000000;
 }
 
 /* ════════════════════════════════════════════════════════════════
@@ -2313,9 +2313,9 @@ body {
 	--primidian-cursor: pointer;
 
 	/* ── Elevation ───────────────────────────────────────────────────── */
-	--primidian-shadow-s: 0 1px 2px hsl(255 26% 3% / 0.16);
-	--primidian-shadow-m: 0 4px 12px hsl(255 26% 3% / 0.2);
-	--primidian-shadow-l: 0 12px 32px hsl(255 26% 3% / 0.28);
+	--primidian-shadow-s: 0 1px 2px #07060a29;
+	--primidian-shadow-m: 0 4px 12px #07060a33;
+	--primidian-shadow-l: 0 12px 32px #07060a47;
 }
 
 /* ════════════════════════════════════════════════════════════════
@@ -2392,9 +2392,9 @@ body {
 	--primidian-color-magenta: var(--primidian-c-magenta-500);
 
 	/* ── Shadows ─────────────────────────────────────────────────────── */
-	--primidian-shadow-s: 0 1px 2px hsl(255 26% 2% / 0.4);
-	--primidian-shadow-m: 0 4px 14px hsl(255 26% 2% / 0.5);
-	--primidian-shadow-l: 0 14px 36px hsl(255 26% 2% / 0.6);
+	--primidian-shadow-s: 0 1px 2px #04040666;
+	--primidian-shadow-m: 0 4px 14px #04040680;
+	--primidian-shadow-l: 0 14px 36px #04040699;
 }
 
 /* ════════════════════════════════════════════════════════════════
@@ -2483,9 +2483,9 @@ body {
 	--primidian-color-magenta: var(--primidian-c-magenta-600);
 
 	/* ── Shadows · softer, cooler ────────────────────────────────────── */
-	--primidian-shadow-s: 0 1px 2px hsl(250 20% 40% / 0.1);
-	--primidian-shadow-m: 0 4px 12px hsl(250 20% 40% / 0.12);
-	--primidian-shadow-l: 0 14px 32px hsl(250 20% 40% / 0.16);
+	--primidian-shadow-s: 0 1px 2px #58527a1a;
+	--primidian-shadow-m: 0 4px 12px #58527a1f;
+	--primidian-shadow-l: 0 14px 32px #58527a29;
 }
 
 /* ════════════════════════════════════════════════════════════════
@@ -2759,12 +2759,12 @@ body {
 	 * Multipliers scale the base --primidian-glow-blur/--primidian-glow-alpha
 	 * values so UI glow stays subtle when idle and responsive when interacted
 	 * with. Each state is independently user-configurable. */
-	--primidian-glow-ui-inactive-mult: 0.15;
-	--primidian-glow-ui-hover-mult: 0.5;
-	--primidian-glow-ui-selected-mult: 1;
 	--primidian-glow-ui-inactive: 0.15;
 	--primidian-glow-ui-hover: 0.5;
 	--primidian-glow-ui-selected: 1;
+	--primidian-glow-ui-inactive-mult: var(--primidian-glow-ui-inactive, 0.15);
+	--primidian-glow-ui-hover-mult: var(--primidian-glow-ui-hover, 0.5);
+	--primidian-glow-ui-selected-mult: var(--primidian-glow-ui-selected, 1);
 	--primidian-glow-ui-transition: var(--primidian-motion-fast);
 	/* Resolved UI glow values */
 	--primidian-glow-ui-inactive-blur: calc(var(--primidian-glow-blur) * var(--primidian-glow-ui-inactive-mult));
@@ -3919,7 +3919,7 @@ body.primidian-anim-no-popups :is(.modal, .prompt, .suggestion-container, .menu)
 
 .modal-bg,
 .prompt-bg {
-	background-color: hsl(255 26% 3% / 0.55);
+	background-color: #07060a8c;
 }
 
 body.primidian-no-blur .modal-bg,
@@ -5183,7 +5183,7 @@ body:not(.primidian-gradients-off)
 /* ── COMPONENT · CODE BLOCKS ───────────────────────────────────────────────
  *
  * FIX F-9: Obsidianite had two divergent implementations — Live Preview used
- *   #191621 while Reading Mode used the vendored Dracula's rgb(40,41,54).
+ *   #191621 while Reading Mode used the vendored Dracula's #282936.
  *   The same code block looked different in each mode. Primidian drives both
  *   from a single --primidian-code-bg token.
  *
@@ -5430,7 +5430,7 @@ body.primidian-linenum-on
  *   1. No documented dependency required it.
  *   2. Its palette (Dracula purple/pink/green) clashes with Obsidianite's
  *      cyan/magenta identity — it was visibly a foreign body.
- *   3. It hard-coded rgb(40,41,54) as the code background, which is why
+ *   3. It hard-coded #282936 as the code background, which is why
  *      Reading Mode and Live Preview disagreed (defect F-9).
  *   4. It introduced a third-party copyright holder into the licence surface
  *      for no benefit.
