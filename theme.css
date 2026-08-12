@@ -2133,6 +2133,31 @@ settings:
 
 */
 
+/* ── Settings UI · Glow System experimental badge ─────────────────────────
+ * Style Settings renders the Glow System heading with a class matching the
+ * setting id `primidian-glow`. We use ::after to inject a visual "Experimental"
+ * pill beside the heading text. This avoids injecting HTML into plain-text
+ * title fields (which would otherwise render as literal source markup). */
+
+.css-settings-manager .setting-item-heading[data-id="primidian-glow"] .setting-item-name::after,
+.css-settings-manager .setting-item-heading.primidian-glow .setting-item-name::after {
+	content: "Experimental";
+	display: inline-block;
+	margin-left: 8px;
+	padding: 1px 8px;
+	font-size: 0.7em;
+	font-weight: var(--primidian-font-weight-semibold);
+	font-style: normal;
+	line-height: 1.4;
+	letter-spacing: 0.02em;
+	color: var(--primidian-accent-muted);
+	background-color: color-mix(in srgb, var(--primidian-accent) 10%, transparent);
+	border: 1px solid var(--primidian-border);
+	border-radius: var(--primidian-radius-pill);
+	vertical-align: middle;
+	pointer-events: none;
+}
+
 /* ════════════════════════════════════════════════════════════════
    tokens/10-primitives.css
    ════════════════════════════════════════════════════════════════ */
