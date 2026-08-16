@@ -155,7 +155,7 @@ Selectable from **Settings → Style Settings → Primidian → Blockquotes → 
 | **Fade** *(default)* | Left accent line with fading top and bottom lines |
 
 <!-- SCREENSHOT: Blockquote presets → assets/screenshots/blockquotes.png -->
-
+![Blockquotes Style Presets](/assets/webp/Blockquote_Style_Presets.webp)
 ---
 
 ## 📦 Installation
