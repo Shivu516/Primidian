@@ -1,5 +1,9 @@
 <!-- LOGO PLACEHOLDER -->
 
+<p align="center">
+  <img width="220" src="/assets/Primidian_Logo.svg" alt="Primidian Logo" style="filter: drop-shadow(0px 0px 12px rgba(15, 182, 214, 0.6));">
+</p>
+
 # Primidian
 
 **Obsidianite's visual identity, engineered.**
