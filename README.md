@@ -13,7 +13,8 @@ Primidian is a dark-first [Obsidian](https://obsidian.md/) theme built on the vi
 ![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg) ![Version: 1.1.0](https://img.shields.io/badge/version-1.1.0-8a4af3.svg) ![Obsidian: 1.5.0+](https://img.shields.io/badge/obsidian-1.5.0%2B-0fb5d7.svg)
 
 <!-- SCREENSHOT: Primidian overview → assets/screenshots/overview.png -->
-![Primidian Banner](/assets/screenshots/Primidian_Banner.png)
+
+![Primidian Banner](/assets/images/Primidian_Banner.png)
 
 ---
 
@@ -77,7 +78,7 @@ Every setting has a documented default and a one-click **Restore default** butto
 > Without Style Settings, Primidian simply runs on its carefully chosen defaults.
 
 <!-- SCREENSHOT: Style Settings customization → assets/screenshots/style-settings.png -->
-[Style_Settings.webm](https://github.com/user-attachments/assets/5dc6e625-04c6-403e-b1d8-11827a67d483)
+![Style_Settings](/assets/webp/Style_Settings.webp)
 
 ---
 
