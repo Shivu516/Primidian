@@ -1,7 +1,7 @@
 <!-- LOGO PLACEHOLDER -->
 
 <p align="center">
-  <img width="220" src="/assets/Primidian_Logo.svg" alt="Primidian Logo" style="filter: drop-shadow(0px 0px 12px rgba(15, 182, 214, 0.6));">
+  <img width="210" src="/assets/Primidian_Logo.svg" alt="Primidian Logo">
 </p>
 
 # Primidian
@@ -123,6 +123,23 @@ Each element glows with **its own configured colour**, so recolouring a divider,
 **Performance & accessibility notes:** glow is suppressed entirely in Windows High Contrast mode, the pulse animation respects reduce-motion, and very high intensities reduce effective contrast — the default keeps it subtle.
 
 <!-- SCREENSHOT: Glow system → assets/screenshots/glow-system.png -->
+
+<p align="center">
+  <table align="center" style="border: none;">
+    <tr>
+      <td align="center" style="border: none; padding: 10px;">
+        <img src="assets/images/Glow_Disabled.png" width="800" alt="Glow Disabled">
+        <br>
+        <b>Glow Disabled</b>
+      </td>
+      <td align="center" style="border: none; padding: 10px;">
+        <img src="assets/images/Glow_Enabled.png" width="800" alt="Glow Enabled">
+        <br>
+        <b>Glow Enabled</b>
+      </td>
+    </tr>
+  </table>
+</p>
 
 ---
 
