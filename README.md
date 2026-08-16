@@ -77,6 +77,7 @@ Every setting has a documented default and a one-click **Restore default** butto
 > Without Style Settings, Primidian simply runs on its carefully chosen defaults.
 
 <!-- SCREENSHOT: Style Settings customization → assets/screenshots/style-settings.png -->
+[Style_Settings.webm](https://github.com/user-attachments/assets/5dc6e625-04c6-403e-b1d8-11827a67d483)
 
 ---
 
