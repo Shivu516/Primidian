@@ -9,6 +9,7 @@ Primidian is a dark-first [Obsidian](https://obsidian.md/) theme built on the vi
 ![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg) ![Version: 1.1.0](https://img.shields.io/badge/version-1.1.0-8a4af3.svg) ![Obsidian: 1.5.0+](https://img.shields.io/badge/obsidian-1.5.0%2B-0fb5d7.svg)
 
 <!-- SCREENSHOT: Primidian overview → assets/screenshots/overview.png -->
+![Primidian Banner](/assets/screenshots/Primidian_Banner.png)
 
 ---
 
