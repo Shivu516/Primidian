@@ -44,13 +44,6 @@ Primidian is a dark-first [Obsidian](https://obsidian.md/) theme built on the vi
 - **Code blocks** — styling, 8 syntax colours, and optional line numbers (Live Preview)
 - **Callouts, tables, embeds and properties** — all styled; Obsidianite had none of these
 
-### ✨ Animations & Effects
-
-- **A named motion system** — four durations and easings, retimed globally with a single speed multiplier
-- **Polished tab motion** — hover lift, press sink, raised active card, centre-wipe indicator
-- **Global gradient system** — set two colours once and every gradient follows, with per-component overrides and a master off-switch
-- **Experimental glow system** — optional, off by default (see below)
-- **Full `prefers-reduced-motion` support**, respected by default, plus granular per-feature toggles
 
 ### ⚙️ Interface Customization
 
@@ -154,6 +147,7 @@ Selectable from **Settings → Style Settings → Primidian → Blockquotes → 
 | **Minimal** | Left accent line with a fading top line |
 | **Fade** *(default)* | Left accent line with fading top and bottom lines |
 
+_**NOTE:** As of now, the glow system renders differently in Edit and Reading Modes. This inconsistency is most noticeable in Fade and Boxy presets. They might not look unpleasant, but their iteration of Reading mode is the more preferable and intended look._
 <!-- SCREENSHOT: Blockquote presets → assets/screenshots/blockquotes.png -->
 ![Blockquotes Style Presets](/assets/webp/Blockquote_Style_Presets.webp)
 ---
@@ -171,6 +165,25 @@ Selectable from **Settings → Style Settings → Primidian → Blockquotes → 
 - **Fonts** — Primidian bundles none. Install *Rubik*, *Inter*, *JetBrains Mono* or *Cascadia Code* and set them under **Typography**. The theme degrades gracefully to system fonts.
 
 ---
+
+### ✨ Animations & Effects
+
+Primidian treats animation as part of the interface design rather than as decoration. Motion is used to communicate state, hierarchy, and interaction — making elements feel responsive without overwhelming the workspace.
+
+The animation philosophy is inspired in part by community themes such as **[Primary](https://github.com/primary-theme/obsidian)**, whose playful, deliberate approach to interface motion helped shape the direction of Primidian. **Primidian does not directly reuse Primary's animation implementation.** Its animations are independently recreated from the underlying concepts of CSS transitions, keyframes, transforms, easing, and timing, then adapted to Primidian's own design system and component structure.
+
+This allows Primidian to build upon ideas from the Obsidian theme community while developing its own motion language, with room for further experimentation and refinement.
+
+* **A named motion system** — four durations and easing curves, retimed globally with a single speed multiplier
+* **Polished tab motion** — hover lift, press sink, raised active card, and centre-wipe indicators
+* **Global gradient system** — set two colours once and every gradient follows, with per-component overrides and a master off-switch
+* **Experimental glow system** — optional and disabled by default
+* **Full `prefers-reduced-motion` support** — respected by default, with granular per-feature controls
+* **Growing animation library** — additional interactions and motion patterns inspired by Primary and other community themes will be independently recreated and refined over time
+
+![Tabs Animation Showcase](/assets/webp/Tabs_Animations.webp)
+
+> **Credits & inspiration:** Primidian would not exist in its current form without the ideas and experimentation shared by the Obsidian community. Primary in particular has been an important source of inspiration for Primidian's approach to playful, purposeful motion, while Obsidianite has been the reference for its design philosophy. All Primidian implementations are developed independently rather than copied directly from those themes.
 
 ## 🗺️ Roadmap
 
@@ -240,22 +253,6 @@ Primidian's token architecture, animation system and customisation approach were
 ### Task List Kanban
 
 **[Task List Kanban](https://github.com/erikars/task-list-kanban)** by **Chris Kerr & Erika Rice Scherpelz** — referenced for compatibility analysis only; no code is included.
-
----
-
-## 📸 Screenshots & Media
-
-Screenshots and GIFs are planned. When added, they should live in the repository:
-
-```text
-assets/
-├── screenshots/   overview.png · dark-mode.png · light-mode.png · style-settings.png
-│                  blockquotes.png · typography.png · glow-system.png
-└── gifs/          animations.gif · ui-effects.gif · glow.gif
-```
-
-<!-- GIF: Primidian animations demonstration → assets/gifs/animations.gif -->
-<!-- GIF: Primidian UI effects → assets/gifs/ui-effects.gif -->
 
 ---
 
