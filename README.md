@@ -181,11 +181,18 @@ This allows Primidian to build upon ideas from the Obsidian theme community whil
 * **Full `prefers-reduced-motion` support** — respected by default, with granular per-feature controls
 * **Growing animation library** — additional interactions and motion patterns inspired by Primary and other community themes will be independently recreated and refined over time
 
-#### Tabs Animations
-![Tabs Animations](assets/webp/Tabs_Animations.webp)
-
-#### Sidebar Animations
-![Sidebar Animations](assets/webp/Sidebar_Animations.webp)
+<table>
+  <tr>
+    <td align="center">
+      <strong>Tabs Animations</strong><br>
+      <img src="/assets/webp/Tabs_Animations.webp" alt="Tabs Animation Showcase" height="420">
+    </td>
+    <td align="center">
+      <strong>Sidebar Animations</strong><br>
+      <img src="/assets/webp/Sidebar_Animations.webp" alt="Sidebar Animation Showcase" height="420">
+    </td>
+  </tr>
+</table>
 
 > **Credits & inspiration:** Primidian would not exist in its current form without the ideas and experimentation shared by the Obsidian community. Primary in particular has been an important source of inspiration for Primidian's approach to playful, purposeful motion, while Obsidianite has been the reference for its design philosophy. All Primidian implementations are developed independently rather than copied directly from those themes.
 
