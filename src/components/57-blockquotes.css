@@ -30,27 +30,35 @@
 	padding: var(--primidian-quote-padding);
 }
 
-/* ── Live Preview: inline blockquote styling ──────────────────────────────
- * In CodeMirror 6, each blockquote line is a separate `.HyperMD-quote` inline
- * span within its own `.cm-line`. These elements are NOT siblings, so
- * first/middle/last line detection via sibling selectors is impossible.
+/* ── Live Preview: group consecutive quote lines into one visual container ──
+ * Each `.HyperMD-quote` is a separate element in CodeMirror, so we must
+ * construct the visual container by styling first/middle/last lines differently.
  *
- * Instead, we use inline styling with `box-decoration-break: clone` to create
- * a consistent "highlighted quote" appearance across lines. Each line gets
- * its own background and left border, creating a continuous visual effect.
+ * - First line: top border-radius, top padding
+ * - Middle lines: no border-radius, no vertical padding (continuation)
+ * - Last line: bottom border-radius, bottom padding
  *
- * Note: This is a CSS approximation. Perfect parity with Reading Mode's single
- * block container is not achievable without JavaScript or `:has()` on `.cm-line`
- * (which is banned by PR-6/I-10). */
+ * This ensures the entire blockquote appears as ONE continuous container. */
 
-/* All quote lines: inline background + left accent + padding */
+/* All quote lines: background + side borders, no radius, minimal padding */
 .markdown-source-view.mod-cm6 .HyperMD-quote {
-	background-color: var(--primidian-quote-bg);
-	border-left: var(--primidian-quote-border-width) solid var(--primidian-quote-border-color);
-	padding: 0.2em 0.5em;
-	box-decoration-break: clone;
-	-webkit-box-decoration-break: clone;
 	border-radius: 0;
+	padding-block: 0;
+}
+
+/* First line: top border-radius + top padding */
+.markdown-source-view.mod-cm6 .HyperMD-quote:first-of-type,
+.markdown-source-view.mod-cm6 .HyperMD-quote:not(.HyperMD-quote + .HyperMD-quote) {
+	border-start-start-radius: var(--primidian-blockquote-radius);
+	border-start-end-radius: var(--primidian-blockquote-radius);
+	padding-block-start: var(--primidian-quote-padding);
+}
+
+/* Last line: bottom border-radius + bottom padding */
+.markdown-source-view.mod-cm6 .HyperMD-quote:not(:has(+ .HyperMD-quote)) {
+	border-end-start-radius: var(--primidian-blockquote-radius);
+	border-end-end-radius: var(--primidian-blockquote-radius);
+	padding-block-end: var(--primidian-quote-padding);
 }
 
 /* ── Decorative gradient bars (Obsidianite keeper K-6) ───────────────────
@@ -90,8 +98,8 @@
 	pointer-events: none;
 }
 
-/* Live Preview: gradient bars on all lines (inline pseudo-elements) */
-.markdown-source-view.mod-cm6 .HyperMD-quote::before {
+/* Live Preview: gradient bars only on first and last lines */
+.markdown-source-view.mod-cm6 .HyperMD-quote:not(.HyperMD-quote + .HyperMD-quote)::before {
 	content: '';
 	display: var(--primidian-quote-bar-display);
 	position: absolute;
@@ -107,7 +115,11 @@
 	pointer-events: none;
 }
 
-.markdown-source-view.mod-cm6 .HyperMD-quote::after {
+.markdown-source-view.mod-cm6 .HyperMD-quote:not(.HyperMD-quote + .HyperMD-quote)::after {
+	display: none;
+}
+
+.markdown-source-view.mod-cm6 .HyperMD-quote:not(:has(+ .HyperMD-quote))::after {
 	content: '';
 	display: var(--primidian-quote-bar-display);
 	position: absolute;
@@ -121,6 +133,21 @@
 		transparent
 	);
 	pointer-events: none;
+}
+
+.markdown-source-view.mod-cm6 .HyperMD-quote:not(:has(+ .HyperMD-quote))::before {
+	display: none;
+}
+
+/* Single-line quotes: restore top bar (override last-line suppression) */
+.markdown-source-view.mod-cm6 .HyperMD-quote:not(.HyperMD-quote + .HyperMD-quote):not(:has(+ .HyperMD-quote))::before {
+	display: var(--primidian-quote-bar-display);
+}
+
+/* Middle lines: no gradient bars */
+.markdown-source-view.mod-cm6 .HyperMD-quote + .HyperMD-quote::before,
+.markdown-source-view.mod-cm6 .HyperMD-quote + .HyperMD-quote::after {
+	display: none;
 }
 
 /* ── Optional quote glyph (off by default) ────────────────────────────────
@@ -164,10 +191,7 @@
 	display: none;
 }
 
-/* Live Preview: nested quotes use muted accent and transparent background */
-.markdown-source-view.mod-cm6 .HyperMD-quote-2,
-.markdown-source-view.mod-cm6 .HyperMD-quote-3,
-.markdown-source-view.mod-cm6 .HyperMD-quote-4 {
-	background-color: transparent;
-	border-left-color: var(--primidian-accent-muted);
+/* Live Preview: only the first quote line carries the top bar */
+.markdown-source-view.mod-cm6 .HyperMD-quote + .HyperMD-quote::before {
+	display: none;
 }
