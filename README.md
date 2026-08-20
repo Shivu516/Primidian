@@ -1,5 +1,3 @@
-<!-- LOGO PLACEHOLDER -->
-
 <p align="center">
   <img width="210" src="/assets/Primidian_Logo.svg" alt="Primidian Logo">
 </p>
